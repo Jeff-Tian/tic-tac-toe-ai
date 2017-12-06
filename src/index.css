@@ -45,6 +45,10 @@ ol, ul {
     flex-direction: row;
 }
 
+.game-options {
+    margin-right: 20px;
+}
+
 .game-info {
     margin-left: 20px;
 }

@@ -1,21 +1,34 @@
 import React from 'react';
 import Board from './Board';
+import GameOptions from './Options';
 import ArrayHelper from '../Helpers/ArrayHelper';
+import GameModes from './Modes';
+import Computer from './Computer';
+
+const initialState = {
+    history: [{
+        squares: Array(9).fill(null),
+        squareIndex: null
+    }],
+    xIsNext: true,
+    stepNumber: 0,
+    currentMode: GameModes.humanVsHuman,
+};
 
 export default class Game extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            history: [{
-                squares: Array(9).fill(null),
-                squareIndex: null
-            }],
-            xIsNext: true,
-            stepNumber: 0,
-        };
+        this.state = initialState;
+
+        this.optionChanged = this.optionChanged.bind(this);
     }
 
-    handleClick(i) {
+    handleUserClick(i) {
+        if (!(this.state.xIsNext || this.state.currentMode === GameModes.humanVsHuman)) {
+            console.log('I\'m thinking...');
+            return;
+        }
+
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
@@ -23,6 +36,25 @@ export default class Game extends React.Component {
         if (calculateWinner(squares) || squares[i]) {
             return;
         }
+
+        this.placeAt(squares, i, history);
+
+        let self = this;
+        setTimeout(function () {
+            console.log(self.state.xIsNext, self.state.currentMode);
+            if (!self.state.xIsNext && self.state.currentMode === GameModes.humanVsComputer) {
+                self.computerMove();
+            }
+        });
+    }
+
+    placeAt(squares, i, history) {
+        if (squares[i]) {
+            console.log("you can not place here!");
+            return;
+        }
+
+        console.log('xIsNext = ', this.state.xIsNext);
         squares[i] = this.state.xIsNext ? 'X' : 'O';
         this.setState({
             history: history.concat([{
@@ -32,6 +64,45 @@ export default class Game extends React.Component {
             xIsNext: !this.state.xIsNext,
             stepNumber: history.length,
         });
+
+        console.log('xIsNext = ', this.state.xIsNext);
+    }
+
+    computerMove() {
+        const history = this.state.history.slice(0, this.state.stepNumber + 1);
+        const current = history[history.length - 1];
+        const squares = current.squares.slice();
+
+        if (calculateWinner(squares)) {
+            console.log('I fail, you win!');
+            return;
+        }
+
+        while (!this.state.xIsNext) {
+            let squareIndex = Computer.findASquare(squares);
+            console.log('found square index = ', squareIndex);
+            if (squareIndex >= 0) {
+                this.placeAt(squares, squareIndex, history);
+            } else {
+                console.log('Fair!');
+                return;
+            }
+        }
+
+        this.humanMove();
+    }
+
+    humanMove() {
+        const history = this.state.history.slice(0, this.state.stepNumber + 1);
+        const current = history[history.length - 1];
+        const squares = current.squares.slice();
+
+        if (calculateWinner(squares)) {
+            console.log('Human fail, computer win!');
+            return;
+        }
+
+        calculateFair(squares);
     }
 
     jumpTo(step) {
@@ -39,6 +110,12 @@ export default class Game extends React.Component {
             stepNumber: step,
             xIsNext: (step % 2) === 0,
         });
+    }
+
+    optionChanged(selectedMode) {
+        this.setState(Object.assign(initialState, {
+            currentMode: selectedMode
+        }));
     }
 
     render() {
@@ -69,13 +146,17 @@ export default class Game extends React.Component {
         if (winner) {
             status = 'Winner: ' + winner;
         } else {
-            status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+            status = 'Next player: ' + (this.state.xIsNext ? 'X' : (this.state.currentMode === GameModes.humanVsHuman ? 'O' : 'Computer'));
         }
 
         return (
             <div className="game">
+                <div className="game-options">
+                    <GameOptions readonly={this.state.stepNumber}
+                                 optionChanged={this.optionChanged}></GameOptions>
+                </div>
                 <div className="game-board">
-                    <Board squares={current.squares} onClick={(i) => this.handleClick(i)} winner={winnerInfo}/>
+                    <Board squares={current.squares} onClick={(i) => this.handleUserClick(i)} winner={winnerInfo}/>
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
@@ -114,4 +195,16 @@ function calculateWinner(squares) {
         }
     }
     return null;
+}
+
+function calculateFair(squares) {
+    for (let i = 0; i < squares.length; i++) {
+        if (!squares[i]) {
+            return false;
+        }
+    }
+
+    console.log('fair !');
+
+    return true;
 }
