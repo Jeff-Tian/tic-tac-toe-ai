@@ -79,7 +79,7 @@ export default class Game extends React.Component {
         }
 
         while (!this.state.xIsNext) {
-            let squareIndex = Computer.findASquare(squares);
+            let squareIndex = Computer.findNextAvailableSquare(squares);
             console.log('found square index = ', squareIndex);
             if (squareIndex >= 0) {
                 this.placeAt(squares, squareIndex, history);
