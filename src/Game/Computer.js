@@ -11,25 +11,8 @@ const boardSides = {
     slash: [2, 4, 6],
     antiSlash: [0, 4, 8]
 };
-
-
-function fool(squares) {
-    for (let i = 0; i < squares.length; i++) {
-        if (!squares[i]) {
-            return i;
-        }
-    }
-
-    return null;
-}
-
-
 export default {
     nextMove(squares, mode) {
-        if (mode === Modes.humanVsFoolComputer) {
-            return fool(squares);
-        }
-
         let board = squares.map(s => {
             if (s === 'X') {
                 return -1;
