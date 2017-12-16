@@ -17,7 +17,7 @@ export default class PlayerX {
         });
 
         if (game.state.currentMode === Modes.computerVsComputer) {
-            game.handleUserClick(ComputerExpert.nextMove(bitmap));
+            game.handleClick(ComputerExpert.nextMove(bitmap));
         } else {
             console.log('ok');
         }

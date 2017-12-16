@@ -2,7 +2,11 @@ import Computer from "./Computer";
 
 const weights = [0, 1, 1, 1, 1, 1, 1, 1, 1];
 
-export default class ComputerExpert {
+class ComputerExpert {
+    constructor() {
+        this.weights = weights;
+    }
+
     static findIndexOfMax(array) {
         let index = 0;
         let max = array[0];
@@ -17,7 +21,7 @@ export default class ComputerExpert {
         return index;
     }
 
-    static nextMove(squares) {
+    static nextMove(squares, weights) {
         let spots = Computer.getSpots(squares);
         console.log(spots);
         let nextBoards = Computer.getNewBoardsBySpots(squares, spots);
@@ -28,4 +32,10 @@ export default class ComputerExpert {
 
         return spots[index];
     }
+
+    nextMove(squares) {
+        return ComputerExpert.nextMove(squares, this.weights);
+    }
 }
+
+export default new ComputerExpert();

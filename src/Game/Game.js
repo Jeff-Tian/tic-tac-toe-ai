@@ -3,8 +3,8 @@ import Board from './Board';
 import GameOptions from './Options';
 import ArrayHelper from '../Helpers/ArrayHelper';
 import GameModes from './Modes';
-import Computer from './Computer';
 import PlayerX from "./player-x";
+import PlayerO from './player-o';
 
 const initialState = {
     history: [{
@@ -22,11 +22,9 @@ export default class Game extends React.Component {
         this.state = initialState;
 
         this.optionChanged = this.optionChanged.bind(this);
-
-        window.click = i => this.handleUserClick(i);
     }
 
-    handleUserClick(i) {
+    handleClick(i) {
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
@@ -45,7 +43,7 @@ export default class Game extends React.Component {
         setTimeout(function () {
             console.log(self.state.xIsNext, self.state.currentMode);
             if (!self.state.xIsNext && self.state.currentMode !== GameModes.humanVsHuman) {
-                self.OMove(self.state.currentMode);
+                PlayerO.nextMove(self.state.history[self.state.stepNumber].squares, self);
             }
 
             if (self.state.xIsNext && self.state.currentMode !== GameModes.humanVsHuman) {
@@ -72,21 +70,6 @@ export default class Game extends React.Component {
         });
 
         console.log('xIsNext = ', this.state.xIsNext);
-    }
-
-    OMove(mode) {
-        const history = this.state.history.slice(0, this.state.stepNumber + 1);
-        const current = history[history.length - 1];
-        const squares = current.squares.slice();
-
-        if (calculateWinner(squares)) {
-            console.log('I fail, you win!');
-            return;
-        }
-
-        if (!this.state.xIsNext) {
-            Computer.nextMove(squares, mode, this);
-        }
     }
 
     jumpTo(step) {
@@ -148,7 +131,7 @@ export default class Game extends React.Component {
                 </div>
                 <div className="game-board">
                     <Board squares={current.squares}
-                           onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleUserClick(i)}
+                           onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleClick(i)}
                            winner={winnerInfo}/>
                 </div>
                 <div className="game-info">

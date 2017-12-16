@@ -15,6 +15,6 @@ export default class PlayerX {
             return 0;
         });
 
-        game.handleUserClick(ComputerExpert.nextMove(bitmap));
+        game.handleClick(ComputerExpert.nextMove(bitmap));
     }
 }

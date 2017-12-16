@@ -1,6 +1,3 @@
-import Modes from "./Modes";
-import PlayerO from './player-o';
-
 const boardSides = {
     top: [0, 1, 2],
     left: [0, 3, 6],
@@ -12,12 +9,6 @@ const boardSides = {
     antiSlash: [0, 4, 8]
 };
 export default {
-    nextMove(squares, mode, game) {
-        if (mode === Modes.humanVsExpertComputer || mode === Modes.computerVsComputer) {
-            return PlayerO.nextMove(squares, game);
-        }
-    },
-
     getSideScore: function (squares, direction) {
         let line = squares.filter((s, index) =>
             direction.indexOf(index) >= 0
