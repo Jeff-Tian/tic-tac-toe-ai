@@ -27,16 +27,15 @@ export default class Game extends React.Component {
     }
 
     handleUserClick(i) {
-        if (!(this.state.xIsNext || this.state.currentMode === GameModes.humanVsHuman)) {
-            console.log('I\'m thinking...');
-            return;
-        }
-
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
 
         if (calculateWinner(squares) || squares[i]) {
+            return;
+        }
+
+        if (calculateFair(squares) || squares[i]) {
             return;
         }
 
@@ -46,7 +45,11 @@ export default class Game extends React.Component {
         setTimeout(function () {
             console.log(self.state.xIsNext, self.state.currentMode);
             if (!self.state.xIsNext && self.state.currentMode !== GameModes.humanVsHuman) {
-                self.computerMove(self.state.currentMode);
+                self.OMove(self.state.currentMode);
+            }
+
+            if (self.state.xIsNext && self.state.currentMode !== GameModes.humanVsHuman) {
+                PlayerX.nextMove(self.state.history[self.state.stepNumber].squares, self);
             }
         });
     }
@@ -71,7 +74,7 @@ export default class Game extends React.Component {
         console.log('xIsNext = ', this.state.xIsNext);
     }
 
-    computerMove(mode) {
+    OMove(mode) {
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
@@ -82,38 +85,8 @@ export default class Game extends React.Component {
         }
 
         if (!this.state.xIsNext) {
-            let squareIndex = Computer.nextMove(squares, mode);
-            console.log('found square index = ', squareIndex);
-            if (squareIndex >= 0) {
-                this.placeAt(squares, squareIndex, history);
-            } else {
-                console.log('Fair!');
-                return;
-            }
+            Computer.nextMove(squares, mode, this);
         }
-
-        this.checkGameEnd();
-    }
-
-    checkGameEnd() {
-        const history = this.state.history.slice(0, this.state.stepNumber + 1);
-        const current = history[history.length - 1];
-        const squares = current.squares.slice();
-
-        if (calculateWinner(squares)) {
-            console.log('Human fail, computer win!');
-            return;
-        }
-
-        if (calculateFair(squares)) {
-            return;
-        }
-
-        let self = this;
-        setTimeout(() => {
-            console.log('waiting for human move...');
-            PlayerX.nextMove(squares, self);
-        })
     }
 
     jumpTo(step) {

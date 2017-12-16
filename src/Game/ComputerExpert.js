@@ -24,6 +24,7 @@ export default class ComputerExpert {
         let scores = nextBoards.map(b => Computer.getBoardScore(b, weights));
         console.log(scores);
         let index = ComputerExpert.findIndexOfMax(scores);
+        console.log('max score index = ', index);
 
         return spots[index];
     }

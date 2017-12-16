@@ -1,5 +1,5 @@
 import Modes from "./Modes";
-import ComputerExpert from "./ComputerExpert";
+import PlayerO from './player-o';
 
 const boardSides = {
     top: [0, 1, 2],
@@ -12,21 +12,9 @@ const boardSides = {
     antiSlash: [0, 4, 8]
 };
 export default {
-    nextMove(squares, mode) {
-        let board = squares.map(s => {
-            if (s === 'X') {
-                return -1;
-            }
-
-            if (s === 'O') {
-                return 1;
-            }
-
-            return 0;
-        });
-
+    nextMove(squares, mode, game) {
         if (mode === Modes.humanVsExpertComputer || mode === Modes.computerVsComputer) {
-            return ComputerExpert.nextMove(board);
+            return PlayerO.nextMove(squares, game);
         }
     },
 
