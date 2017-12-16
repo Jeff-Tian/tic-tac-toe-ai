@@ -42,8 +42,8 @@ export default class Game extends React.Component {
         let self = this;
         setTimeout(function () {
             console.log(self.state.xIsNext, self.state.currentMode);
-            if (!self.state.xIsNext && self.state.currentMode === GameModes.humanVsComputer) {
-                self.computerMove();
+            if (!self.state.xIsNext && self.state.currentMode !== GameModes.humanVsHuman) {
+                self.computerMove(self.state.currentMode);
             }
         });
     }
@@ -68,7 +68,7 @@ export default class Game extends React.Component {
         console.log('xIsNext = ', this.state.xIsNext);
     }
 
-    computerMove() {
+    computerMove(mode) {
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
@@ -79,7 +79,7 @@ export default class Game extends React.Component {
         }
 
         while (!this.state.xIsNext) {
-            let squareIndex = Computer.findNextAvailableSquare(squares);
+            let squareIndex = Computer.nextMove(squares, mode);
             console.log('found square index = ', squareIndex);
             if (squareIndex >= 0) {
                 this.placeAt(squares, squareIndex, history);

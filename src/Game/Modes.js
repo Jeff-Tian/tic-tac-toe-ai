@@ -1,4 +1,5 @@
 export default {
     humanVsHuman: 'human-vs-human',
-    humanVsComputer: 'human-vs-computer'
+    humanVsFoolComputer: 'human-vs-fool-computer',
+    humanVsExpertComputer: 'human-vs-expert-computer'
 };
