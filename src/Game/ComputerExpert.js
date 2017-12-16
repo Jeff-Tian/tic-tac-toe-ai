@@ -2,7 +2,7 @@ import Computer from "./Computer";
 
 const weights = [0, 1, 1, 1, 1, 1, 1, 1, 1];
 
-class ComputerExpert {
+export class ComputerExpert {
     constructor() {
         this.weights = weights;
     }
