@@ -42,7 +42,7 @@ export default {
             return 0;
         });
 
-        if (mode === Modes.humanVsExpertComputer) {
+        if (mode === Modes.humanVsExpertComputer || mode === Modes.computerVsComputer) {
             return ComputerExpert.nextMove(board);
         }
     },

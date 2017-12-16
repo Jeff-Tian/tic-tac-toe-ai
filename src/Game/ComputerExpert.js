@@ -19,8 +19,10 @@ export default class ComputerExpert {
 
     static nextMove(squares) {
         let spots = Computer.getSpots(squares);
+        console.log(spots);
         let nextBoards = Computer.getNewBoardsBySpots(squares, spots);
         let scores = nextBoards.map(b => Computer.getBoardScore(b, weights));
+        console.log(scores);
         let index = ComputerExpert.findIndexOfMax(scores);
 
         return spots[index];

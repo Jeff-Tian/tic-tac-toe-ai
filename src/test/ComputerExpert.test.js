@@ -14,4 +14,12 @@ test('next move', () => {
     ];
 
     expect(ComputerExpert.nextMove(initialBoard)).toEqual(4);
+
+    initialBoard = [
+        1, 0, 0,
+        -1, -1, 0,
+        0, 0, 0
+    ];
+
+    // expect(ComputerExpert.nextMove(initialBoard)).toEqual(5);
 });

@@ -4,6 +4,7 @@ import GameOptions from './Options';
 import ArrayHelper from '../Helpers/ArrayHelper';
 import GameModes from './Modes';
 import Computer from './Computer';
+import PlayerX from "./player-x";
 
 const initialState = {
     history: [{
@@ -21,6 +22,8 @@ export default class Game extends React.Component {
         this.state = initialState;
 
         this.optionChanged = this.optionChanged.bind(this);
+
+        window.click = i => this.handleUserClick(i);
     }
 
     handleUserClick(i) {
@@ -78,7 +81,7 @@ export default class Game extends React.Component {
             return;
         }
 
-        while (!this.state.xIsNext) {
+        if (!this.state.xIsNext) {
             let squareIndex = Computer.nextMove(squares, mode);
             console.log('found square index = ', squareIndex);
             if (squareIndex >= 0) {
@@ -89,10 +92,10 @@ export default class Game extends React.Component {
             }
         }
 
-        this.humanMove();
+        this.checkGameEnd();
     }
 
-    humanMove() {
+    checkGameEnd() {
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
@@ -102,7 +105,15 @@ export default class Game extends React.Component {
             return;
         }
 
-        calculateFair(squares);
+        if (calculateFair(squares)) {
+            return;
+        }
+
+        let self = this;
+        setTimeout(() => {
+            console.log('waiting for human move...');
+            PlayerX.nextMove(squares, self);
+        })
     }
 
     jumpTo(step) {
@@ -116,6 +127,13 @@ export default class Game extends React.Component {
         this.setState(Object.assign(initialState, {
             currentMode: selectedMode
         }));
+
+        if (selectedMode === GameModes.computerVsComputer) {
+            let self = this;
+            setTimeout(() => {
+                PlayerX.nextMove(self.state.history[self.state.stepNumber].squares, self);
+            })
+        }
     }
 
     render() {
@@ -156,7 +174,9 @@ export default class Game extends React.Component {
                                  optionChanged={this.optionChanged}></GameOptions>
                 </div>
                 <div className="game-board">
-                    <Board squares={current.squares} onClick={(i) => this.handleUserClick(i)} winner={winnerInfo}/>
+                    <Board squares={current.squares}
+                           onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleUserClick(i)}
+                           winner={winnerInfo}/>
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
