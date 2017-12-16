@@ -1,44 +1,44 @@
 import React from 'react';
 import Computer from '../Game/Computer';
 
-function testThreadScore(squares, direction, score, enemyScore, message) {
+function testSideScore(squares, direction, score, enemyScore, message) {
     test(message || (score + ' -  ' + enemyScore), () => {
-        expect(Computer.getThreadIndexToMe(squares, direction)).toEqual(score);
-        expect(Computer.getThreadIndexToEnemy(squares, direction)).toEqual(enemyScore);
+        expect(Computer.getSideScore(squares, direction)).toEqual(score);
+        expect(Computer.getComponentSideScore(squares, direction)).toEqual(enemyScore);
     });
 }
 
-testThreadScore([
+testSideScore([
     0, 0, 0,
     0, 0, 0,
     0, 0, 0
 ], [0, 1, 2], 0, -0, 'start');
 
-testThreadScore([
+testSideScore([
     0, 0, -1,
     0, 0, -1,
     0, 0, -1
 ], [0, 1, 2], -1, 1);
 
-testThreadScore([
+testSideScore([
     0, 0, -1,
     0, 0, -1,
     0, 0, -1
 ], [2, 5, 8], -3, 3);
 
-testThreadScore([
+testSideScore([
     0, 0, -1,
     0, 0, -1,
     0, 0, 0
 ], [2, 5, 8], -2, 2);
 
-testThreadScore([
+testSideScore([
     0, 0, -1,
     0, 0, -1,
     0, 0, 1
 ], [2, 5, 8], 0, -0, 'fair');
 
-testThreadScore([
+testSideScore([
     0, 0, 1,
     0, 0, 1,
     0, 0, 0

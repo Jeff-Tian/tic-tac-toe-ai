@@ -60,7 +60,7 @@ export default {
         return 0;
     },
 
-    getThreadIndexToMe: function (squares, direction) {
+    getSideScore: function (squares, direction) {
         let line = squares.filter((s, index) =>
             direction.indexOf(index) >= 0
         );
@@ -81,7 +81,7 @@ export default {
         return enemy.reduce((prev, next) => prev + next, 0);
     },
 
-    getThreadIndexToEnemy: function (squares, direction) {
-        return -this.getThreadIndexToMe(squares, direction);
+    getComponentSideScore: function (squares, direction) {
+        return -this.getSideScore(squares, direction);
     }
 }
