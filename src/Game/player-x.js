@@ -1,5 +1,5 @@
 import Modes from "./Modes";
-import ComputerExpert from "./ComputerExpert";
+import ComputerFool from "./ComputerFool";
 
 export default class PlayerX {
     static nextMove(squares, game) {
@@ -17,17 +17,13 @@ export default class PlayerX {
         });
 
         if (game.state.currentMode === Modes.computerVsComputer) {
-            game.handleClick(ComputerExpert.nextMove(bitmap));
+            game.handleClick(ComputerFool.nextMove(bitmap));
         } else {
-            console.log('ok');
+            console.log('let human move');
         }
     }
 
     static getWeights() {
-        return ComputerExpert.getWeights();
-    }
-
-    static setWeightsUpdatedCallback(cb) {
-        ComputerExpert.setWeightsUpdatedCallback(cb);
+        return '';
     }
 }
