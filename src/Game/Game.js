@@ -20,7 +20,8 @@ const initialState = {
     XWeights: Object.assign([], PlayerX.getWeights()),
     winnerInfo: null,
     round: 1,
-    countDown: 0
+    countDown: 0,
+    learningEnabled: PlayerO.getLearningEnabled()
 };
 
 export default class Game extends React.Component {
@@ -203,6 +204,14 @@ export default class Game extends React.Component {
         return true;
     }
 
+    toggleLearning() {
+        PlayerO.toggleLearning();
+
+        this.setState({
+            learningEnabled: PlayerO.getLearningEnabled()
+        });
+    }
+
     render() {
         const history = this.state.history;
         const current = history[this.state.stepNumber];
@@ -238,7 +247,13 @@ export default class Game extends React.Component {
                 <div>
                     <h2>Round {this.state.round}</h2>
                     <p>Weights of Player X: {this.state.XWeights.map(w => w.toFixed(2)).join(', ')}</p>
-                    <p>Weights of Player O: {this.state.OWeights.map(w => w.toFixed(2)).join(', ')}</p>
+                    <p>
+                        Weights of Player O: {this.state.OWeights.map(w => w.toFixed(2)).join(', ')}
+                        <input type="checkbox" checked={this.state.learningEnabled ? 'checked' : ''}
+                               id="enable-learning"
+                               onChange={() => this.toggleLearning()}/>
+                        <label htmlFor="enable-learning">Enable learning</label>
+                    </p>
                 </div>
                 <div className="game">
                     <div className="game-options">

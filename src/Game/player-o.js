@@ -25,4 +25,13 @@ export default class PlayerO {
     static setWeightsUpdatedCallback(cb) {
         ComputerExpert.setWeightsUpdatedCallback(cb);
     }
+
+    static getLearningEnabled() {
+        return ComputerExpert.learningEnabled;
+    }
+
+    static toggleLearning() {
+        ComputerExpert.learningEnabled = !ComputerExpert.learningEnabled;
+        console.log(ComputerExpert.learningEnabled + '--');
+    }
 }

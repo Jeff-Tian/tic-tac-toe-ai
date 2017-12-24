@@ -5,6 +5,7 @@ const weights = [0, 1, 1, 1, 1, 1, 1, 1, 1];
 export class ComputerExpert {
     constructor() {
         this.weights = weights;
+        this.learningEnabled = true;
     }
 
     static findIndexOfMax(array) {
@@ -37,9 +38,10 @@ export class ComputerExpert {
     nextMove(squares) {
         let {board, nextIndex} = ComputerExpert.nextMove(squares, this.weights);
 
-        this.updateWeights(board);
-
-        this.lastBitmapSquares = squares;
+        if (this.learningEnabled) {
+            this.updateWeights(board);
+            this.lastBitmapSquares = squares;
+        }
 
         return nextIndex;
     }
