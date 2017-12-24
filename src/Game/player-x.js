@@ -22,4 +22,12 @@ export default class PlayerX {
             console.log('ok');
         }
     }
+
+    static getWeights() {
+        return ComputerExpert.getWeights();
+    }
+
+    static setWeightsUpdatedCallback(cb) {
+        ComputerExpert.setWeightsUpdatedCallback(cb);
+    }
 }

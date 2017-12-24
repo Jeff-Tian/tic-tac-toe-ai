@@ -14,7 +14,9 @@ const initialState = {
     xIsNext: true,
     stepNumber: 0,
     currentMode: GameModes.humanVsHuman,
-    weights: Object.assign([], PlayerO.getWeights())
+    autoStart: false,
+    OWeights: Object.assign([], PlayerO.getWeights()),
+    XWeights: Object.assign([], PlayerX.getWeights())
 };
 
 export default class Game extends React.Component {
@@ -79,14 +81,20 @@ export default class Game extends React.Component {
             stepNumber: step,
             xIsNext: (step % 2) === 0,
         });
+
+        this.autoStart(this.state.currentMode, this.state.autoStart);
     }
 
-    optionChanged(selectedMode) {
-        this.setState(Object.assign(initialState, {
-            currentMode: selectedMode
-        }));
+    optionChanged(selectedMode, autoStart) {
+        this.setState({
+            currentMode: selectedMode,
+            autoStart: autoStart
+        });
+        this.autoStart(selectedMode, autoStart);
+    }
 
-        if (selectedMode === GameModes.computerVsComputer) {
+    autoStart(selectedMode, autoStart) {
+        if (selectedMode === GameModes.computerVsComputer && autoStart) {
             let self = this;
             setTimeout(() => {
                 PlayerX.nextMove(self.state.history[self.state.stepNumber].squares, self);
@@ -96,7 +104,10 @@ export default class Game extends React.Component {
 
     weightsUpdated(newWeights) {
         console.log('updated ', newWeights);
-        this.setState({weights: Object.assign([], newWeights)});
+        this.setState({
+            OWeights: Object.assign([], PlayerO.getWeights()),
+            XWeights: Object.assign([], PlayerX.getWeights())
+        });
     }
 
     render() {
@@ -133,12 +144,14 @@ export default class Game extends React.Component {
         return (
             <div className="container">
                 <div>
-                    <p>Weights of Player O: {this.state.weights.map(w => w.toFixed(2)).join(', ')}</p>
+                    <p>Weights of Player X: {this.state.XWeights.map(w => w.toFixed(2)).join(', ')}</p>
+                    <p>Weights of Player O: {this.state.OWeights.map(w => w.toFixed(2)).join(', ')}</p>
                 </div>
                 <div className="game">
                     <div className="game-options">
                         <GameOptions readonly={this.state.stepNumber}
-                                     optionChanged={this.optionChanged}></GameOptions>
+                                     optionChanged={this.optionChanged} autoStart={this.state.autoStart}
+                                     mode={this.state.currentMode}></GameOptions>
                     </div>
                     <div className="game-board">
                         <Board squares={current.squares}

@@ -6,7 +6,8 @@ export default class GameOptions extends React.Component {
         super();
 
         this.state = {
-            selected: GameModes.humanVsHuman
+            selected: props.mode,
+            autoStart: props.autoStart
         };
 
         props.optionChanged(GameModes.humanVsHuman);
@@ -17,7 +18,18 @@ export default class GameOptions extends React.Component {
             selected: GameModes[mode]
         });
 
-        this.props.optionChanged(GameModes[mode]);
+        this.props.optionChanged(GameModes[mode], this.state.autoStart);
+    }
+
+    toggleAutoStart() {
+        console.log(this.state.autoStart);
+        let self = this;
+        setTimeout(() => {
+            self.setState({autoStart: !this.state.autoStart})
+            console.log(self.state.autoStart);
+
+            self.props.optionChanged(self.state.selected, self.state.autoStart);
+        })
     }
 
     render() {
@@ -34,6 +46,11 @@ export default class GameOptions extends React.Component {
                         </p>
                     )
                 }
+                <p>
+                    <input id="auto-start" type="checkbox" onChange={() => this.toggleAutoStart()}
+                           checked={this.state.autoStart}></input>
+                    <label htmlFor="auto-start">Auto Start</label>
+                </p>
             </div>
         );
     }
