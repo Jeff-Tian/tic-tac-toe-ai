@@ -2,10 +2,11 @@ import Computer from "./Computer";
 
 const weights = [0, 1, 1, 1, 1, 1, 1, 1, 1];
 
-export class ComputerExpert {
+export default class ComputerExpert {
     constructor() {
-        this.weights = weights;
+        this.weights = Object.assign([], weights);
         this.learningEnabled = true;
+        console.log(Math.random());
     }
 
     static findIndexOfMax(array) {
@@ -39,6 +40,7 @@ export class ComputerExpert {
         let {board, nextIndex} = ComputerExpert.nextMove(squares, this.weights);
 
         if (this.learningEnabled) {
+            console.log("I'm learning!")
             this.updateWeights(board);
             this.lastBitmapSquares = squares;
         }
@@ -65,5 +67,3 @@ export class ComputerExpert {
         return this.weights;
     }
 }
-
-export default new ComputerExpert();

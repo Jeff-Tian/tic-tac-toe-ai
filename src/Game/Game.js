@@ -3,9 +3,11 @@ import Board from './Board';
 import GameOptions from './Options';
 import ArrayHelper from '../Helpers/ArrayHelper';
 import GameModes from './Modes';
-import PlayerX from "./player-x";
-import PlayerO from './player-o';
+import Player from "./player-expert";
 import Stats from './Stats';
+
+let PlayerX = new Player('X', 'O');
+let PlayerO = new Player('O', 'X');
 
 const initialState = {
     history: [{
@@ -21,7 +23,8 @@ const initialState = {
     winnerInfo: null,
     round: 1,
     countDown: 0,
-    learningEnabled: PlayerO.getLearningEnabled()
+    oLearningEnabled: PlayerO.getLearningEnabled(),
+    xLearningEnabled: PlayerX.getLearningEnabled()
 };
 
 export default class Game extends React.Component {
@@ -32,6 +35,7 @@ export default class Game extends React.Component {
         this.optionChanged = this.optionChanged.bind(this);
         this.changeCountdownNumber = this.changeCountdownNumber.bind(this);
         PlayerO.setWeightsUpdatedCallback(this.weightsUpdated.bind(this));
+        PlayerX.setWeightsUpdatedCallback(this.weightsUpdated.bind(this));
     }
 
     changeCountdownNumber(e) {
@@ -116,6 +120,7 @@ export default class Game extends React.Component {
 
     autoStart(selectedMode, autoStart) {
         if (selectedMode === GameModes.computerVsComputer && autoStart && this.state.stepNumber === 0) {
+            this.setState({endsAt: undefined});
             let self = this;
             setTimeout(() => {
                 PlayerX.nextMove(self.state.history[self.state.stepNumber].squares, self);
@@ -172,11 +177,16 @@ export default class Game extends React.Component {
     }
 
     gameEnds(winnerInfo) {
+        if (this.state.endsAt === this.state.stepNumber) {
+            return;
+        }
+        console.log('ends at ', this.state.stepNumber, this.state.endsAt)
         Stats.updateRoundResult(winnerInfo ? winnerInfo.who : null);
         this.setState(
             {
                 winnerInfo: winnerInfo,
-                round: this.state.round + 1
+                round: this.state.round + 1,
+                endsAt: this.state.stepNumber
             }
         );
 
@@ -204,11 +214,19 @@ export default class Game extends React.Component {
         return true;
     }
 
-    toggleLearning() {
+    toggleXLearning() {
+        PlayerX.toggleLearning();
+
+        this.setState({
+            xLearningEnabled: PlayerX.getLearningEnabled()
+        })
+    }
+
+    toggleOLearning() {
         PlayerO.toggleLearning();
 
         this.setState({
-            learningEnabled: PlayerO.getLearningEnabled()
+            oLearningEnabled: PlayerO.getLearningEnabled()
         });
     }
 
@@ -246,12 +264,18 @@ export default class Game extends React.Component {
             <div className="container">
                 <div>
                     <h2>Round {this.state.round}</h2>
-                    <p>Weights of Player X: {this.state.XWeights.map(w => w.toFixed(2)).join(', ')}</p>
+                    <p>
+                        Weights of Player X: {this.state.XWeights.map(w => w.toFixed(2)).join(', ')}
+                        <input type="checkbox" checked={this.state.xLearningEnabled ? 'checked' : ''}
+                               id="enable-x-learning"
+                               onChange={() => this.toggleXLearning()}/>
+                        <label htmlFor="enable-x-learning">Enable learning</label>
+                    </p>
                     <p>
                         Weights of Player O: {this.state.OWeights.map(w => w.toFixed(2)).join(', ')}
-                        <input type="checkbox" checked={this.state.learningEnabled ? 'checked' : ''}
+                        <input type="checkbox" checked={this.state.oLearningEnabled ? 'checked' : ''}
                                id="enable-learning"
-                               onChange={() => this.toggleLearning()}/>
+                               onChange={() => this.toggleOLearning()}/>
                         <label htmlFor="enable-learning">Enable learning</label>
                     </p>
                 </div>
