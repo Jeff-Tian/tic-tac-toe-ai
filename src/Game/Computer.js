@@ -47,7 +47,10 @@ export default {
             this.getSideScore(squares, boardSides.antiSlash)
         ];
 
-        return sideScores.map((s, i) => s * weights[i]).reduce((prev, next) => prev + next, 0);
+        return {
+            sideScores: sideScores,
+            total: sideScores.map((s, i) => s * weights[i]).reduce((prev, next) => prev + next, 0)
+        };
     },
 
     getSpots(sqaures) {

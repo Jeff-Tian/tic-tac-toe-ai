@@ -1,6 +1,6 @@
 import ComputerExpert from "./ComputerExpert";
 
-export default class PlayerX {
+export default class PlayerO {
     static nextMove(squares, game) {
         console.log(squares, '--> player o');
         let bitmap = squares.map(s => {
@@ -16,5 +16,13 @@ export default class PlayerX {
         });
 
         game.handleClick(ComputerExpert.nextMove(bitmap));
+    }
+
+    static getWeights() {
+        return ComputerExpert.getWeights();
+    }
+
+    static setWeightsUpdatedCallback(cb) {
+        ComputerExpert.setWeightsUpdatedCallback(cb);
     }
 }

@@ -23,18 +23,44 @@ export class ComputerExpert {
 
     static nextMove(squares, weights) {
         let spots = Computer.getSpots(squares);
-        console.log(spots);
         let nextBoards = Computer.getNewBoardsBySpots(squares, spots);
-        let scores = nextBoards.map(b => Computer.getBoardScore(b, weights));
-        console.log(scores);
+        let scores = nextBoards.map(b => Computer.getBoardScore(b, weights).total);
         let index = ComputerExpert.findIndexOfMax(scores);
-        console.log('max score index = ', index);
 
-        return spots[index];
+        return {board: squares, nextIndex: spots[index]};
+    }
+
+    setWeightsUpdatedCallback(cb) {
+        this.weightsUpdatedCallback = cb;
     }
 
     nextMove(squares) {
-        return ComputerExpert.nextMove(squares, this.weights);
+        let {board, nextIndex} = ComputerExpert.nextMove(squares, this.weights);
+
+        this.updateWeights(board);
+
+        this.lastBitmapSquares = squares;
+
+        return nextIndex;
+    }
+
+    updateWeights(bitmapSquares) {
+        if (this.lastBitmapSquares) {
+            let currentScore = Computer.getBoardScore(bitmapSquares, this.weights).total;
+            let last = Computer.getBoardScore(this.lastBitmapSquares, this.weights);
+            let lastSideScores = last.sideScores;
+            let lastScore = last.total;
+
+            for (let i = 0; i < this.weights.length; i++) {
+                this.weights[i] = this.weights[i] + 0.1 * (currentScore - lastScore) * lastSideScores[i]
+            }
+        }
+
+        this.weightsUpdatedCallback(this.weights);
+    }
+
+    getWeights() {
+        return this.weights;
     }
 }
 

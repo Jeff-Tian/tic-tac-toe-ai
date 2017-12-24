@@ -14,6 +14,7 @@ const initialState = {
     xIsNext: true,
     stepNumber: 0,
     currentMode: GameModes.humanVsHuman,
+    weights: Object.assign([], PlayerO.getWeights())
 };
 
 export default class Game extends React.Component {
@@ -22,6 +23,7 @@ export default class Game extends React.Component {
         this.state = initialState;
 
         this.optionChanged = this.optionChanged.bind(this);
+        PlayerO.setWeightsUpdatedCallback(this.weightsUpdated.bind(this));
     }
 
     handleClick(i) {
@@ -92,6 +94,11 @@ export default class Game extends React.Component {
         }
     }
 
+    weightsUpdated(newWeights) {
+        console.log('updated ', newWeights);
+        this.setState({weights: Object.assign([], newWeights)});
+    }
+
     render() {
         const history = this.state.history;
         const current = history[this.state.stepNumber];
@@ -124,19 +131,24 @@ export default class Game extends React.Component {
         }
 
         return (
-            <div className="game">
-                <div className="game-options">
-                    <GameOptions readonly={this.state.stepNumber}
-                                 optionChanged={this.optionChanged}></GameOptions>
+            <div className="container">
+                <div>
+                    <p>Weights of Player O: {this.state.weights.map(w => w.toFixed(2)).join(', ')}</p>
                 </div>
-                <div className="game-board">
-                    <Board squares={current.squares}
-                           onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleClick(i)}
-                           winner={winnerInfo}/>
-                </div>
-                <div className="game-info">
-                    <div>{status}</div>
-                    <ol>{moves}</ol>
+                <div className="game">
+                    <div className="game-options">
+                        <GameOptions readonly={this.state.stepNumber}
+                                     optionChanged={this.optionChanged}></GameOptions>
+                    </div>
+                    <div className="game-board">
+                        <Board squares={current.squares}
+                               onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleClick(i)}
+                               winner={winnerInfo}/>
+                    </div>
+                    <div className="game-info">
+                        <div>{status}</div>
+                        <ol>{moves}</ol>
+                    </div>
                 </div>
             </div>
         );
