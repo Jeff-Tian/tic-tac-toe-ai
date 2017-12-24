@@ -9,27 +9,30 @@ export default class GameOptions extends React.Component {
             selected: props.mode,
             autoStart: props.autoStart
         };
-
-        props.optionChanged(GameModes.humanVsHuman);
     }
 
     selectMode(mode) {
         this.setState({
             selected: GameModes[mode]
         });
+        this.notifyWorld();
+    }
 
-        this.props.optionChanged(GameModes[mode], this.state.autoStart);
+    checkAutoStart() {
+        this.setState({autoStart: true});
+        this.notifyWorld();
+    }
+
+    notifyWorld() {
+        let self = this;
+        setTimeout(() => {
+            self.props.optionChanged(self.state.selected, self.state.autoStart);
+        });
     }
 
     toggleAutoStart() {
-        console.log(this.state.autoStart);
-        let self = this;
-        setTimeout(() => {
-            self.setState({autoStart: !this.state.autoStart})
-            console.log(self.state.autoStart);
-
-            self.props.optionChanged(self.state.selected, self.state.autoStart);
-        })
+        this.setState({autoStart: !this.state.autoStart})
+        this.notifyWorld();
     }
 
     render() {

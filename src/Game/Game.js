@@ -92,17 +92,25 @@ export default class Game extends React.Component {
             winnerInfo: step === 0 ? null : this.state.winnerInfo
         });
 
+        let self = this;
         setTimeout(() => {
-            this.autoStart(this.state.currentMode, this.state.autoStart);
+            console.log('state = ', self.state.currentMode, self.state.autoStart);
+            self.autoStart(self.state.currentMode, self.state.autoStart);
         })
     }
 
     optionChanged(selectedMode, autoStart) {
+        console.log('received: ', selectedMode, autoStart);
+
         this.setState({
             currentMode: selectedMode,
             autoStart: autoStart
         });
-        this.autoStart(selectedMode, autoStart);
+
+        let self = this;
+        setTimeout(() => {
+            self.autoStart(selectedMode, autoStart);
+        });
     }
 
     autoStart(selectedMode, autoStart) {
@@ -115,8 +123,16 @@ export default class Game extends React.Component {
     }
 
     learn() {
-        this.setState({countDown: this.state.countDown - 1, currentMode: GameModes.computerVsComputer, autoStart: true})
-        this.jumpTo(0);
+        this.setState({
+            countDown: this.state.countDown - 1
+        });
+
+        this.gameOptions.checkAutoStart(true);
+        this.gameOptions.selectMode('computerVsComputer');
+
+        if (this.state.stepNumber > 0) {
+            this.jumpTo(0);
+        }
     }
 
     weightsUpdated(newWeights) {
@@ -170,7 +186,7 @@ export default class Game extends React.Component {
 
             setTimeout(() => {
                 this.jumpTo(0);
-            }, 500);
+            }, 10);
         }
     }
 
@@ -228,7 +244,8 @@ export default class Game extends React.Component {
                     <div className="game-options">
                         <GameOptions readonly={this.state.stepNumber}
                                      optionChanged={this.optionChanged} autoStart={this.state.autoStart}
-                                     mode={this.state.currentMode}></GameOptions>
+                                     mode={this.state.currentMode}
+                                     ref={gameOptions => this.gameOptions = gameOptions}></GameOptions>
                     </div>
                     <div className="game-board">
                         <Board squares={current.squares}
