@@ -72,9 +72,9 @@ class Stats extends React.Component {
                     </tr>
                     <tr>
                         <th>%</th>
-                        <td>{this.getXWinPercent()}</td>
-                        <td>{this.getOWinPercent()}</td>
-                        <td>{this.getFairPercent()}</td>
+                        <td>{this.getXWinPercent().toFixed(2) * 100} %</td>
+                        <td>{this.getOWinPercent().toFixed(2) * 100} %</td>
+                        <td>{this.getFairPercent().toFixed(2) * 100} %</td>
                         <td>100 %</td>
                     </tr>
                     </tbody>

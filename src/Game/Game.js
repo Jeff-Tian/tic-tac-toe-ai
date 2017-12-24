@@ -19,7 +19,8 @@ const initialState = {
     OWeights: Object.assign([], PlayerO.getWeights()),
     XWeights: Object.assign([], PlayerX.getWeights()),
     winnerInfo: null,
-    round: 1
+    round: 1,
+    countDown: 0
 };
 
 export default class Game extends React.Component {
@@ -28,7 +29,14 @@ export default class Game extends React.Component {
         this.state = initialState;
 
         this.optionChanged = this.optionChanged.bind(this);
+        this.changeCountdownNumber = this.changeCountdownNumber.bind(this);
         PlayerO.setWeightsUpdatedCallback(this.weightsUpdated.bind(this));
+    }
+
+    changeCountdownNumber(e) {
+        this.setState({
+            countDown: e.target.value
+        })
     }
 
     handleClick(i) {
@@ -106,6 +114,11 @@ export default class Game extends React.Component {
         }
     }
 
+    learn() {
+        this.setState({countDown: this.state.countDown - 1, currentMode: GameModes.computerVsComputer, autoStart: true})
+        this.jumpTo(0);
+    }
+
     weightsUpdated(newWeights) {
         console.log('updated ', newWeights);
         this.setState({
@@ -132,17 +145,33 @@ export default class Game extends React.Component {
         for (let i = 0; i < lines.length; i++) {
             const [a, b, c] = lines[i];
             if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-                Stats.updateRoundResult(squares[a]);
-                this.setState({
-                    winnerInfo: {who: squares[a], where: [a, b, c]},
-                    round: this.state.round + 1
-                });
+                this.gameEnds({who: squares[a], where: [a, b, c]});
                 return this.state.winnerInfo;
             }
         }
 
         // this.setState({round: this.state.round + 1})
         return null;
+    }
+
+    gameEnds(winnerInfo) {
+        Stats.updateRoundResult(winnerInfo ? winnerInfo.who : null);
+        this.setState(
+            {
+                winnerInfo: winnerInfo,
+                round: this.state.round + 1
+            }
+        );
+
+        if (this.state.countDown > 0) {
+            this.setState({
+                countDown: this.state.countDown - 1
+            });
+
+            setTimeout(() => {
+                this.jumpTo(0);
+            }, 500);
+        }
     }
 
     calculateFair(squares) {
@@ -153,8 +182,7 @@ export default class Game extends React.Component {
         }
 
         console.log('fair !');
-        Stats.updateRoundResult();
-        this.setState({round: this.state.round + 1});
+        this.gameEnds(null);
 
         return true;
     }
@@ -211,6 +239,14 @@ export default class Game extends React.Component {
                         <div>{status}</div>
                         <ol>{moves}</ol>
                     </div>
+                </div>
+                <div>
+                    <p>
+                        Auto play <input type="number" onChange={this.changeCountdownNumber}
+                                         value={this.state.countDown}></input> rounds
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button onClick={() => this.learn()}>Start</button>
+                    </p>
                 </div>
                 <Stats></Stats>
             </div>
