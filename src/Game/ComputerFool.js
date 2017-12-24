@@ -10,7 +10,7 @@ export class ComputerFool {
     static nextMove(squares, weights) {
         let spots = Computer.getSpots(squares);
 
-        return spots[Math.round(spots.length * Math.random())];
+        return spots[Math.round((spots.length - 1) * Math.random())];
     }
 
     nextMove(squares) {

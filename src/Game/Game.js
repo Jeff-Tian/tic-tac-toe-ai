@@ -5,6 +5,7 @@ import ArrayHelper from '../Helpers/ArrayHelper';
 import GameModes from './Modes';
 import PlayerX from "./player-x";
 import PlayerO from './player-o';
+import Stats from './Stats';
 
 const initialState = {
     history: [{
@@ -16,7 +17,9 @@ const initialState = {
     currentMode: GameModes.humanVsHuman,
     autoStart: false,
     OWeights: Object.assign([], PlayerO.getWeights()),
-    XWeights: Object.assign([], PlayerX.getWeights())
+    XWeights: Object.assign([], PlayerX.getWeights()),
+    winnerInfo: null,
+    round: 1
 };
 
 export default class Game extends React.Component {
@@ -33,27 +36,25 @@ export default class Game extends React.Component {
         const current = history[history.length - 1];
         const squares = current.squares.slice();
 
-        if (calculateWinner(squares) || squares[i]) {
+        if (this.calculateWinner(squares) || squares[i]) {
             return;
         }
 
-        if (calculateFair(squares) || squares[i]) {
+        if (this.calculateFair(squares) || squares[i]) {
             return;
         }
 
         this.placeAt(squares, i, history);
 
         let self = this;
-        setTimeout(function () {
-            console.log(self.state.xIsNext, self.state.currentMode);
-            if (!self.state.xIsNext && self.state.currentMode !== GameModes.humanVsHuman) {
-                PlayerO.nextMove(self.state.history[self.state.stepNumber].squares, self);
-            }
+        console.log(self.state.xIsNext, self.state.currentMode);
+        if (!self.state.xIsNext && self.state.currentMode !== GameModes.humanVsHuman) {
+            PlayerO.nextMove(self.state.history[self.state.stepNumber].squares, self);
+        }
 
-            if (self.state.xIsNext && self.state.currentMode !== GameModes.humanVsHuman) {
-                PlayerX.nextMove(self.state.history[self.state.stepNumber].squares, self);
-            }
-        });
+        if (self.state.xIsNext && self.state.currentMode !== GameModes.humanVsHuman) {
+            PlayerX.nextMove(self.state.history[self.state.stepNumber].squares, self);
+        }
     }
 
     placeAt(squares, i, history) {
@@ -80,9 +81,12 @@ export default class Game extends React.Component {
         this.setState({
             stepNumber: step,
             xIsNext: (step % 2) === 0,
+            winnerInfo: step === 0 ? null : this.state.winnerInfo
         });
 
-        this.autoStart(this.state.currentMode, this.state.autoStart);
+        setTimeout(() => {
+            this.autoStart(this.state.currentMode, this.state.autoStart);
+        })
     }
 
     optionChanged(selectedMode, autoStart) {
@@ -94,7 +98,7 @@ export default class Game extends React.Component {
     }
 
     autoStart(selectedMode, autoStart) {
-        if (selectedMode === GameModes.computerVsComputer && autoStart) {
+        if (selectedMode === GameModes.computerVsComputer && autoStart && this.state.stepNumber === 0) {
             let self = this;
             setTimeout(() => {
                 PlayerX.nextMove(self.state.history[self.state.stepNumber].squares, self);
@@ -110,11 +114,55 @@ export default class Game extends React.Component {
         });
     }
 
+    calculateWinner(squares) {
+        if (this.state.winnerInfo) {
+            return this.state.winnerInfo;
+        }
+
+        const lines = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
+        for (let i = 0; i < lines.length; i++) {
+            const [a, b, c] = lines[i];
+            if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+                Stats.updateRoundResult(squares[a]);
+                this.setState({
+                    winnerInfo: {who: squares[a], where: [a, b, c]},
+                    round: this.state.round + 1
+                });
+                return this.state.winnerInfo;
+            }
+        }
+
+        // this.setState({round: this.state.round + 1})
+        return null;
+    }
+
+    calculateFair(squares) {
+        for (let i = 0; i < squares.length; i++) {
+            if (!squares[i]) {
+                return false;
+            }
+        }
+
+        console.log('fair !');
+        Stats.updateRoundResult();
+        this.setState({round: this.state.round + 1});
+
+        return true;
+    }
+
     render() {
         const history = this.state.history;
         const current = history[this.state.stepNumber];
-        const winnerInfo = calculateWinner(current.squares);
-        const winner = winnerInfo ? winnerInfo.who : null;
+        const winner = this.state.winnerInfo ? this.state.winnerInfo.who : null;
 
         const moves = history.map((step, move) => {
             const desc = this.getMoveDescription(move, step);
@@ -144,6 +192,7 @@ export default class Game extends React.Component {
         return (
             <div className="container">
                 <div>
+                    <h2>Round {this.state.round}</h2>
                     <p>Weights of Player X: {this.state.XWeights.map(w => w.toFixed(2)).join(', ')}</p>
                     <p>Weights of Player O: {this.state.OWeights.map(w => w.toFixed(2)).join(', ')}</p>
                 </div>
@@ -156,13 +205,14 @@ export default class Game extends React.Component {
                     <div className="game-board">
                         <Board squares={current.squares}
                                onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleClick(i)}
-                               winner={winnerInfo}/>
+                               winner={this.state.winnerInfo}/>
                     </div>
                     <div className="game-info">
                         <div>{status}</div>
                         <ol>{moves}</ol>
                     </div>
                 </div>
+                <Stats></Stats>
             </div>
         );
     }
@@ -176,36 +226,4 @@ export default class Game extends React.Component {
 
         return 'Go to game start';
     }
-}
-
-function calculateWinner(squares) {
-    const lines = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6],
-    ];
-    for (let i = 0; i < lines.length; i++) {
-        const [a, b, c] = lines[i];
-        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-            return {who: squares[a], where: [a, b, c]};
-        }
-    }
-    return null;
-}
-
-function calculateFair(squares) {
-    for (let i = 0; i < squares.length; i++) {
-        if (!squares[i]) {
-            return false;
-        }
-    }
-
-    console.log('fair !');
-
-    return true;
 }
