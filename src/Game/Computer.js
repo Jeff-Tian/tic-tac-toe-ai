@@ -9,7 +9,7 @@ const boardSides = {
     antiSlash: [0, 4, 8]
 };
 export default {
-    getSideScore: function (squares, direction) {
+    getSideScore: function (squares, direction, meFirst) {
         let line = squares.filter((s, index) =>
             direction.indexOf(index) >= 0
         );
@@ -27,24 +27,33 @@ export default {
             return myScore;
         }
 
-        return enemy.reduce((prev, next) => prev + next, 0);
+        let enemyScore = enemy.reduce((prev, next) => prev + next, 0);
+        if (meFirst) {
+            return enemyScore;
+        } else {
+            if (enemyScore <= -2) {
+                return enemyScore - 0.5;
+            }
+
+            return enemyScore;
+        }
     },
 
     getComponentSideScore: function (squares, direction) {
         return -this.getSideScore(squares, direction);
     },
 
-    getBoardScore: function (squares, weights) {
+    getBoardScore: function (squares, weights, meFirst) {
         let sideScores = [
             1,
-            this.getSideScore(squares, boardSides.top),
-            this.getSideScore(squares, boardSides.left),
-            this.getSideScore(squares, boardSides.right),
-            this.getSideScore(squares, boardSides.bottom),
-            this.getSideScore(squares, boardSides.center),
-            this.getSideScore(squares, boardSides.middle),
-            this.getSideScore(squares, boardSides.slash),
-            this.getSideScore(squares, boardSides.antiSlash)
+            this.getSideScore(squares, boardSides.top, meFirst),
+            this.getSideScore(squares, boardSides.left, meFirst),
+            this.getSideScore(squares, boardSides.right, meFirst),
+            this.getSideScore(squares, boardSides.bottom, meFirst),
+            this.getSideScore(squares, boardSides.center, meFirst),
+            this.getSideScore(squares, boardSides.middle, meFirst),
+            this.getSideScore(squares, boardSides.slash, meFirst),
+            this.getSideScore(squares, boardSides.antiSlash, meFirst)
         ];
 
         return {

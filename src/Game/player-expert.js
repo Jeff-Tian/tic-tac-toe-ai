@@ -1,10 +1,11 @@
 import ComputerExpert from "./ComputerExpert";
 
 export default class PlayerExpert {
-    constructor(me, enemy) {
+    constructor(me, enemy, meFirst) {
         this.me = me;
         this.enemy = enemy;
-        this.expert = new ComputerExpert();
+        this.meFirst = meFirst;
+        this.expert = new ComputerExpert(meFirst);
 
         console.log('creating player ', me);
     }

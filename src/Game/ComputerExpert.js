@@ -3,10 +3,10 @@ import Computer from "./Computer";
 const weights = [0, 1, 1, 1, 1, 1, 1, 1, 1];
 
 export default class ComputerExpert {
-    constructor() {
+    constructor(meFirst) {
         this.weights = Object.assign([], weights);
         this.learningEnabled = true;
-        console.log(Math.random());
+        this.meFirst = meFirst;
     }
 
     static findIndexOfMax(array) {
@@ -23,10 +23,10 @@ export default class ComputerExpert {
         return index;
     }
 
-    static nextMove(squares, weights) {
+    static nextMove(squares, weights, meFirst) {
         let spots = Computer.getSpots(squares);
         let nextBoards = Computer.getNewBoardsBySpots(squares, spots);
-        let scores = nextBoards.map(b => Computer.getBoardScore(b, weights).total);
+        let scores = nextBoards.map(b => Computer.getBoardScore(b, weights, meFirst).total);
         let index = ComputerExpert.findIndexOfMax(scores);
 
         return {board: squares, nextIndex: spots[index]};
@@ -37,10 +37,9 @@ export default class ComputerExpert {
     }
 
     nextMove(squares) {
-        let {board, nextIndex} = ComputerExpert.nextMove(squares, this.weights);
+        let {board, nextIndex} = ComputerExpert.nextMove(squares, this.weights, this.meFirst);
 
         if (this.learningEnabled) {
-            console.log("I'm learning!")
             this.updateWeights(board);
             this.lastBitmapSquares = squares;
         }
@@ -50,13 +49,13 @@ export default class ComputerExpert {
 
     updateWeights(bitmapSquares) {
         if (this.lastBitmapSquares) {
-            let currentScore = Computer.getBoardScore(bitmapSquares, this.weights).total;
-            let last = Computer.getBoardScore(this.lastBitmapSquares, this.weights);
+            let currentScore = Computer.getBoardScore(bitmapSquares, this.weights, this.meFirst).total;
+            let last = Computer.getBoardScore(this.lastBitmapSquares, this.weights, this.meFirst);
             let lastSideScores = last.sideScores;
             let lastScore = last.total;
 
             for (let i = 0; i < this.weights.length; i++) {
-                this.weights[i] = this.weights[i] + 0.1 * (currentScore - lastScore) * lastSideScores[i]
+                this.weights[i] = this.weights[i] + 0.1 * (currentScore - lastScore) * lastSideScores[i];
             }
         }
 

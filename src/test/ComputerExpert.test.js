@@ -1,5 +1,5 @@
 import React from 'react';
-import {ComputerExpert} from '../Game/ComputerExpert';
+import ComputerExpert from '../Game/ComputerExpert';
 
 test('computer expert', () => {
     expect(ComputerExpert.findIndexOfMax([1, 2, 3, 4, 5])).toEqual(4);
@@ -13,7 +13,7 @@ test('next move', () => {
         0, 0, 0
     ];
 
-    expect(ComputerExpert.nextMove(initialBoard, [0, 1, 1, 1, 1, 1, 1, 1, 1])).toEqual(4);
+    expect(ComputerExpert.nextMove(initialBoard, [0, 1, 1, 1, 1, 1, 1, 1, 1])).toEqual({"board": [-1, 0, 0, 0, 0, 0, 0, 0, 0], "nextIndex": 4});
 
     initialBoard = [
         1, 0, 0,

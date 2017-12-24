@@ -3,7 +3,7 @@ import Computer from '../Game/Computer';
 
 function testBoardScore(squares, weights, score, message) {
     test(message || (score), () => {
-        expect(Computer.getBoardScore(squares, weights).total).toEqual(score);
+        expect(Computer.getBoardScore(squares, weights, false).total).toEqual(score);
     });
 }
 
@@ -49,13 +49,13 @@ testBoardScore([
     0, 0, -1,
     0, 0, -1,
     0, 0, -1
-], weights, -8, 'lost');
+], weights, -8.5, 'lost');
 
 testBoardScore([
     0, 0, -1,
     0, 0, -1,
     0, 0, 0
-], weights, -5, 'almost lost');
+], weights, -5.5, 'almost lost');
 
 testBoardScore([
     0, 0, -1,

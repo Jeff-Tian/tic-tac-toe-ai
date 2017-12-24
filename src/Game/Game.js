@@ -6,8 +6,8 @@ import GameModes from './Modes';
 import Player from "./player-expert";
 import Stats from './Stats';
 
-let PlayerX = new Player('X', 'O');
-let PlayerO = new Player('O', 'X');
+let PlayerX = new Player('X', 'O', true);
+let PlayerO = new Player('O', 'X', false);
 
 const initialState = {
     history: [{
@@ -60,14 +60,25 @@ export default class Game extends React.Component {
         this.placeAt(squares, i, history);
 
         let self = this;
-        console.log(self.state.xIsNext, self.state.currentMode);
-        if (!self.state.xIsNext && self.state.currentMode !== GameModes.humanVsHuman) {
-            PlayerO.nextMove(self.state.history[self.state.stepNumber].squares, self);
-        }
+        setTimeout(() => {
 
-        if (self.state.xIsNext && self.state.currentMode !== GameModes.humanVsHuman) {
-            PlayerX.nextMove(self.state.history[self.state.stepNumber].squares, self);
-        }
+            console.log(self.state.xIsNext, self.state.currentMode);
+            if (!self.state.xIsNext && self.state.currentMode !== GameModes.humanVsHuman) {
+                PlayerO.nextMove(self.state.history[self.state.stepNumber].squares, self);
+                console.log(squares, self.state.history[self.state.stepNumber].squares);
+                setTimeout(() => {
+                    console.log(squares);
+                    self.calculateWinner(self.state.history[self.state.stepNumber].squares);
+                    self.calculateFair(self.state.history[self.state.stepNumber].squares);
+                })
+            }
+
+            console.log('mode = ', self.state.currentMode === GameModes.computerVsComputer);
+            if (self.state.xIsNext && (self.state.currentMode === GameModes.computerVsComputer)) {
+                PlayerX.nextMove(self.state.history[self.state.stepNumber].squares, self);
+            }
+        })
+
     }
 
     placeAt(squares, i, history) {
@@ -76,18 +87,16 @@ export default class Game extends React.Component {
             return;
         }
 
-        console.log('xIsNext = ', this.state.xIsNext);
         squares[i] = this.state.xIsNext ? 'X' : 'O';
+        console.log(squares);
         this.setState({
             history: history.concat([{
                 squares: squares,
                 squareIndex: i
             }]),
-            xIsNext: !this.state.xIsNext,
             stepNumber: history.length,
+            xIsNext: !this.state.xIsNext
         });
-
-        console.log('xIsNext = ', this.state.xIsNext);
     }
 
     jumpTo(step) {
