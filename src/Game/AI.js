@@ -1,6 +1,6 @@
 import SimpleComputer from "./SimpleComputer";
 
-const weights = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+const weights = [0, 1, 1];
 
 export default class AI {
     constructor(meFirst) {

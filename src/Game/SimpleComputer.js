@@ -101,21 +101,23 @@ export default {
             }
         }
 
-        // if (bitmap.filter(b => b === 0).length === 0) {
-        //     return {
-        //         factors: factors,
-        //         total: -50
-        //     }
-        // }
-
         let base = 0;
         if (nextIsMe) {
             base += chance;
         }
 
+        let score = factors.map((s, i) => s * weights[i]).reduce((prev, next) => prev + next, base);
+        if (score >= 100) {
+            score = 99;
+        }
+
+        if (score < -100) {
+            score = -99;
+        }
+
         return {
             factors: factors,
-            total: factors.map((s, i) => s * weights[i]).reduce((prev, next) => prev + next, base)
+            total: score
         };
     },
 
