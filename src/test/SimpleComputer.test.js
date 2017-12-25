@@ -6,5 +6,5 @@ test('simple evaluation', () => {
         -1, 0, 1,
         0, -1, 1,
         0, 0, 0
-    ], [0, 1, 1, 1], false, false)).toEqual({factors: [1, 1, 1, -1], total: 1});
+    ], [0, 1, 1], false, false)).toEqual({factors: [1, 1, -1], total: 0});
 })
