@@ -63,20 +63,17 @@ export default class Game extends React.Component {
 
         let self = this;
         setTimeout(() => {
-            console.log(self.state.xIsNext, self.state.currentMode);
-            if (!self.state.xIsNext && self.state.currentMode !== GameModes.humanVsHuman) {
-                PlayerO.nextMove(self.state.history[self.state.stepNumber].squares, self);
-                console.log(squares, self.state.history[self.state.stepNumber].squares);
-                setTimeout(() => {
-                    console.log(squares);
-                    self.calculateWinner(self.state.history[self.state.stepNumber].squares);
-                    self.calculateFair(self.state.history[self.state.stepNumber].squares);
-                })
-            }
+            self.calculateWinner(self.state.history[self.state.stepNumber].squares);
+            self.calculateFair(self.state.history[self.state.stepNumber].squares);
 
-            console.log('mode = ', self.state.currentMode === GameModes.computerVsComputer);
-            if (self.state.xIsNext && (self.state.currentMode === GameModes.computerVsComputer)) {
-                PlayerX.nextMove(self.state.history[self.state.stepNumber].squares, self);
+            if (!self.state.winnerInfo) {
+                if (!self.state.xIsNext && self.state.currentMode !== GameModes.humanVsHuman) {
+                    PlayerO.nextMove(self.state.history[self.state.stepNumber].squares, self);
+                }
+
+                if (self.state.xIsNext && (self.state.currentMode === GameModes.computerVsComputer)) {
+                    PlayerX.nextMove(self.state.history[self.state.stepNumber].squares, self);
+                }
             }
         })
 
