@@ -17,7 +17,7 @@ const initialState = {
     }],
     xIsNext: true,
     stepNumber: 0,
-    currentMode: GameModes.humanVsHuman,
+    currentMode: GameModes.humanVsExpertComputer,
     autoStart: false,
     OWeights: Object.assign([], PlayerO.getWeights()),
     XWeights: Object.assign([], PlayerX.getWeights()),
@@ -265,7 +265,7 @@ export default class Game extends React.Component {
                                 : <span>{desc}</span>
                         }
                     </button>
-                    <span>{step.score}</span>
+                    {/*<span>{step.score}</span>*/}
                 </li>
             );
         });
@@ -273,28 +273,28 @@ export default class Game extends React.Component {
 
         let status;
         if (winner) {
-            status = 'Winner: ' + winner;
+            status = '胜利者: ' + winner;
         } else {
-            status = 'Next player: ' + (this.state.xIsNext ? 'X' : (this.state.currentMode === GameModes.humanVsHuman ? 'O' : 'Computer'));
+            status = '轮到: ' + (this.state.xIsNext ? 'X' : (this.state.currentMode === GameModes.humanVsHuman ? 'O' : '电脑')) + ' 走子';
         }
 
         return (
             <div className="container">
                 <div>
-                    <h2>Round {this.state.round}</h2>
+                    <h2>第 {this.state.round} 回合</h2>
                     <p>
-                        Weights of Player X: {this.state.XWeights.map(w => w.toFixed(2)).join(', ')}
-                        <input type="checkbox" checked={this.state.xLearningEnabled ? 'checked' : ''}
-                               id="enable-x-learning"
-                               onChange={() => this.toggleXLearning()}/>
-                        <label htmlFor="enable-x-learning">Enable learning</label>
+                        {/*Weights of Player X: {this.state.XWeights.map(w => w.toFixed(2)).join(', ')}*/}
+                        {/*<input type="checkbox" checked={this.state.xLearningEnabled ? 'checked' : ''}*/}
+                        {/*id="enable-x-learning"*/}
+                        {/*onChange={() => this.toggleXLearning()}/>*/}
+                        {/*<label htmlFor="enable-x-learning">Enable learning</label>*/}
                     </p>
                     <p>
-                        Weights of Player O: {this.state.OWeights.map(w => w.toFixed(2)).join(', ')}
-                        <input type="checkbox" checked={this.state.oLearningEnabled ? 'checked' : ''}
-                               id="enable-learning"
-                               onChange={() => this.toggleOLearning()}/>
-                        <label htmlFor="enable-learning">Enable learning</label>
+                        {/*Weights of Player O: {this.state.OWeights.map(w => w.toFixed(2)).join(', ')}*/}
+                        {/*<input type="checkbox" checked={this.state.oLearningEnabled ? 'checked' : ''}*/}
+                        {/*id="enable-learning"*/}
+                        {/*onChange={() => this.toggleOLearning()}/>*/}
+                        {/*<label htmlFor="enable-learning">Enable learning</label>*/}
                     </p>
                 </div>
                 <div className="game">
@@ -316,10 +316,10 @@ export default class Game extends React.Component {
                 </div>
                 <div>
                     <p>
-                        Auto play <input type="number" onChange={this.changeCountdownNumber}
-                                         value={this.state.countDown}></input> rounds
+                        自动学习 <input type="number" onChange={this.changeCountdownNumber}
+                                         value={this.state.countDown}></input> 局
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <button onClick={() => this.learn()}>Start</button>
+                        <button onClick={() => this.learn()}>开始学习</button>
                     </p>
                 </div>
                 <Stats></Stats>
@@ -331,9 +331,9 @@ export default class Game extends React.Component {
         if (move) {
             let {col, row} = ArrayHelper.getPositionByIndex(step.squares, step.squareIndex);
 
-            return 'Go to move #' + move + ` @ (${col}, ${row})`;
+            return '第 #' + move + ` 步 @ (${col}, ${row})`;
         }
 
-        return 'Go to game start';
+        return '重新开始';
     }
 }

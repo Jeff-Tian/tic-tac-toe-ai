@@ -51,15 +51,15 @@ class Stats extends React.Component {
     render() {
         return (
             <div>
-                <h3>Stats:</h3>
+                <h3>统计:</h3>
                 <table border="1">
                     <thead>
                     <tr>
                         <th>Measure</th>
-                        <th>X Win:</th>
-                        <th>O Win:</th>
-                        <th>Fair:</th>
-                        <th>Total:</th>
+                        <th>X 胜出:</th>
+                        <th>O 胜出:</th>
+                        <th>平局:</th>
+                        <th>总计:</th>
                     </tr>
                     </thead>
                     <tbody>

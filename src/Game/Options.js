@@ -52,7 +52,7 @@ export default class GameOptions extends React.Component {
                 <p>
                     <input id="auto-start" type="checkbox" onChange={() => this.toggleAutoStart()}
                            checked={this.state.autoStart}></input>
-                    <label htmlFor="auto-start">Auto Start</label>
+                    <label htmlFor="auto-start">自动运行（机-机对战模式）</label>
                 </p>
             </div>
         );

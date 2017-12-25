@@ -1,5 +1,5 @@
 export default {
-    humanVsHuman: 'human-vs-human',
-    humanVsExpertComputer: 'human-vs-expert-computer',
-    computerVsComputer: 'computer-vs-computer'
+    humanVsHuman: '人-人对战',
+    humanVsExpertComputer: '人-机对战',
+    computerVsComputer: '机-机对战'
 };
