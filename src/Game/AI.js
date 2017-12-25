@@ -1,6 +1,6 @@
 import SimpleComputer from "./SimpleComputer";
 
-const weights = [0, 1, 1, 1];
+const weights = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
 export default class AI {
     constructor(meFirst) {
@@ -45,7 +45,7 @@ export default class AI {
 
     tryLearn(squares, nextIsMe) {
         if (this.learningEnabled) {
-            this.updateWeights(squares);
+            this.updateWeights(squares, nextIsMe);
             this.lastBitmapSquares = squares;
             this.lastNextIsMe = nextIsMe;
         }

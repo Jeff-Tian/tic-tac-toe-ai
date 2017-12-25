@@ -20,6 +20,27 @@ const sides = [
     boardSides.antiSlash
 ];
 
+function getSideScore(bitmap, direction) {
+    let line = bitmap.filter((s, index) =>
+        direction.indexOf(index) >= 0
+    );
+
+    let myself = line.filter(s => s > 0);
+    let enemy = line.filter(s => s < 0);
+
+    if (myself.length > 0 && enemy.length > 0) {
+        return 0;
+    }
+
+    let myScore = myself.reduce((prev, next) => prev + next, 0);
+
+    if (myScore > 0) {
+        return myScore;
+    }
+
+    return enemy.reduce((prev, next) => prev + next, 0);
+}
+
 function checkSides(bitmap) {
     let d = 0;
     let l = 0;
@@ -54,33 +75,42 @@ function checkSides(bitmap) {
 }
 
 export default {
-    getBoardScore: function (squares, weights, meFirst, nextIsMe) {
-        let {danger, lost, chance, win} = checkSides(squares);
+    getBoardScore: function (bitmap, weights, meFirst, nextIsMe) {
+        let {danger, lost, chance, win} = checkSides(bitmap);
         let factors = [
-            1,
-            danger,
-            chance,
-            meFirst ? 1 : -1
-        ];
+                1,
+                danger,
+                // chance,
+                // meFirst ? 1 : -1,
+                // nextIsMe ? chance : 0,
+                bitmap[4] === 1 ? 1 : -1
+            ]
+        ;
 
         if (lost) {
             return {
-                factors: [1, 0],
+                factors: factors,
                 total: -100
             }
         }
 
         if (win) {
             return {
-                factors: [1, 0],
-                total: 110
+                factors: factors,
+                total: 100
             }
         }
 
-        let base = 0;
+        // if (bitmap.filter(b => b === 0).length === 0) {
+        //     return {
+        //         factors: factors,
+        //         total: -50
+        //     }
+        // }
 
-        if (chance && nextIsMe) {
-            base += 50 * chance;
+        let base = 0;
+        if (nextIsMe) {
+            base += chance;
         }
 
         return {
