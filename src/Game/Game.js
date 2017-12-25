@@ -3,7 +3,6 @@ import Board from './Board';
 import GameOptions from './Options';
 import ArrayHelper from '../Helpers/ArrayHelper';
 import GameModes from './Modes';
-import Player from "./player-expert";
 import PlayerFool from './player-fool';
 import ai from './player-ai';
 import Stats from './Stats';
