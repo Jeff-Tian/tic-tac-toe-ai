@@ -5,7 +5,8 @@ export default class Board extends React.Component {
 
     renderSquare(i) {
         return <Square value={this.props.squares[i]} onClick={() => this.props.onClick(i)} key={i}
-                       highlight={this.props.winner ? this.props.winner.where.indexOf(i) >= 0 : false}/>;
+                       highlight={this.props.winner ? this.props.winner.where.indexOf(i) >= 0 : false}
+                       onMouseEnter={() => this.props.onMouseEnter(i)}/>;
     }
 
     renderBoardRow(side, rowIndex) {

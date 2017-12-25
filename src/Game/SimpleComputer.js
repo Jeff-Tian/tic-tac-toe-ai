@@ -23,6 +23,8 @@ const sides = [
 function checkSides(bitmap) {
     let d = 0;
     let l = 0;
+    let w = 0;
+    let c = 0;
 
     for (let i = 0; i < sides.length; i++) {
         let side = bitmap.filter((_, j) => sides[i].indexOf(j) >= 0);
@@ -38,17 +40,27 @@ function checkSides(bitmap) {
         if (negatives.length === 3) {
             l++;
         }
+
+        if (ones.length === 3) {
+            w++;
+        }
+
+        if (ones.length === 2 && zeros.length === 1) {
+            c++;
+        }
     }
 
-    return {danger: d, lost: l};
+    return {danger: d, lost: l, chance: c, win: w};
 }
 
 export default {
-    getBoardScore: function (squares, weights, meFirst) {
-        let {danger, lost} = checkSides(squares);
+    getBoardScore: function (squares, weights, meFirst, nextIsMe) {
+        let {danger, lost, chance, win} = checkSides(squares);
         let factors = [
             1,
-            danger
+            danger,
+            chance,
+            meFirst ? 1 : -1
         ];
 
         if (lost) {
@@ -58,9 +70,22 @@ export default {
             }
         }
 
+        if (win) {
+            return {
+                factors: [1, 0],
+                total: 110
+            }
+        }
+
+        let base = 0;
+
+        if (chance && nextIsMe) {
+            base += 50 * chance;
+        }
+
         return {
             factors: factors,
-            total: factors.map((s, i) => s * weights[i]).reduce((prev, next) => prev + next, 0)
+            total: factors.map((s, i) => s * weights[i]).reduce((prev, next) => prev + next, base)
         };
     },
 

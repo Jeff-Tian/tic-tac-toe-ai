@@ -1,11 +1,11 @@
-import ComputerExpert from "./AI";
+import AI from "./AI";
 
 export default class PlayerExpert {
     constructor(me, enemy, meFirst) {
         this.me = me;
         this.enemy = enemy;
         this.meFirst = meFirst;
-        this.expert = new ComputerExpert(meFirst);
+        this.expert = new AI(meFirst);
 
         console.log('creating player ', me);
     }
@@ -14,7 +14,7 @@ export default class PlayerExpert {
         let bitmap = this.convertSquaresToBitmap(squares);
 
         console.log('player ', this.me, ' moving...');
-        let {nextIndex, score} = this.expert.nextMove(bitmap);
+        let {nextIndex, score} = this.expert.nextMove(bitmap, !game.state.xIsNext);
         game.handleClick(nextIndex, score);
     }
 
@@ -56,5 +56,9 @@ export default class PlayerExpert {
 
     clean() {
         this.expert.clean();
+    }
+
+    getScoreAt(squares, i, nextIsMe) {
+        return this.expert.getScoreAt(this.convertSquaresToBitmap(squares), i, nextIsMe);
     }
 }

@@ -63,7 +63,6 @@ export default class Game extends React.Component {
 
         let self = this;
         setTimeout(() => {
-
             console.log(self.state.xIsNext, self.state.currentMode);
             if (!self.state.xIsNext && self.state.currentMode !== GameModes.humanVsHuman) {
                 PlayerO.nextMove(self.state.history[self.state.stepNumber].squares, self);
@@ -193,6 +192,7 @@ export default class Game extends React.Component {
             return;
         }
         console.log('ends at ', this.state.stepNumber, this.state.endsAt)
+        PlayerO.tryLearn(this.state.history[this.state.stepNumber].squares);
         PlayerX.clean();
         PlayerO.clean();
         Stats.updateRoundResult(winnerInfo ? winnerInfo.who : null);
@@ -242,6 +242,13 @@ export default class Game extends React.Component {
         this.setState({
             oLearningEnabled: PlayerO.getLearningEnabled()
         });
+    }
+
+    showScore(i) {
+        if (this.state.stepNumber > 1) {
+            let score = PlayerO.getScoreAt(this.state.history[this.state.stepNumber - 1].squares, i, !this.state.xIsNext);
+            console.log("score at ", i, ' is ', score);
+        }
     }
 
     render() {
@@ -304,7 +311,7 @@ export default class Game extends React.Component {
                     <div className="game-board">
                         <Board squares={current.squares}
                                onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleClick(i)}
-                               winner={this.state.winnerInfo}/>
+                               winner={this.state.winnerInfo} onMouseEnter={(i) => this.showScore(i)}/>
                     </div>
                     <div className="game-info">
                         <div>{status}</div>

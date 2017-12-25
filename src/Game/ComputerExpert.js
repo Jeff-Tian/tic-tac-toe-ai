@@ -54,6 +54,13 @@ export default class ComputerExpert {
         this.lastBitmapSquares = undefined;
     }
 
+    getScoreAt(bitmap, i) {
+        let newBitmap = bitmap.slice();
+        newBitmap[i] = 1;
+
+        return Computer.getBoardScore(newBitmap, this.weights, this.meFirst).total;
+    }
+
     updateWeights(bitmapSquares) {
         if (this.lastBitmapSquares) {
             let currentScore = Computer.getBoardScore(bitmapSquares, this.weights, this.meFirst).total;

@@ -1,6 +1,6 @@
 import SimpleComputer from "./SimpleComputer";
 
-const weights = [0, 1];
+const weights = [0, 1, 1, 1];
 
 export default class AI {
     constructor(meFirst) {
@@ -23,10 +23,10 @@ export default class AI {
         return index;
     }
 
-    static nextMove(squares, weights, meFirst) {
+    static nextMove(squares, weights, meFirst, nextIsMe) {
         let spots = SimpleComputer.getSpots(squares);
         let nextBoards = SimpleComputer.getNewBoardsBySpots(squares, spots);
-        let scores = nextBoards.map(b => SimpleComputer.getBoardScore(b, weights, meFirst).total);
+        let scores = nextBoards.map(b => SimpleComputer.getBoardScore(b, weights, meFirst, nextIsMe).total);
         let index = AI.findIndexOfMax(scores);
 
         return {nextIndex: spots[index], score: scores[index]};
@@ -36,17 +36,18 @@ export default class AI {
         this.weightsUpdatedCallback = cb;
     }
 
-    nextMove(squares) {
-        this.tryLearn(squares);
-        let {nextIndex, score} = AI.nextMove(squares, this.weights, this.meFirst);
+    nextMove(squares, nextIsMe) {
+        this.tryLearn(squares, nextIsMe);
+        let {nextIndex, score} = AI.nextMove(squares, this.weights, this.meFirst, nextIsMe);
 
         return {nextIndex, score};
     }
 
-    tryLearn(squares) {
+    tryLearn(squares, nextIsMe) {
         if (this.learningEnabled) {
             this.updateWeights(squares);
             this.lastBitmapSquares = squares;
+            this.lastNextIsMe = nextIsMe;
         }
     }
 
@@ -54,10 +55,17 @@ export default class AI {
         this.lastBitmapSquares = undefined;
     }
 
-    updateWeights(bitmapSquares) {
+    getScoreAt(bitmap, i, nextIsMe) {
+        let newBitmap = bitmap.slice();
+        newBitmap[i] = 1;
+
+        return SimpleComputer.getBoardScore(newBitmap, this.weights, this.meFirst, nextIsMe).total;
+    }
+
+    updateWeights(bitmapSquares, nextIsMe) {
         if (this.lastBitmapSquares) {
-            let currentScore = SimpleComputer.getBoardScore(bitmapSquares, this.weights, this.meFirst).total;
-            let last = SimpleComputer.getBoardScore(this.lastBitmapSquares, this.weights, this.meFirst);
+            let currentScore = SimpleComputer.getBoardScore(bitmapSquares, this.weights, this.meFirst, nextIsMe).total;
+            let last = SimpleComputer.getBoardScore(this.lastBitmapSquares, this.weights, this.meFirst, this.lastNextIsMe);
             let lastFactors = last.factors;
             let lastScore = last.total;
 
