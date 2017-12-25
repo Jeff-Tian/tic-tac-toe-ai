@@ -19,5 +19,6 @@
     "babel-preset-react": "^6.24.1",
     "jest": "^21.2.1",
     "react-test-renderer": "^16.2.0"
-  }
+  },
+  "homepage": "https://Jeff-Tian.github.io/tic-tac-toe-ai/"
 }
