@@ -13,7 +13,7 @@ test('next move', () => {
         0, 0, 0
     ];
 
-    expect(ComputerExpert.nextMove(initialBoard, [0, 1, 1, 1, 1, 1, 1, 1, 1])).toEqual({"board": [-1, 0, 0, 0, 0, 0, 0, 0, 0], "nextIndex": 4});
+    expect(ComputerExpert.nextMove(initialBoard, [0, 1, 1, 1, 1, 1, 1, 1, 1])).toEqual({"nextIndex": 4, score: 1});
 
     initialBoard = [
         1, 0, 0,

@@ -4,10 +4,12 @@ import GameOptions from './Options';
 import ArrayHelper from '../Helpers/ArrayHelper';
 import GameModes from './Modes';
 import Player from "./player-expert";
+import PlayerFool from './player-fool';
+import ai from './player-ai';
 import Stats from './Stats';
 
-let PlayerX = new Player('X', 'O', true);
-let PlayerO = new Player('O', 'X', false);
+let PlayerX = new PlayerFool('X', 'O', true);
+let PlayerO = new ai('O', 'X', false);
 
 const initialState = {
     history: [{
@@ -44,7 +46,7 @@ export default class Game extends React.Component {
         })
     }
 
-    handleClick(i) {
+    handleClick(i, score) {
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
@@ -57,7 +59,7 @@ export default class Game extends React.Component {
             return;
         }
 
-        this.placeAt(squares, i, history);
+        this.placeAt(squares, i, history, score);
 
         let self = this;
         setTimeout(() => {
@@ -81,7 +83,7 @@ export default class Game extends React.Component {
 
     }
 
-    placeAt(squares, i, history) {
+    placeAt(squares, i, history, score) {
         if (squares[i]) {
             console.log("you can not place here!");
             return;
@@ -92,7 +94,8 @@ export default class Game extends React.Component {
         this.setState({
             history: history.concat([{
                 squares: squares,
-                squareIndex: i
+                squareIndex: i,
+                score: score
             }]),
             stepNumber: history.length,
             xIsNext: !this.state.xIsNext
@@ -190,6 +193,8 @@ export default class Game extends React.Component {
             return;
         }
         console.log('ends at ', this.state.stepNumber, this.state.endsAt)
+        PlayerX.clean();
+        PlayerO.clean();
         Stats.updateRoundResult(winnerInfo ? winnerInfo.who : null);
         this.setState(
             {
@@ -257,6 +262,7 @@ export default class Game extends React.Component {
                                 : <span>{desc}</span>
                         }
                     </button>
+                    <span>{step.score}</span>
                 </li>
             );
         });

@@ -1,8 +1,8 @@
-import Computer from "./Computer";
+import SimpleComputer from "./SimpleComputer";
 
-const weights = [0, 1, 1, 1, 1, 1, 1, 1, 1];
+const weights = [0, 1];
 
-export default class ComputerExpert {
+export default class AI {
     constructor(meFirst) {
         this.weights = Object.assign([], weights);
         this.learningEnabled = true;
@@ -24,10 +24,10 @@ export default class ComputerExpert {
     }
 
     static nextMove(squares, weights, meFirst) {
-        let spots = Computer.getSpots(squares);
-        let nextBoards = Computer.getNewBoardsBySpots(squares, spots);
-        let scores = nextBoards.map(b => Computer.getBoardScore(b, weights, meFirst).total);
-        let index = ComputerExpert.findIndexOfMax(scores);
+        let spots = SimpleComputer.getSpots(squares);
+        let nextBoards = SimpleComputer.getNewBoardsBySpots(squares, spots);
+        let scores = nextBoards.map(b => SimpleComputer.getBoardScore(b, weights, meFirst).total);
+        let index = AI.findIndexOfMax(scores);
 
         return {nextIndex: spots[index], score: scores[index]};
     }
@@ -38,7 +38,7 @@ export default class ComputerExpert {
 
     nextMove(squares) {
         this.tryLearn(squares);
-        let {nextIndex, score} = ComputerExpert.nextMove(squares, this.weights, this.meFirst);
+        let {nextIndex, score} = AI.nextMove(squares, this.weights, this.meFirst);
 
         return {nextIndex, score};
     }
@@ -56,8 +56,8 @@ export default class ComputerExpert {
 
     updateWeights(bitmapSquares) {
         if (this.lastBitmapSquares) {
-            let currentScore = Computer.getBoardScore(bitmapSquares, this.weights, this.meFirst).total;
-            let last = Computer.getBoardScore(this.lastBitmapSquares, this.weights, this.meFirst);
+            let currentScore = SimpleComputer.getBoardScore(bitmapSquares, this.weights, this.meFirst).total;
+            let last = SimpleComputer.getBoardScore(this.lastBitmapSquares, this.weights, this.meFirst);
             let lastFactors = last.factors;
             let lastScore = last.total;
 

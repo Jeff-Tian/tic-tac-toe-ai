@@ -2,7 +2,7 @@ import Modes from "./Modes";
 import ComputerFool from "./ComputerFool";
 
 export default class PlayerX {
-    static nextMove(squares, game) {
+    nextMove(squares, game) {
         console.log(squares);
         let bitmap = squares.map(s => {
             if (s === 'X') {
@@ -23,7 +23,18 @@ export default class PlayerX {
         }
     }
 
-    static getWeights() {
-        return '';
+    getWeights() {
+        return [];
+    }
+
+    getLearningEnabled() {
+        return false;
+    }
+
+
+    setWeightsUpdatedCallback() {
+    }
+
+    clean() {
     }
 }

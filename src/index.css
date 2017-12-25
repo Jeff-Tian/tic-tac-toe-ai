@@ -43,6 +43,7 @@ ol, ul {
 .game {
     display: flex;
     flex-direction: row;
+    min-height: 500px;
 }
 
 .game-options {

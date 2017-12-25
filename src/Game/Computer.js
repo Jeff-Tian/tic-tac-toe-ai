@@ -8,6 +8,7 @@ const boardSides = {
     slash: [2, 4, 6],
     antiSlash: [0, 4, 8]
 };
+
 export default {
     getSideScore: function (squares, direction, meFirst) {
         let line = squares.filter((s, index) =>
@@ -39,12 +40,8 @@ export default {
         }
     },
 
-    getComponentSideScore: function (squares, direction) {
-        return -this.getSideScore(squares, direction);
-    },
-
     getBoardScore: function (squares, weights, meFirst) {
-        let sideScores = [
+        let factors = [
             1,
             this.getSideScore(squares, boardSides.top, meFirst),
             this.getSideScore(squares, boardSides.left, meFirst),
@@ -57,8 +54,8 @@ export default {
         ];
 
         return {
-            sideScores: sideScores,
-            total: sideScores.map((s, i) => s * weights[i]).reduce((prev, next) => prev + next, 0)
+            factors: factors,
+            total: factors.map((s, i) => s * weights[i]).reduce((prev, next) => prev + next, 0)
         };
     },
 

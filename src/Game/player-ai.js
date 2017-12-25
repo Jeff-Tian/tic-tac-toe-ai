@@ -1,4 +1,4 @@
-import ComputerExpert from "./ComputerExpert";
+import ComputerExpert from "./AI";
 
 export default class PlayerExpert {
     constructor(me, enemy, meFirst) {
