@@ -325,8 +325,7 @@ export default class Game extends React.Component {
                 </div>
                 <Stats></Stats>
                 <p>
-                    源代码：<a href="https://github.com/Jeff-Tian/tic-tac-toe-ai" target="_blank" rel="noopener"
-                           rel="noreferrer">https://github.com/Jeff-Tian/tic-tac-toe-ai</a>
+                    源代码：<a href="https://github.com/Jeff-Tian/tic-tac-toe-ai" target="_blank" rel="noopener">https://github.com/Jeff-Tian/tic-tac-toe-ai</a>
                 </p>
             </div>
         );
