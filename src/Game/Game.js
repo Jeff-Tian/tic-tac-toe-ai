@@ -280,6 +280,7 @@ export default class Game extends React.Component {
 
         return (
             <div className="container">
+                <h1>人工智能版三子棋</h1>
                 <div>
                     <h2>第 {this.state.round} 回合</h2>
                     <p>
@@ -317,12 +318,15 @@ export default class Game extends React.Component {
                 <div>
                     <p>
                         自动学习 <input type="number" onChange={this.changeCountdownNumber}
-                                         value={this.state.countDown}></input> 局
+                                    value={this.state.countDown}></input> 局
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <button onClick={() => this.learn()}>开始学习</button>
                     </p>
                 </div>
                 <Stats></Stats>
+                <p>
+                    源代码：<a href="https://github.com/Jeff-Tian/tic-tac-toe-ai" target="_blank">https://github.com/Jeff-Tian/tic-tac-toe-ai</a>
+                </p>
             </div>
         );
     }

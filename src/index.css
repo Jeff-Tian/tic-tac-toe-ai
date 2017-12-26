@@ -57,6 +57,6 @@ ol, ul {
 @media screen and (max-width: 500px) {
     .game {
         flex-direction: column !important;
-        min-height: 500px !important;
+        min-height: 600px !important;
     }
 }
