@@ -76,7 +76,7 @@ export default class Game extends React.Component {
                     return;
                 }
             }
-        })
+        }, 10)
 
     }
 

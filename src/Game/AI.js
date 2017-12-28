@@ -1,4 +1,5 @@
 import SimpleComputer from "./SimpleComputer";
+import ArrayHelper from "../Helpers/ArrayHelper";
 
 const weights = [0, 1, 1];
 
@@ -7,27 +8,15 @@ export default class AI {
         this.weights = Object.assign([], weights);
         this.learningEnabled = true;
         this.meFirst = meFirst;
-    }
-
-    static findIndexOfMax(array) {
-        let index = 0;
-        let max = array[0];
-
-        for (let i = 1; i < array.length; i++) {
-            if (array[i] > max) {
-                max = array[i];
-                index = i;
-            }
-        }
-
-        return index;
+        this.setWeightsUpdatedCallback(function () {
+        });
     }
 
     static nextMove(squares, weights, meFirst, nextIsMe) {
         let spots = SimpleComputer.getSpots(squares);
         let nextBoards = SimpleComputer.getNewBoardsBySpots(squares, spots);
         let scores = nextBoards.map(b => SimpleComputer.getBoardScore(b, weights, meFirst, nextIsMe).total);
-        let index = AI.findIndexOfMax(scores);
+        let index = ArrayHelper.findIndexOfMax(scores);
 
         return {nextIndex: spots[index], score: scores[index]};
     }
@@ -45,9 +34,8 @@ export default class AI {
 
     tryLearn(squares, nextIsMe) {
         if (this.learningEnabled) {
-            this.updateWeights(squares, nextIsMe);
+            this.learn(this.lastBitmapSquares, squares);
             this.lastBitmapSquares = squares;
-            this.lastNextIsMe = nextIsMe;
         }
     }
 
@@ -62,23 +50,29 @@ export default class AI {
         return SimpleComputer.getBoardScore(newBitmap, this.weights, this.meFirst, nextIsMe).total;
     }
 
-    updateWeights(bitmapSquares, nextIsMe) {
-        if (this.lastBitmapSquares) {
-            let currentScore = SimpleComputer.getBoardScore(bitmapSquares, this.weights, this.meFirst, nextIsMe).total;
-            let last = SimpleComputer.getBoardScore(this.lastBitmapSquares, this.weights, this.meFirst, this.lastNextIsMe);
-            let lastFactors = last.factors;
-            let lastScore = last.total;
-
-            console.log(`I thought it was ${lastScore}, but turned out to be ${currentScore}`)
-            for (let i = 0; i < last.factors.length; i++) {
-                this.weights[i] = this.weights[i] + 0.1 * (currentScore - lastScore) * lastFactors[i];
-            }
-
-            this.weightsUpdatedCallback(this.weights);
-        }
-    }
-
     getWeights() {
         return this.weights;
+    }
+
+    setWeights(weights) {
+        this.weights = weights;
+    }
+
+    learn(lastSquares, currentSquares) {
+        if (!lastSquares) {
+            return;
+        }
+
+        let estimatedLastScore = SimpleComputer.getBoardScore(lastSquares, this.weights, false, true);
+        console.log('I thought it was ', estimatedLastScore);
+        let actualScore = SimpleComputer.getBoardScore(currentSquares, this.weights, false, true);
+        console.log('but turned out to be ', actualScore);
+        let diff = actualScore.total - estimatedLastScore.total;
+
+        for (let i = 0; i < estimatedLastScore.factors.length; i++) {
+            this.weights[i] = this.weights[i] + 0.1 * diff * estimatedLastScore.factors[i];
+        }
+
+        this.weightsUpdatedCallback(this.weights);
     }
 }

@@ -22,7 +22,7 @@ const sides = [
 
 function checkSides(bitmap) {
     let d = 0;
-    let l = 0;
+    let dead = 0;
     let w = 0;
     let c = 0;
 
@@ -38,7 +38,7 @@ function checkSides(bitmap) {
         }
 
         if (negatives.length === 3) {
-            l++;
+            dead++;
         }
 
         if (ones.length === 3) {
@@ -50,7 +50,7 @@ function checkSides(bitmap) {
         }
     }
 
-    return {danger: d, lost: l, chance: c, win: w};
+    return {danger: d, lost: dead, chance: c, win: w};
 }
 
 export default {

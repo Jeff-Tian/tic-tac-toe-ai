@@ -41,3 +41,7 @@ test('array helper index = 7', () => {
 test('array helper index = 8', () => {
     expect(ArrayHelper.getPositionByIndex(a, 8)).toEqual({col: 3, row: 3});
 });
+
+test('find index of max', () => {
+    expect(ArrayHelper.findIndexOfMax([1, 2, 3, 4, 5])).toEqual(4);
+})
