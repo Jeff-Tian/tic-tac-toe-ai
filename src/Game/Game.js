@@ -7,7 +7,7 @@ import PlayerFool from './player-fool';
 import ai from './player-ai';
 import Stats from './Stats';
 
-let PlayerX = new ai('X', 'O', true);
+let PlayerX = new PlayerFool('X', 'O', true);
 let PlayerO = new ai('O', 'X', false);
 
 const initialState = {
@@ -285,20 +285,20 @@ export default class Game extends React.Component {
                 <h1>人工智能版三子棋</h1>
                 <div>
                     <h2>第 {this.state.round} 回合</h2>
-                    <p>
-                        Weights of Player X: {this.state.XWeights.map(w => w.toFixed(2)).join(', ')}
-                        <input type="checkbox" checked={this.state.xLearningEnabled ? 'checked' : ''}
-                               id="enable-x-learning"
-                               onChange={() => this.toggleXLearning()}/>
-                        <label htmlFor="enable-x-learning">Enable learning</label>
-                    </p>
-                    <p>
-                        Weights of Player O: {this.state.OWeights.map(w => w.toFixed(2)).join(', ')}
-                        <input type="checkbox" checked={this.state.oLearningEnabled ? 'checked' : ''}
-                               id="enable-learning"
-                               onChange={() => this.toggleOLearning()}/>
-                        <label htmlFor="enable-learning">Enable learning</label>
-                    </p>
+                    {/*<p>*/}
+                        {/*Weights of Player X: {this.state.XWeights.map(w => w.toFixed(2)).join(', ')}*/}
+                        {/*<input type="checkbox" checked={this.state.xLearningEnabled ? 'checked' : ''}*/}
+                               {/*id="enable-x-learning"*/}
+                               {/*onChange={() => this.toggleXLearning()}/>*/}
+                        {/*<label htmlFor="enable-x-learning">Enable learning</label>*/}
+                    {/*</p>*/}
+                    {/*<p>*/}
+                        {/*Weights of Player O: {this.state.OWeights.map(w => w.toFixed(2)).join(', ')}*/}
+                        {/*<input type="checkbox" checked={this.state.oLearningEnabled ? 'checked' : ''}*/}
+                               {/*id="enable-learning"*/}
+                               {/*onChange={() => this.toggleOLearning()}/>*/}
+                        {/*<label htmlFor="enable-learning">Enable learning</label>*/}
+                    {/*</p>*/}
                 </div>
                 <div className="game">
                     <div className="game-options">
