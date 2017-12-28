@@ -5,7 +5,8 @@ tic-tac-toe-ai   [![Build Status](https://travis-ci.org/Jeff-Tian/tic-tac-toe-ai
 
 **在线访问：** https://jeff-tian.github.io/tic-tac-toe-ai/
 
-###本地运行：
+本地运行：
+---
 ```bash
 git clone https://github.com/Jeff-Tian/tic-tac-toe-ai.git
 npm install -g create-react-app
@@ -13,9 +14,10 @@ npm install
 npm start
 ```
 
-###获胜率变化：
+获胜率变化：
+----------
 |  X \<随机> # |  X \<随机> % |  O \<AI> # |  O \<AI> %  |  平 #  | 平 %  |  总计 #  |
-|:------------:|:------------:|:----------:|:-----------:|:------:|:-----:|:--------:|
+|--------------|--------------|------------|-------------|--------|-------|----------|
 |      12      |      12%     |     80     |     80%     |    8   |   8%  |    100   |
 |      21      |      10%     |    166     |     83%     |   13   |   7%  |    200   |
 |      28      |       9%     |    247     |     82%     |   25   |   8%  |    300   |
@@ -29,7 +31,8 @@ npm start
 
 ![AI 学习表现 %](public/images/ai%25.png)
 
-###测试：
+测试：
+---
 ```bash
 npm test
 ```
