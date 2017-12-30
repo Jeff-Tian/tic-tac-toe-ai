@@ -1,11 +1,9 @@
-import SimpleComputer from "./SimpleComputer";
+import SimpleComputer from "./Judger";
 import ArrayHelper from "../Helpers/ArrayHelper";
-
-const weights = [0, 1, 1];
 
 export default class AI {
     constructor(meFirst) {
-        this.weights = Object.assign([], weights);
+        this.weights = Object.assign([], [0, 1, 1]);
         this.learningEnabled = true;
         this.meFirst = meFirst;
         this.setWeightsUpdatedCallback(function () {
@@ -14,7 +12,7 @@ export default class AI {
 
     static nextMove(squares, weights, meFirst, nextIsMe) {
         let spots = SimpleComputer.getSpots(squares);
-        let nextBoards = SimpleComputer.getNewBoardsBySpots(squares, spots);
+        let nextBoards = SimpleComputer.generateNewBoardsBySpots(squares, spots);
         let scores = nextBoards.map(b => SimpleComputer.getBoardScore(b, weights, meFirst, nextIsMe).total);
         let index = ArrayHelper.findIndexOfMax(scores);
 
@@ -42,14 +40,6 @@ export default class AI {
     clean() {
         this.lastBitmapSquares = undefined;
     }
-
-    getScoreAt(bitmap, i, nextIsMe) {
-        let newBitmap = bitmap.slice();
-        newBitmap[i] = 1;
-
-        return SimpleComputer.getBoardScore(newBitmap, this.weights, this.meFirst, nextIsMe).total;
-    }
-
     getWeights() {
         return this.weights;
     }

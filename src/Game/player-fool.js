@@ -1,7 +1,13 @@
 import Modes from "./Modes";
 import ComputerFool from "./ComputerFool";
 
-export default class PlayerX {
+export default class PlayerFool {
+    constructor(me, enemy, meFirst) {
+        this.me = me;
+        this.enemy = enemy;
+        this.meFirst = meFirst;
+    }
+
     nextMove(squares, game) {
         console.log(squares);
         let bitmap = squares.map(s => {

@@ -15,7 +15,7 @@ function testBoardAvailableSpots(squares, spots, message) {
 
 function testGetNewBoards(initialSquares, spots, newBoards) {
     test('', () => {
-        expect(Computer.getNewBoardsBySpots(initialSquares, spots)).toEqual(newBoards);
+        expect(Computer.generateNewBoardsBySpots(initialSquares, spots)).toEqual(newBoards);
     })
 }
 

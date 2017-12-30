@@ -6,6 +6,7 @@ import GameModes from './Modes';
 import PlayerFool from './player-fool';
 import ai from './player-ai';
 import Stats from './Stats';
+import Judger from "./Judger";
 
 let PlayerX = new PlayerFool('X', 'O', true);
 let PlayerO = new ai('O', 'X', false);
@@ -17,15 +18,13 @@ const initialState = {
     }],
     xIsNext: true,
     stepNumber: 0,
-    currentMode: GameModes.humanVsExpertComputer,
+    currentMode: GameModes.humanVsComputer,
     autoStart: false,
     OWeights: Object.assign([], PlayerO.getWeights()),
     XWeights: Object.assign([], PlayerX.getWeights()),
     winnerInfo: null,
     round: 1,
     countDown: 0,
-    oLearningEnabled: PlayerO.getLearningEnabled(),
-    xLearningEnabled: PlayerX.getLearningEnabled()
 };
 
 export default class Game extends React.Component {
@@ -35,14 +34,30 @@ export default class Game extends React.Component {
 
         this.optionChanged = this.optionChanged.bind(this);
         this.changeCountdownNumber = this.changeCountdownNumber.bind(this);
+        this.players = {
+            X: PlayerX,
+            O: PlayerO
+        }
+    }
+
+    componentDidMount() {
         PlayerO.setWeightsUpdatedCallback(this.weightsUpdated.bind(this));
         PlayerX.setWeightsUpdatedCallback(this.weightsUpdated.bind(this));
+
     }
 
     changeCountdownNumber(e) {
         this.setState({
             countDown: e.target.value
         })
+    }
+
+    click(i) {
+        const history = this.state.history.slice(0, this.state.stepNumber + 1);
+        const current = history[history.length - 1];
+        const squares = current.squares.slice();
+
+        this.placeAt(squares, i, history);
     }
 
     handleClick(i, score) {
@@ -226,29 +241,6 @@ export default class Game extends React.Component {
         return true;
     }
 
-    toggleXLearning() {
-        PlayerX.toggleLearning();
-
-        this.setState({
-            xLearningEnabled: PlayerX.getLearningEnabled()
-        })
-    }
-
-    toggleOLearning() {
-        PlayerO.toggleLearning();
-
-        this.setState({
-            oLearningEnabled: PlayerO.getLearningEnabled()
-        });
-    }
-
-    showScore(i) {
-        if (this.state.stepNumber > 1) {
-            let score = PlayerO.getScoreAt(this.state.history[this.state.stepNumber - 1].squares, i, !this.state.xIsNext);
-            console.log("score at ", i, ' is ', score);
-        }
-    }
-
     render() {
         const history = this.state.history;
         const current = history[this.state.stepNumber];
@@ -286,18 +278,18 @@ export default class Game extends React.Component {
                 <div>
                     <h2>第 {this.state.round} 回合</h2>
                     {/*<p>*/}
-                        {/*Weights of Player X: {this.state.XWeights.map(w => w.toFixed(2)).join(', ')}*/}
-                        {/*<input type="checkbox" checked={this.state.xLearningEnabled ? 'checked' : ''}*/}
-                               {/*id="enable-x-learning"*/}
-                               {/*onChange={() => this.toggleXLearning()}/>*/}
-                        {/*<label htmlFor="enable-x-learning">Enable learning</label>*/}
+                    {/*Weights of Player X: {this.state.XWeights.map(w => w.toFixed(2)).join(', ')}*/}
+                    {/*<input type="checkbox" checked={this.state.xLearningEnabled ? 'checked' : ''}*/}
+                    {/*id="enable-x-learning"*/}
+                    {/*onChange={() => this.toggleXLearning()}/>*/}
+                    {/*<label htmlFor="enable-x-learning">Enable learning</label>*/}
                     {/*</p>*/}
                     {/*<p>*/}
-                        {/*Weights of Player O: {this.state.OWeights.map(w => w.toFixed(2)).join(', ')}*/}
-                        {/*<input type="checkbox" checked={this.state.oLearningEnabled ? 'checked' : ''}*/}
-                               {/*id="enable-learning"*/}
-                               {/*onChange={() => this.toggleOLearning()}/>*/}
-                        {/*<label htmlFor="enable-learning">Enable learning</label>*/}
+                    {/*Weights of Player O: {this.state.OWeights.map(w => w.toFixed(2)).join(', ')}*/}
+                    {/*<input type="checkbox" checked={this.state.oLearningEnabled ? 'checked' : ''}*/}
+                    {/*id="enable-learning"*/}
+                    {/*onChange={() => this.toggleOLearning()}/>*/}
+                    {/*<label htmlFor="enable-learning">Enable learning</label>*/}
                     {/*</p>*/}
                 </div>
                 <div className="game">
@@ -310,7 +302,9 @@ export default class Game extends React.Component {
                     <div className="game-board">
                         <Board squares={current.squares}
                                onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleClick(i)}
-                               winner={this.state.winnerInfo} onMouseEnter={(i) => this.showScore(i)}/>
+                               winner={this.state.winnerInfo} onMouseEnter={() => {
+                            console.log('mouse enter');
+                        }}/>
                     </div>
                     <div className="game-info">
                         <div>{status}</div>
@@ -335,11 +329,31 @@ export default class Game extends React.Component {
 
     getMoveDescription(move, step) {
         if (move) {
-            let {col, row} = ArrayHelper.getPositionByIndex(step.squares, step.squareIndex);
+            let {col, row} = ArrayHelper.getRowColumnByIndex(step.squares, step.squareIndex);
 
             return '第 #' + move + ` 步 @ (${col}, ${row})`;
         }
 
         return '重新开始';
+    }
+
+    move(squares) {
+        if (this.state.xIsNext) {
+            return PlayerX.nextMove(squares, this);
+        }
+
+        return PlayerO.nextMove(squares, this);
+    }
+
+    autoPlay() {
+        this.state.currentMode = GameModes.humanVsHuman;
+        let squares = this.state.history[this.state.history.length - 1].squares;
+
+        while (!Judger.gameEnds(PlayerO.convertSquaresToBitmap(squares))) {
+            this.move(squares);
+            break;
+
+            squares = this.state.history[this.state.history.length - 1].squares;
+        }
     }
 }

@@ -69,7 +69,7 @@ export default {
         }).filter(s => !isNaN(s));
     },
 
-    getNewBoardsBySpots(initialSquares, spots) {
+    generateNewBoardsBySpots(initialSquares, spots) {
         return spots.map(i => {
             let newSquares = initialSquares.slice();
             newSquares[i] = 1;

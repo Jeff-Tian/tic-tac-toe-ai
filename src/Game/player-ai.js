@@ -57,8 +57,4 @@ export default class PlayerExpert {
     clean() {
         this.expert.clean();
     }
-
-    getScoreAt(squares, i, nextIsMe) {
-        return this.expert.getScoreAt(this.convertSquaresToBitmap(squares), i, nextIsMe);
-    }
 }

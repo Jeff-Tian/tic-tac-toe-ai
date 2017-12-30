@@ -55,13 +55,18 @@ function checkSides(bitmap) {
 
 export default {
     getBoardScore: function (bitmap, weights, meFirst, nextIsMe) {
+        function nameFactors(factors) {
+            return {
+                const: factors[0],
+                danger: factors[1],
+                occupyCenter: factors[2]
+            };
+        }
+
         let {danger, lost, chance, win} = checkSides(bitmap);
         let factors = [
                 1,
                 danger,
-                // chance,
-                // meFirst ? 1 : -1,
-                // nextIsMe ? chance : 0,
                 bitmap[4] === 1 ? 1 : -1
             ]
         ;
@@ -69,6 +74,7 @@ export default {
         if (lost) {
             return {
                 factors: factors,
+                namedFactors: nameFactors(factors),
                 total: -100
             }
         }
@@ -76,6 +82,7 @@ export default {
         if (win) {
             return {
                 factors: factors,
+                namedFactors: nameFactors(factors),
                 total: 100
             }
         }
@@ -96,12 +103,13 @@ export default {
 
         return {
             factors: factors,
+            namedFactors: nameFactors(factors),
             total: score
         };
     },
 
-    getSpots(sqaures) {
-        return sqaures.map((s, i) => {
+    getSpots(bitmapSquares) {
+        return bitmapSquares.map((s, i) => {
             if (s === 0) {
                 return i;
             }
@@ -110,12 +118,61 @@ export default {
         }).filter(s => !isNaN(s));
     },
 
-    getNewBoardsBySpots(initialSquares, spots) {
+    generateNewBoardsBySpots(currentBoard, spots) {
+        spots = spots || this.getSpots(currentBoard);
+
         return spots.map(i => {
-            let newSquares = initialSquares.slice();
+            let newSquares = currentBoard.slice();
             newSquares[i] = 1;
 
             return newSquares;
         });
+    },
+
+    gameProgress(bitmapSquares) {
+        let emptySpots = bitmapSquares.filter(b => b === 0);
+
+        if (emptySpots.length === bitmapSquares.length) {
+            return {
+                win: false,
+                lost: false,
+                fair: false
+            }
+        }
+
+        for (let i = 0; i < sides.length; i++) {
+            let side = bitmapSquares.filter((_, j) => sides[i].indexOf(j) >= 0);
+
+            let ones = side.filter(b => b === 1);
+            let negatives = side.filter(b => b === -1);
+
+            if (ones.length === 3) {
+                return {
+                    win: sides[i],
+                    lost: false,
+                    fair: false
+                };
+            }
+
+            if (negatives.length === 3) {
+                return {
+                    win: false,
+                    lost: sides[i],
+                    fair: false
+                };
+            }
+        }
+
+        return {
+            win: false,
+            lost: false,
+            fair: emptySpots.length === 0
+        }
+    },
+
+    gameEnds(bitmapSquares) {
+        let res = this.gameProgress(bitmapSquares)
+
+        return res.fair || res.win || res.lost;
     }
 }
