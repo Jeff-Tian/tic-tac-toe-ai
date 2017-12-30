@@ -1,4 +1,4 @@
-import SimpleComputer from "./Judger";
+import Judger from "./Judger";
 import ArrayHelper from "../Helpers/ArrayHelper";
 
 export default class AI {
@@ -11,9 +11,9 @@ export default class AI {
     }
 
     static nextMove(squares, weights, meFirst, nextIsMe) {
-        let spots = SimpleComputer.getSpots(squares);
-        let nextBoards = SimpleComputer.generateNewBoardsBySpots(squares, spots);
-        let scores = nextBoards.map(b => SimpleComputer.getBoardScore(b, weights, meFirst, nextIsMe).total);
+        let spots = Judger.getSpots(squares);
+        let nextBoards = Judger.generateNewBoardsBySpots(squares, spots);
+        let scores = nextBoards.map(b => Judger.getBoardScore(b, weights, meFirst, nextIsMe).total);
         let index = ArrayHelper.findIndexOfMax(scores);
 
         return {nextIndex: spots[index], score: scores[index]};
@@ -53,9 +53,9 @@ export default class AI {
             return;
         }
 
-        let estimatedLastScore = SimpleComputer.getBoardScore(lastSquares, this.weights, false, true);
+        let estimatedLastScore = Judger.getBoardScore(lastSquares, this.weights, false, true);
         console.log('I thought it was ', estimatedLastScore);
-        let actualScore = SimpleComputer.getBoardScore(currentSquares, this.weights, false, true);
+        let actualScore = Judger.getBoardScore(currentSquares, this.weights, false, true);
         console.log('but turned out to be ', actualScore);
         let diff = actualScore.total - estimatedLastScore.total;
 
