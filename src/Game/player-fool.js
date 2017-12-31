@@ -8,8 +8,7 @@ export default class PlayerFool {
         this.meFirst = meFirst;
     }
 
-    nextMove(squares, game) {
-        console.log(squares);
+    nextMove(squares, game, callback) {
         let bitmap = squares.map(s => {
             if (s === 'X') {
                 return 1;
@@ -22,11 +21,7 @@ export default class PlayerFool {
             return 0;
         });
 
-        if (game.state.currentMode === Modes.computerVsComputer) {
-            game.handleClick(ComputerFool.nextMove(bitmap));
-        } else {
-            console.log('let human move');
-        }
+        game.handleClick(ComputerFool.nextMove(bitmap), callback);
     }
 
     getWeights() {

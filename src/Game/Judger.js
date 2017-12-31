@@ -170,9 +170,7 @@ export default {
         }
     },
 
-    gameEnds(bitmapSquares) {
-        let res = this.gameProgress(bitmapSquares)
-
-        return res.fair || res.win || res.lost;
-    }
+    gameEnds(progress) {
+        return progress.fair || progress.win || progress.lost;
+    },
 }

@@ -10,12 +10,11 @@ export default class PlayerExpert {
         console.log('creating player ', me);
     }
 
-    nextMove(squares, game) {
+    nextMove(squares, game, callback) {
         let bitmap = this.convertSquaresToBitmap(squares);
 
-        console.log('player ', this.me, ' moving...');
         let {nextIndex, score} = this.expert.nextMove(bitmap, !game.state.xIsNext);
-        game.handleClick(nextIndex, score);
+        game.handleClick(nextIndex, callback);
     }
 
     convertSquaresToBitmap(squares) {
@@ -47,7 +46,8 @@ export default class PlayerExpert {
 
     toggleLearning() {
         this.expert.learningEnabled = !this.expert.learningEnabled;
-        console.log(this.expert.learningEnabled + '--');
+
+        return this.expert.learningEnabled;
     }
 
     tryLearn(squares) {
