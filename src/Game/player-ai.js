@@ -13,7 +13,7 @@ export default class PlayerExpert {
     nextMove(squares, game, callback) {
         let bitmap = this.convertSquaresToBitmap(squares);
 
-        let {nextIndex, score} = this.expert.nextMove(bitmap, !game.state.xIsNext);
+        let nextIndex = this.expert.nextMove(bitmap, !game.state.xIsNext);
         game.handleClick(nextIndex, callback);
     }
 

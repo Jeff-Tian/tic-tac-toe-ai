@@ -1,4 +1,3 @@
-import Modes from "./Modes";
 import ComputerFool from "./ComputerFool";
 
 export default class PlayerFool {

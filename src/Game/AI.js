@@ -16,7 +16,7 @@ export default class AI {
         let scores = nextBoards.map(b => Judger.getBoardScore(b, weights, meFirst, nextIsMe).total);
         let index = ArrayHelper.findIndexOfMax(scores);
 
-        return {nextIndex: spots[index], score: scores[index]};
+        return spots[index];
     }
 
     setWeightsUpdatedCallback(cb) {
@@ -25,9 +25,7 @@ export default class AI {
 
     nextMove(squares, nextIsMe) {
         this.tryLearn(squares, nextIsMe);
-        let {nextIndex, score} = AI.nextMove(squares, this.weights, this.meFirst, nextIsMe);
-
-        return {nextIndex, score};
+        return AI.nextMove(squares, this.weights, this.meFirst, nextIsMe);
     }
 
     tryLearn(squares, nextIsMe) {
@@ -40,6 +38,7 @@ export default class AI {
     clean() {
         this.lastBitmapSquares = undefined;
     }
+
     getWeights() {
         return this.weights;
     }
