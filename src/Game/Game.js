@@ -57,31 +57,51 @@ export default class Game extends React.Component {
         const current = history[history.length - 1];
         const squares = current.squares.slice();
 
-        if (this.calculateWinner(squares) || squares[i]) {
+        if (this.notifyGameOverIfEnds(squares)) {
             return;
         }
 
-        if (this.calculateFair(squares) || squares[i]) {
+        if (squares[i]) {
             return;
         }
 
-        let self = this;
         this.placeAt(squares, i, history, function () {
-            if (!this.state.autoPlaying) {
-                if (!self.state.xIsNext && self.state.currentMode !== GameModes.humanVsHuman) {
-                    PlayerO.nextMove(self.state.history[self.state.stepNumber].squares, self);
-                    return;
-                }
+            if (this.notifyGameOverIfEnds(this.state.history[this.state.stepNumber].squares)) {
+                return;
+            }
 
-                if (self.state.xIsNext && (self.state.currentMode === GameModes.computerVsComputer)) {
-                    PlayerX.nextMove(self.state.history[self.state.stepNumber].squares, self);
-                    return;
-                }
+            if (!this.state.autoPlaying) {
+                setTimeout(() => {
+                    if (!this.state.xIsNext && this.state.currentMode !== GameModes.humanVsHuman) {
+                        PlayerO.nextMove(this.state.history[this.state.stepNumber].squares, this);
+                        return;
+                    }
+
+                    if (this.state.xIsNext && (this.state.currentMode === GameModes.computerVsComputer)) {
+                        PlayerX.nextMove(this.state.history[this.state.stepNumber].squares, this);
+                        return;
+                    }
+                }, 10);
             }
 
             typeof callback === 'function' && callback();
         });
 
+    }
+
+    notifyGameOverIfEnds(squares) {
+        let progress = Judger.gameProgress(PlayerO.convertSquaresToBitmap(squares));
+
+        if (Judger.gameEnds(progress)) {
+            this.gameEnds({
+                who: progress.lost ? 'X' : (progress.win ? 'O' : null),
+                where: progress.lost || progress.win || []
+            });
+
+            return true;
+        }
+
+        return false;
     }
 
     placeAt(squares, i, history, afterStateChangedCallback) {
@@ -120,21 +140,16 @@ export default class Game extends React.Component {
         this.setState({
             currentMode: selectedMode,
             autoStart: autoStart
-        });
-
-        let self = this;
-        setTimeout(() => {
-            self.autoStart(selectedMode, autoStart);
+        }, () => {
+            this.autoStart(selectedMode, autoStart);
         });
     }
 
     autoStart(selectedMode, autoStart) {
         if (selectedMode === GameModes.computerVsComputer && autoStart && this.state.stepNumber === 0) {
-            this.setState({endsAt: undefined});
-            let self = this;
-            setTimeout(() => {
-                PlayerX.nextMove(self.state.history[self.state.stepNumber].squares, self);
-            })
+            this.setState({endsAt: undefined}, () => {
+                PlayerX.nextMove(this.state.history[this.state.stepNumber].squares, this);
+            });
         }
     }
 
@@ -167,68 +182,29 @@ export default class Game extends React.Component {
         });
     }
 
-    calculateWinner(squares) {
-        if (this.state.winnerInfo) {
-            return this.state.winnerInfo;
-        }
-
-        const lines = [
-            [0, 1, 2],
-            [3, 4, 5],
-            [6, 7, 8],
-            [0, 3, 6],
-            [1, 4, 7],
-            [2, 5, 8],
-            [0, 4, 8],
-            [2, 4, 6],
-        ];
-        for (let i = 0; i < lines.length; i++) {
-            const [a, b, c] = lines[i];
-            if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-                this.gameEnds({who: squares[a], where: [a, b, c]});
-                return this.state.winnerInfo;
-            }
-        }
-
-        // this.setState({round: this.state.round + 1})
-        return null;
-    }
-
     gameEnds(winnerInfo) {
         console.log('ends at ', this.state.stepNumber, this.state.endsAt)
         PlayerO.tryLearn(this.state.history[this.state.stepNumber].squares);
         PlayerO.clean();
         Stats.updateRoundResult(winnerInfo ? winnerInfo.who : null);
 
-        let self = this;
         this.setState(
             {
                 winnerInfo: winnerInfo,
                 round: this.state.round + 1,
-                endsAt: this.state.stepNumber
+                endsAt: this.state.stepNumber,
             }, () => {
-                if (self.state.countDown > 0) {
-                    self.setState({
-                        countDown: self.state.countDown - 1
+                if (this.state.countDown > 0) {
+                    this.setState({
+                        countDown: this.state.countDown - 1
                     }, () => {
-                        self.jumpTo(0);
+                        this.jumpTo(0);
                     });
+                } else {
+                    this.setState({autoPlaying: false})
                 }
             }
         );
-    }
-
-    calculateFair(squares) {
-        for (let i = 0; i < squares.length; i++) {
-            if (!squares[i]) {
-                return false;
-            }
-        }
-
-        console.log('fair !');
-        this.gameEnds(null);
-
-        return true;
     }
 
     render() {
@@ -301,7 +277,7 @@ export default class Game extends React.Component {
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <button onClick={() => this.learn()}>开始学习</button>
                         <button id="silent-learn-button" onClick={() => this.silentLearn()}
-                                disabled={this.state.autoPlaying}>静默学习
+                                disabled={this.state.autoPlaying} style={{display: 'none'}}>静默学习
                         </button>
                     </p>
                 </div>
@@ -346,6 +322,7 @@ export default class Game extends React.Component {
                     where: progress.win || progress.lost || []
                 });
 
+                debugger;
                 this.setState({
                     autoPlaying: false
                 });
