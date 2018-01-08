@@ -14,7 +14,9 @@ export default class CultureSelector
         }
     }
 
-    changeCultureTo(culture) {
+    changeCultureTo(event, culture) {
+        event.preventDefault();
+
         Resources.setCulture(culture);
 
         this.setState({
@@ -28,12 +30,12 @@ export default class CultureSelector
     render() {
         return (
             <span style={{fontSize: "small", marginLeft: "2em", fontWeight: "normal"}}>
-                <a href="javascript: void(0);" onClick={() => this.changeCultureTo('en-US')}
+                <a href="" onClick={(event) => this.changeCultureTo(event, 'en-US')}
                    style={{fontWeight: this.state.currentCulture === 'en-US' ? 'bold' : 'normal'}}>
                     {this.state.currentCulture === 'en-US' ? '[English]' : 'English'}
                 </a>
                 &nbsp;&nbsp;
-                <a href="javascript: void(0);" onClick={() => this.changeCultureTo('zh-CN')}
+                <a href="" onClick={(event) => this.changeCultureTo(event, 'zh-CN')}
                    style={{fontWeight: this.state.currentCulture === 'zh-CN' ? 'bold' : 'normal'}}>
                     {this.state.currentCulture === 'zh-CN' ? '【中文】' : '中文'}
                 </a>
