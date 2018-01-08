@@ -1,5 +1,6 @@
 import React from 'react';
 import GameModes from './Modes';
+import Resources from './Resources';
 
 export default class GameOptions extends React.Component {
     constructor(props) {
@@ -43,8 +44,9 @@ export default class GameOptions extends React.Component {
                         <p key={mode}>
                             <button disabled={this.props.readonly}
                                     onClick={() => this.selectMode(mode)}>
-                                {this.state.selected === GameModes[mode] ? <strong>{GameModes[mode]}</strong> :
-                                    <span>{GameModes[mode]}</span>}
+                                {this.state.selected === GameModes[mode] ?
+                                    <strong>{Resources.getInstance()[GameModes[mode]]}</strong> :
+                                    <span>{Resources.getInstance()[GameModes[mode]]}</span>}
                             </button>
                         </p>
                     )
@@ -52,7 +54,7 @@ export default class GameOptions extends React.Component {
                 <p>
                     <input id="auto-start" type="checkbox" onChange={() => this.toggleAutoStart()}
                            checked={this.state.autoStart}></input>
-                    <label htmlFor="auto-start">自动运行（机-机对战模式）</label>
+                    <label htmlFor="auto-start">{Resources.getInstance().autoStart}</label>
                 </p>
             </div>
         );

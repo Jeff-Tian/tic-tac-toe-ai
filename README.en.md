@@ -1,13 +1,12 @@
-tic-tac-toe-ai （三子棋里的阿尔法狗）  [![Build Status](https://travis-ci.org/Jeff-Tian/tic-tac-toe-ai.svg?branch=master)](https://travis-ci.org/Jeff-Tian/tic-tac-toe-ai)
+tic-tac-toe-ai (Alpha Go of tic-tac-toe)  [![Build Status](https://travis-ci.org/Jeff-Tian/tic-tac-toe-ai.svg?branch=master)](https://travis-ci.org/Jeff-Tian/tic-tac-toe-ai)
 =================
+=> [中文版](README.md)
 
-=> [English version](README.en.md)
+This is my first ai program. It was started by learning the [tic-tac-toe tutuor](https://reactjs.org/tutorial/tutorial.html) of React Js, after finished the  homeworks, I think it's cool to make a machine learning enabled tic-tac-toe program.
 
-这是我写的第一个AI程序。起源于在学习完 react js 的 [tic-tac-toe 教程](https://reactjs.org/tutorial/tutorial.html)后，我对自己说，为什么不把它升级成一个 AI 版本呢？
+**Visit it online:** https://jeff-tian.github.io/tic-tac-toe-ai/
 
-**在线访问：** https://jeff-tian.github.io/tic-tac-toe-ai/
-
-本地运行：
+Run local:
 ---
 ```bash
 git clone https://github.com/Jeff-Tian/tic-tac-toe-ai.git
@@ -16,9 +15,9 @@ npm install
 npm start
 ```
 
-获胜率变化：
+The winning rate trend：
 ----------
-|  X \<随机> # |  X \<随机> % |  O \<AI> # |  O \<AI> %  |  平 #  | 平 %  |  总计 #  |
+|  X \<Random> # |  X \<Random> % |  O \<AI> # |  O \<AI> %  |  Fair #  | Fair %  |  Total #  |
 |--------------|--------------|------------|-------------|--------|-------|----------|
 |      12      |      12%     |     80     |     80%     |    8   |   8%  |    100   |
 |      21      |      10%     |    166     |     83%     |   13   |   7%  |    200   |
@@ -29,11 +28,11 @@ npm start
 |     824      |       8%     |   8352     |     83%     |  843   |   8%  |  10024   |
 
 
-![AI 学习表现 #](public/images/ai%23.png)
+![The learning behavior of AI #](public/images/ai%23.png)
 
-![AI 学习表现 %](public/images/ai%25.png)
+![The learning behaviro of AI %](public/images/ai%25.png)
 
-测试：
+Run tests:
 ---
 ```bash
 npm test

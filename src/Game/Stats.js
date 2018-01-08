@@ -1,4 +1,5 @@
 import React from 'react';
+import Resources from "./Resources";
 
 let state = {
     XWin: 0,
@@ -51,15 +52,15 @@ class Stats extends React.Component {
     render() {
         return (
             <div>
-                <h3>统计:</h3>
+                <h3>{Resources.getInstance().stats}</h3>
                 <table border="1">
                     <thead>
                     <tr>
                         <th>Measure</th>
-                        <th>X 胜出:</th>
-                        <th>O 胜出:</th>
-                        <th>平局:</th>
-                        <th>总计:</th>
+                        <th>X {Resources.getInstance().wins}</th>
+                        <th>O {Resources.getInstance().wins}</th>
+                        <th>{Resources.getInstance().fair}</th>
+                        <th>{Resources.getInstance().total}</th>
                     </tr>
                     </thead>
                     <tbody>

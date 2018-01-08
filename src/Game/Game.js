@@ -7,6 +7,8 @@ import PlayerFool from './player-fool';
 import ai from './player-ai';
 import Stats from './Stats';
 import Judger from "./Judger";
+import CultureSelector from './CultureSelector';
+import Resources from './Resources';
 
 let PlayerX = new PlayerFool('X', 'O', true);
 let PlayerO = new ai('O', 'X', false);
@@ -106,7 +108,6 @@ export default class Game extends React.Component {
 
     placeAt(squares, i, history, afterStateChangedCallback) {
         if (squares[i]) {
-            console.log("you can not place here!");
             return;
         }
 
@@ -213,7 +214,7 @@ export default class Game extends React.Component {
         const winner = this.state.winnerInfo ? this.state.winnerInfo.who : null;
 
         const moves = history.map((step, move) => {
-            const desc = this.getMoveDescription(move, step);
+            const desc = Resources.getInstance().getMove(move, step.squares, step.squareIndex);
             return (
                 <li key={move}>
                     <button onClick={() => this.jumpTo(move)}>
@@ -233,22 +234,26 @@ export default class Game extends React.Component {
 
         let status;
         if (winner) {
-            status = '胜利者: ' + winner;
+            status = Resources.getInstance().winner + winner;
         } else {
-            status = '轮到: ' + (this.state.xIsNext ? 'X' : (this.state.currentMode === GameModes.humanVsHuman ? 'O' : '电脑')) + ' 走子';
+            status = Resources.getInstance().getNextPlayer(this.state.xIsNext, this.state.currentMode);
         }
 
         return (
             <div className="container">
-                <h1>人工智能版三子棋</h1>
+                <h1>
+                    {Resources.getInstance().header}
+                    <CultureSelector currentCulture="zh-CN"
+                                     cultureChanged={() => this.forceUpdate()}/>
+                </h1>
                 <div>
-                    <h2>第 {this.state.round} 回合</h2>
+                    <h2>{Resources.getInstance().getRound(this.state.round)}</h2>
                     <p>
-                        O 的权重: {this.state.OWeights.map(w => w.toFixed(2)).join(', ')}
+                        O {Resources.getInstance().weightsOf}{this.state.OWeights.map(w => w.toFixed(2)).join(', ')}
                         <input type="checkbox" checked={this.players.O.getLearningEnabled() ? 'checked' : ''}
                                id="enable-learning"
                                onChange={() => this.setState({oLearningEnabled: this.players.O.toggleLearning()})}/>
-                        < label htmlFor="enable-learning">学习状态</label>
+                        < label htmlFor="enable-learning">{Resources.getInstance().learningStatus}</label>
                     </p>
                 </div>
                 <div className="game">
@@ -272,10 +277,10 @@ export default class Game extends React.Component {
                 </div>
                 <div>
                     <p>
-                        自动学习 <input type="number" onChange={this.changeCountdownNumber}
-                                    value={this.state.countDown}></input> 局
+                        {Resources.getInstance().autoPlay} <input type="number" onChange={this.changeCountdownNumber}
+                                                                  value={this.state.countDown}></input> {Resources.getInstance().round}
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <button onClick={() => this.learn()}>开始学习</button>
+                        <button onClick={() => this.learn()}>{Resources.getInstance().startLearning}</button>
                         <button id="silent-learn-button" onClick={() => this.silentLearn()}
                                 disabled={this.state.autoPlaying} style={{display: 'none'}}>静默学习
                         </button>
@@ -283,20 +288,12 @@ export default class Game extends React.Component {
                 </div>
                 <Stats></Stats>
                 <p>
-                    源代码：<a href="https://github.com/Jeff-Tian/tic-tac-toe-ai" target="_blank" rel="noopener noreferrer">https://github.com/Jeff-Tian/tic-tac-toe-ai</a>
+                    {Resources.getInstance().sourceCode}
+                    <a href="https://github.com/Jeff-Tian/tic-tac-toe-ai"
+                       target="_blank" rel="noopener noreferrer">https://github.com/Jeff-Tian/tic-tac-toe-ai</a>
                 </p>
             </div>
         );
-    }
-
-    getMoveDescription(move, step) {
-        if (move) {
-            let {col, row} = ArrayHelper.getRowColumnByIndex(step.squares, step.squareIndex);
-
-            return '第 #' + move + ` 步 @ (${col}, ${row})`;
-        }
-
-        return '重新开始';
     }
 
     move(squares, callback) {
