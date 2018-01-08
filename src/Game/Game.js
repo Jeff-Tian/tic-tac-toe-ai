@@ -1,7 +1,6 @@
 import React from 'react';
 import Board from './Board';
 import GameOptions from './Options';
-import ArrayHelper from '../Helpers/ArrayHelper';
 import GameModes from './Modes';
 import PlayerFool from './player-fool';
 import ai from './player-ai';
