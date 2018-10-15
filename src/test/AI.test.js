@@ -2,7 +2,7 @@ import React from 'react';
 import AI from '../Game/AI';
 
 test('AI can set weights', () => {
-    let currentWeights = [0, 1, 1];
+    let currentWeights = [0, 1, 1, 1];
 
     let ai = new AI(false);
     ai.setWeights(currentWeights);
@@ -22,7 +22,7 @@ test('AI can update weights by itself', () => {
     ];
 
     let ai = new AI(false);
-    ai.setWeights([0, 1, 1]);
+    ai.setWeights([0, 1, 1, 0]);
     ai.learn(lastSquares, currentSquares);
-    expect(ai.getWeights()).toEqual([-10, -9, 11]);
+    expect(ai.getWeights()).toEqual([-10, -9, 11, -20]);
 })

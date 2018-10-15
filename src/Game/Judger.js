@@ -21,10 +21,11 @@ const sides = [
 ];
 
 function checkSides(bitmap) {
-    let d = 0;
+    let danger = 0;
     let dead = 0;
-    let w = 0;
-    let c = 0;
+    let win = 0;
+    let chance = 0;
+    let bad = 0;
 
     for (let i = 0; i < sides.length; i++) {
         let side = bitmap.filter((_, j) => sides[i].indexOf(j) >= 0);
@@ -34,7 +35,7 @@ function checkSides(bitmap) {
         let ones = side.filter(b => b === 1);
 
         if (negatives.length === 2 && zeros.length === 1) {
-            d++;
+            danger++;
         }
 
         if (negatives.length === 3) {
@@ -42,15 +43,19 @@ function checkSides(bitmap) {
         }
 
         if (ones.length === 3) {
-            w++;
+            win++;
         }
 
         if (ones.length === 2 && zeros.length === 1) {
-            c++;
+            chance++;
+        }
+
+        if (negatives.length === 1 && zeros.length === 2) {
+            bad++;
         }
     }
 
-    return {danger: d, lost: dead, chance: c, win: w};
+    return {danger: danger, lost: dead, chance: chance, win: win, bad: bad};
 }
 
 export default {
@@ -59,15 +64,17 @@ export default {
             return {
                 const: factors[0],
                 danger: factors[1],
-                occupyCenter: factors[2]
+                occupyCenter: factors[2],
+                bad: factors[3],
             };
         }
 
-        let {danger, lost, chance, win} = checkSides(bitmap);
+        let {danger, lost, chance, win, bad} = checkSides(bitmap);
         let factors = [
                 1,
                 danger,
-                bitmap[4] === 1 ? 1 : -1
+                bitmap[4] === 1 ? 1 : -1,
+                bad
             ]
         ;
 
@@ -91,6 +98,8 @@ export default {
         if (nextIsMe) {
             base += chance;
         }
+
+        console.log('xx-------------', factors, weights);
 
         let score = factors.map((s, i) => s * weights[i]).reduce((prev, next) => prev + next, base);
         if (score >= 100) {
