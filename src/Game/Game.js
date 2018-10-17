@@ -22,6 +22,7 @@ const initialState = {
     currentMode: GameModes.humanVsComputer,
     autoStart: false,
     OWeights: Object.assign([], PlayerO.getWeights()),
+    OFactors: Object.assign({}, PlayerO.getFactors()),
     XWeights: Object.assign([], PlayerX.getWeights()),
     winnerInfo: null,
     round: 1,
@@ -175,9 +176,9 @@ export default class Game extends React.Component {
     }
 
     weightsUpdated(newWeights) {
-        console.log('updated ', newWeights);
         this.setState({
             OWeights: Object.assign([], PlayerO.getWeights()),
+            OFactors: Object.assign({}, PlayerO.getFactors()),
             XWeights: Object.assign([], PlayerX.getWeights())
         });
     }
@@ -212,23 +213,7 @@ export default class Game extends React.Component {
         const current = history[this.state.stepNumber];
         const winner = this.state.winnerInfo ? this.state.winnerInfo.who : null;
 
-        const moves = history.map((step, move) => {
-            const desc = Resources.getInstance().getMove(move, step.squares, step.squareIndex);
-            return (
-                <li key={move}>
-                    <button onClick={() => this.jumpTo(move)}>
-                        {
-                            move === this.state.stepNumber ?
-                                <strong>
-                                    {desc}
-                                </strong>
-                                : <span>{desc}</span>
-                        }
-                    </button>
-                    {/*<span>{step.score}</span>*/}
-                </li>
-            );
-        });
+        const moves = this.getMoves(history);
 
 
         let status;
@@ -252,22 +237,21 @@ export default class Game extends React.Component {
                         <input type="checkbox" checked={this.players.O.getLearningEnabled() ? 'checked' : ''}
                                id="enable-learning"
                                onChange={() => this.setState({oLearningEnabled: this.players.O.toggleLearning()})}/>
-                        < label htmlFor="enable-learning">{Resources.getInstance().learningStatus}</label>
+                        <label htmlFor="enable-learning">{Resources.getInstance().learningStatus}</label>
                     </p>
+                    <p>{JSON.stringify(this.state.OFactors)}</p>
                 </div>
                 <div className="game">
                     <div className="game-options">
                         <GameOptions readonly={this.state.stepNumber}
                                      optionChanged={this.optionChanged} autoStart={this.state.autoStart}
                                      mode={this.state.currentMode}
-                                     ref={gameOptions => this.gameOptions = gameOptions}></GameOptions>
+                                     ref={gameOptions => this.gameOptions = gameOptions}/>
                     </div>
                     <div className="game-board">
                         <Board squares={current.squares}
                                onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleClick(i)}
-                               winner={this.state.winnerInfo} onMouseEnter={() => {
-                            console.log('mouse enter');
-                        }}/>
+                               winner={this.state.winnerInfo}/>
                     </div>
                     <div className="game-info">
                         <div>{status}</div>
@@ -277,7 +261,7 @@ export default class Game extends React.Component {
                 <div>
                     <p>
                         {Resources.getInstance().autoPlay} <input type="number" onChange={this.changeCountdownNumber}
-                                                                  value={this.state.countDown}></input> {Resources.getInstance().round}
+                                                                  value={this.state.countDown}/> {Resources.getInstance().round}
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <button onClick={() => this.learn()}>{Resources.getInstance().startLearning}</button>
                         <button id="silent-learn-button" onClick={() => this.silentLearn()}
@@ -293,6 +277,26 @@ export default class Game extends React.Component {
                 </p>
             </div>
         );
+    }
+
+    getMoves(history) {
+        return history.map((step, move) => {
+            const desc = Resources.getInstance().getMove(move, step.squares, step.squareIndex);
+            return (
+                <li key={move}>
+                    <button onClick={() => this.jumpTo(move)}>
+                        {
+                            move === this.state.stepNumber ?
+                                <strong>
+                                    {desc}
+                                </strong>
+                                : <span>{desc}</span>
+                        }
+                    </button>
+                    {/*<span>{step.score}</span>*/}
+                </li>
+            );
+        });
     }
 
     move(squares, callback) {
@@ -318,7 +322,6 @@ export default class Game extends React.Component {
                     where: progress.win || progress.lost || []
                 });
 
-                debugger;
                 this.setState({
                     autoPlaying: false
                 });

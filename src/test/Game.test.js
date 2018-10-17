@@ -14,6 +14,7 @@ test('Game can train players', () => {
     expect(game.state()).toEqual({
         "OWeights": [0, 1, 1, 1],
         "XWeights": [],
+        "OFactors": {},
         "autoStart": false,
         "countDown": 0,
         "currentMode": Modes.humanVsComputer,

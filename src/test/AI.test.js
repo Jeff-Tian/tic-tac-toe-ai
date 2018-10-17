@@ -25,4 +25,10 @@ test('AI can update weights by itself', () => {
     ai.setWeights([0, 1, 1, 0]);
     ai.learn(lastSquares, currentSquares);
     expect(ai.getWeights()).toEqual([-10, -9, 11, -20]);
-})
+});
+
+test('AI can get latest factors', () => {
+    let ai = new AI(false);
+
+    expect(ai.getFactors()).toBeDefined();
+});

@@ -20,6 +20,8 @@ const sides = [
     boardSides.antiSlash
 ];
 
+let latestFactors = null;
+
 function checkSides(bitmap) {
     let danger = 0;
     let dead = 0;
@@ -78,10 +80,11 @@ export default {
             ]
         ;
 
+        latestFactors = nameFactors(factors);
         if (lost) {
             return {
                 factors: factors,
-                namedFactors: nameFactors(factors),
+                namedFactors: latestFactors,
                 total: -100
             }
         }
@@ -89,7 +92,7 @@ export default {
         if (win) {
             return {
                 factors: factors,
-                namedFactors: nameFactors(factors),
+                namedFactors: latestFactors,
                 total: 100
             }
         }
@@ -98,8 +101,6 @@ export default {
         if (nextIsMe) {
             base += chance;
         }
-
-        console.log('xx-------------', factors, weights);
 
         let score = factors.map((s, i) => s * weights[i]).reduce((prev, next) => prev + next, base);
         if (score >= 100) {
@@ -112,7 +113,7 @@ export default {
 
         return {
             factors: factors,
-            namedFactors: nameFactors(factors),
+            namedFactors: latestFactors,
             total: score
         };
     },
@@ -182,4 +183,8 @@ export default {
     gameEnds(progress) {
         return progress.fair || progress.win || progress.lost;
     },
+
+    getFactors() {
+        return latestFactors;
+    }
 }

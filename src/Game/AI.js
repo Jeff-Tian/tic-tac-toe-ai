@@ -24,11 +24,11 @@ export default class AI {
     }
 
     nextMove(squares, nextIsMe) {
-        this.tryLearn(squares, nextIsMe);
+        this.tryLearn(squares);
         return AI.nextMove(squares, this.weights, this.meFirst, nextIsMe);
     }
 
-    tryLearn(squares, nextIsMe) {
+    tryLearn(squares) {
         if (this.learningEnabled) {
             this.learn(this.lastBitmapSquares, squares);
             this.lastBitmapSquares = squares;
@@ -41,6 +41,10 @@ export default class AI {
 
     getWeights() {
         return this.weights;
+    }
+
+    getFactors() {
+        return Judger.getFactors();
     }
 
     setWeights(weights) {
