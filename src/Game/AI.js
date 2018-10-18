@@ -3,7 +3,7 @@ import ArrayHelper from "../Helpers/ArrayHelper";
 
 export default class AI {
     constructor(meFirst) {
-        this.weights = Object.assign([], [0, 1, 1, 1]);
+        this.weights = Object.assign([], [0, 1, 1, 1, 1]);
         this.learningEnabled = true;
         this.meFirst = meFirst;
         this.setWeightsUpdatedCallback(function () {

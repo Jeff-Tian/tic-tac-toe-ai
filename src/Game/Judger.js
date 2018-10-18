@@ -68,6 +68,7 @@ export default {
                 danger: factors[1],
                 occupyCenter: factors[2],
                 bad: factors[3],
+                chance: factors[4]
             };
         }
 
@@ -76,7 +77,8 @@ export default {
                 1,
                 danger,
                 bitmap[4] === 1 ? 1 : -1,
-                bad
+                bad,
+                chance
             ]
         ;
 

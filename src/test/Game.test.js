@@ -12,7 +12,7 @@ Enzyme.configure({adapter: new Adapter()});
 test('Game can train players', () => {
     let game = shallow(<Game/>);
     expect(game.state()).toEqual({
-        "OWeights": [0, 1, 1, 1],
+        "OWeights": [0, 1, 1, 1, 1],
         "XWeights": [],
         "OFactors": {},
         "autoStart": false,

@@ -22,9 +22,9 @@ test('AI can update weights by itself', () => {
     ];
 
     let ai = new AI(false);
-    ai.setWeights([0, 1, 1, 0]);
+    ai.setWeights([0, 1, 1, 0, 0]);
     ai.learn(lastSquares, currentSquares);
-    expect(ai.getWeights()).toEqual([-10, -9, 11, -20]);
+    expect(ai.getWeights()).toEqual([-10, -9, 11, -20, 0]);
 });
 
 test('AI can get latest factors', () => {

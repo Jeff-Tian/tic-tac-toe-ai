@@ -55,12 +55,13 @@ test('裁判打分', () => {
         -1, -1, 0,
         -1, 0, 0
     ])).toEqual({
-        factors: [1, 1, -1, 1],
+        factors: [1, 1, -1, 1, 0],
         namedFactors: {
             const: 1,
             danger: 1,
             occupyCenter: -1,
-            bad: 1
+            bad: 1,
+            chance: 0
         },
         total: 100
     });
@@ -73,12 +74,13 @@ test('Judger can give score to current board', () => {
         1, 0, 0,
         -1, -1, -1
     ])).toEqual({
-        factors: [1, 0, -1, 2],
+        factors: [1, 0, -1, 2, 1],
         namedFactors: {
             const: 1,
             danger: 0,
             occupyCenter: -1,
-            bad: 2
+            bad: 2,
+            chance: 1
         },
         total: -100
     });
@@ -87,13 +89,14 @@ test('Judger can give score to current board', () => {
         1, 1, 0,
         1, -1, -1,
         0, -1, -1
-    ], [99, 99, 99, 99])).toEqual({
-        factors: [1, 2, -1, 1],
+    ], [99, 99, 99, 99, 99])).toEqual({
+        factors: [1, 2, -1, 1, 2],
         namedFactors: {
             const: 1,
             danger: 2,
             occupyCenter: -1,
-            bad: 1
+            bad: 1,
+            chance: 2
         },
         total: 99
     });
@@ -102,13 +105,14 @@ test('Judger can give score to current board', () => {
         1, 1, 0,
         1, -1, -1,
         0, -1, -1
-    ], [-99, -99, -99, -99])).toEqual({
-        factors: [1, 2, -1, 1],
+    ], [-99, -99, -99, -99, -99])).toEqual({
+        factors: [1, 2, -1, 1, 2],
         namedFactors: {
             const: 1,
             danger: 2,
             occupyCenter: -1,
-            bad: 1
+            bad: 1,
+            chance: 2
         },
         total: -99
     });
