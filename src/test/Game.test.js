@@ -1,7 +1,6 @@
 import React from 'react';
 import Game from '../Game/Game';
 import Modes from "../Game/Modes";
-import PlayerX from "../Game/player-fool";
 import PlayerO from '../Game/player-ai';
 import Judger from "../Game/Judger";
 import Enzyme, {shallow} from 'enzyme';
@@ -12,7 +11,7 @@ Enzyme.configure({adapter: new Adapter()});
 test('Game can train players', () => {
     let game = shallow(<Game/>);
     expect(game.state()).toEqual({
-        "OWeights": [0, 1, 1, 1, 1],
+        "OWeights": [0, 1, 1, 1],
         "XWeights": [],
         "OFactors": {},
         "autoStart": false,

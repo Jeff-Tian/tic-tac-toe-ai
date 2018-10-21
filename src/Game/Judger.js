@@ -20,8 +20,6 @@ const sides = [
     boardSides.antiSlash
 ];
 
-let latestFactors = null;
-
 function checkSides(bitmap) {
     let danger = 0;
     let dead = 0;
@@ -60,15 +58,16 @@ function checkSides(bitmap) {
     return {danger: danger, lost: dead, chance: chance, win: win, bad: bad};
 }
 
+let maxScore = 100;
+let minScore = -100;
 export default {
     getBoardScore: function (bitmap, weights, meFirst, nextIsMe) {
         function nameFactors(factors) {
             return {
                 const: factors[0],
                 danger: factors[1],
-                occupyCenter: factors[2],
-                bad: factors[3],
-                chance: factors[4]
+                bad: factors[2],
+                chance: factors[3]
             };
         }
 
@@ -76,26 +75,25 @@ export default {
         let factors = [
                 1,
                 danger,
-                bitmap[4] === 1 ? 1 : -1,
                 bad,
                 chance
             ]
         ;
 
-        latestFactors = nameFactors(factors);
+        const namedFactors = nameFactors(factors);
         if (lost) {
             return {
                 factors: factors,
-                namedFactors: latestFactors,
-                total: -100
+                namedFactors: namedFactors,
+                total: minScore
             }
         }
 
         if (win) {
             return {
                 factors: factors,
-                namedFactors: latestFactors,
-                total: 100
+                namedFactors: namedFactors,
+                total: maxScore
             }
         }
 
@@ -105,19 +103,20 @@ export default {
         }
 
         let score = factors.map((s, i) => s * weights[i]).reduce((prev, next) => prev + next, base);
-        if (score >= 100) {
-            score = 99;
+        if (score >= maxScore) {
+            score = maxScore - 1;
         }
 
-        if (score < -100) {
-            score = -99;
+        if (score <= minScore) {
+            score = minScore + 1;
         }
 
-        return {
+        let res = {
             factors: factors,
-            namedFactors: latestFactors,
+            namedFactors: namedFactors,
             total: score
         };
+        return res;
     },
 
     getSpots(bitmapSquares) {
@@ -185,8 +184,5 @@ export default {
     gameEnds(progress) {
         return progress.fair || progress.win || progress.lost;
     },
-
-    getFactors() {
-        return latestFactors;
-    }
+    checkSides: checkSides
 }
