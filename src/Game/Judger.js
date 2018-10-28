@@ -75,7 +75,7 @@ export default {
             return {
                 factors: factors,
                 namedFactors: nameFactors(factors),
-                total: -100
+                total: -Math.PI / 2
             }
         }
 
@@ -83,7 +83,7 @@ export default {
             return {
                 factors: factors,
                 namedFactors: nameFactors(factors),
-                total: 100
+                total: Math.PI / 2
             }
         }
 
@@ -92,14 +92,7 @@ export default {
             base += chance;
         }
 
-        let score = factors.map((s, i) => s * weights[i]).reduce((prev, next) => prev + next, base);
-        if (score >= 100) {
-            score = 99;
-        }
-
-        if (score < -100) {
-            score = -99;
-        }
+        let score = Math.atan(factors.map((s, i) => s * weights[i]).reduce((prev, next) => prev + next, base));
 
         return {
             factors: factors,
