@@ -84,16 +84,16 @@ export default {
         if (lost) {
             return {
                 factors: factors,
-                namedFactors: namedFactors,
-                total: minScore
+                namedFactors: nameFactors(factors),
+                total: -Math.PI / 2
             }
         }
 
         if (win) {
             return {
                 factors: factors,
-                namedFactors: namedFactors,
-                total: maxScore
+                namedFactors: nameFactors(factors),
+                total: Math.PI / 2
             }
         }
 
@@ -102,14 +102,7 @@ export default {
             base += chance;
         }
 
-        let score = factors.map((s, i) => s * weights[i]).reduce((prev, next) => prev + next, base);
-        if (score >= maxScore) {
-            score = maxScore - 1;
-        }
-
-        if (score <= minScore) {
-            score = minScore + 1;
-        }
+        let score = Math.atan(factors.map((s, i) => s * weights[i]).reduce((prev, next) => prev + next, base));
 
         let res = {
             factors: factors,
