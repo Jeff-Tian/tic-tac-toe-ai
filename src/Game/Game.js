@@ -10,7 +10,7 @@ import CultureSelector from './CultureSelector';
 import Resources from './Resources';
 
 let PlayerX = new PlayerFool('X', 'O', true);
-let PlayerO = new ai('O', 'X', false);
+let PlayerO = new ai('O', 'X');
 
 const initialState = {
     history: [{
@@ -36,10 +36,6 @@ export default class Game extends React.Component {
 
         this.optionChanged = this.optionChanged.bind(this);
         this.changeCountdownNumber = this.changeCountdownNumber.bind(this);
-        this.players = {
-            X: PlayerX,
-            O: PlayerO
-        }
     }
 
     componentDidMount() {
@@ -136,8 +132,6 @@ export default class Game extends React.Component {
     }
 
     optionChanged(selectedMode, autoStart) {
-        console.log('received: ', selectedMode, autoStart);
-
         this.setState({
             currentMode: selectedMode,
             autoStart: autoStart
@@ -184,7 +178,6 @@ export default class Game extends React.Component {
     }
 
     gameEnds(winnerInfo) {
-        console.log('ends at ', this.state.stepNumber, this.state.endsAt)
         PlayerO.tryLearn(this.state.history[this.state.stepNumber].squares);
         PlayerO.clean();
         Stats.updateRoundResult(winnerInfo ? winnerInfo.who : null);
@@ -265,7 +258,7 @@ export default class Game extends React.Component {
                         </button>
                     </p>
                 </div>
-                <Stats></Stats>
+                <Stats/>
                 <p>
                     {Resources.getInstance().sourceCode}
                     <a href="https://github.com/Jeff-Tian/tic-tac-toe-ai"

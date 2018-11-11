@@ -5,9 +5,8 @@ import Strategy from "./Strategy";
 let latestFactors = null;
 let lastSquares = null;
 export default class AI {
-    constructor(meFirst) {
+    constructor() {
         this.weights = Object.assign([], Strategy.getInitialWeights());
-        this.meFirst = meFirst;
         this.setWeightsUpdatedCallback(function () {
         });
     }
@@ -34,13 +33,12 @@ export default class AI {
         this.weightsUpdatedCallback = cb;
     }
 
-    nextMove(currentSquares, nextIsMe) {
-        this.tryLearn(currentSquares);
-        let next = AI.nextMove(currentSquares, this.weights, this.meFirst, nextIsMe);
-        return next;
+    nextMove(squares, nextIsMe) {
+        this.tryLearn(squares);
+        return AI.nextMove(squares, this.weights, false, nextIsMe);
     }
 
-    tryLearn(squares, nextIsMe) {
+    tryLearn(squares) {
         this.learn(this.lastBitmapSquares, squares);
         this.lastBitmapSquares = squares;
     }

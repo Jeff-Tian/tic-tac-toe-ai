@@ -1,10 +1,10 @@
 import AI from "./AI";
 
 export default class PlayerExpert {
-    constructor(me, enemy, meFirst) {
+    constructor(me, enemy) {
         this.me = me;
         this.enemy = enemy;
-        this.expert = new AI(meFirst);
+        this.expert = new AI();
     }
 
     nextMove(squares, game, callback) {
