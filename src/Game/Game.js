@@ -10,7 +10,7 @@ import CultureSelector from './CultureSelector';
 import Resources from './Resources';
 
 let PlayerX = new PlayerFool('X', 'O', true);
-let PlayerO = new ai('O', 'X', false);
+let PlayerO = new ai('O', 'X');
 
 const initialState = {
     history: [{
@@ -35,10 +35,6 @@ export default class Game extends React.Component {
 
         this.optionChanged = this.optionChanged.bind(this);
         this.changeCountdownNumber = this.changeCountdownNumber.bind(this);
-        this.players = {
-            X: PlayerX,
-            O: PlayerO
-        }
     }
 
     componentDidMount() {
@@ -135,8 +131,6 @@ export default class Game extends React.Component {
     }
 
     optionChanged(selectedMode, autoStart) {
-        console.log('received: ', selectedMode, autoStart);
-
         this.setState({
             currentMode: selectedMode,
             autoStart: autoStart
@@ -175,7 +169,6 @@ export default class Game extends React.Component {
     }
 
     weightsUpdated(newWeights) {
-        console.log('updated ', newWeights);
         this.setState({
             OWeights: Object.assign([], PlayerO.getWeights()),
             XWeights: Object.assign([], PlayerX.getWeights())
@@ -183,7 +176,6 @@ export default class Game extends React.Component {
     }
 
     gameEnds(winnerInfo) {
-        console.log('ends at ', this.state.stepNumber, this.state.endsAt)
         PlayerO.tryLearn(this.state.history[this.state.stepNumber].squares);
         PlayerO.clean();
         Stats.updateRoundResult(winnerInfo ? winnerInfo.who : null);
@@ -256,7 +248,7 @@ export default class Game extends React.Component {
                         <GameOptions readonly={this.state.stepNumber}
                                      optionChanged={this.optionChanged} autoStart={this.state.autoStart}
                                      mode={this.state.currentMode}
-                                     ref={gameOptions => this.gameOptions = gameOptions}></GameOptions>
+                                     ref={gameOptions => this.gameOptions = gameOptions}/>
                     </div>
                     <div className="game-board">
                         <Board squares={current.squares}
@@ -273,7 +265,7 @@ export default class Game extends React.Component {
                 <div>
                     <p>
                         {Resources.getInstance().autoPlay} <input type="number" onChange={this.changeCountdownNumber}
-                                                                  value={this.state.countDown}></input> {Resources.getInstance().round}
+                                                                  value={this.state.countDown}/> {Resources.getInstance().round}
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <button onClick={() => this.learn()}>{Resources.getInstance().startLearning}</button>
                         <button id="silent-learn-button" onClick={() => this.silentLearn()}
@@ -281,7 +273,7 @@ export default class Game extends React.Component {
                         </button>
                     </p>
                 </div>
-                <Stats></Stats>
+                <Stats/>
                 <p>
                     {Resources.getInstance().sourceCode}
                     <a href="https://github.com/Jeff-Tian/tic-tac-toe-ai"
@@ -314,7 +306,6 @@ export default class Game extends React.Component {
                     where: progress.win || progress.lost || []
                 });
 
-                debugger;
                 this.setState({
                     autoPlaying: false
                 });

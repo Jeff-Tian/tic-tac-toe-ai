@@ -3,9 +3,8 @@ import ArrayHelper from "../Helpers/ArrayHelper";
 import Strategy from "./Strategy";
 
 export default class AI {
-    constructor(meFirst) {
+    constructor() {
         this.weights = Object.assign([], Strategy.getInitialWeights());
-        this.meFirst = meFirst;
         this.setWeightsUpdatedCallback(function () {
         });
     }
@@ -24,11 +23,11 @@ export default class AI {
     }
 
     nextMove(squares, nextIsMe) {
-        this.tryLearn(squares, nextIsMe);
-        return AI.nextMove(squares, this.weights, this.meFirst, nextIsMe);
+        this.tryLearn(squares);
+        return AI.nextMove(squares, this.weights, false, nextIsMe);
     }
 
-    tryLearn(squares, nextIsMe) {
+    tryLearn(squares) {
         this.learn(this.lastBitmapSquares, squares);
         this.lastBitmapSquares = squares;
     }

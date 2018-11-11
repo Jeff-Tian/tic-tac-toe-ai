@@ -1,13 +1,10 @@
 import AI from "./AI";
 
 export default class PlayerExpert {
-    constructor(me, enemy, meFirst) {
+    constructor(me, enemy) {
         this.me = me;
         this.enemy = enemy;
-        this.meFirst = meFirst;
-        this.expert = new AI(meFirst);
-
-        console.log('creating player ', me);
+        this.expert = new AI();
     }
 
     nextMove(squares, game, callback) {
@@ -18,7 +15,7 @@ export default class PlayerExpert {
     }
 
     convertSquaresToBitmap(squares) {
-        let bitmap = squares.map(s => {
+        return squares.map(s => {
             if (s === this.enemy) {
                 return -1;
             }
@@ -29,7 +26,6 @@ export default class PlayerExpert {
 
             return 0;
         });
-        return bitmap;
     }
 
     getWeights() {
