@@ -60,7 +60,7 @@ test('Judger can give score to current board', () => {
             danger: 1,
             occupyCenter: -1
         },
-        total: 100
+        total: Math.PI / 2
     });
 
     expect(Judger.getBoardScore([
@@ -74,7 +74,7 @@ test('Judger can give score to current board', () => {
             danger: 0,
             occupyCenter: -1
         },
-        total: -100
+        total: -Math.PI / 2
     });
 
     expect(Judger.getBoardScore([
@@ -88,7 +88,7 @@ test('Judger can give score to current board', () => {
             danger: 2,
             occupyCenter: -1
         },
-        total: 99
+        total: 1.565745864685824
     });
 
     expect(Judger.getBoardScore([
@@ -102,7 +102,7 @@ test('Judger can give score to current board', () => {
             danger: 2,
             occupyCenter: -1
         },
-        total: -99
+        total: -1.565745864685824
     });
 });
 

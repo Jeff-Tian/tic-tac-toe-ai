@@ -22,7 +22,7 @@ test('AI can update weights by itself', () => {
     ];
 
     let ai = new AI(false);
-    ai.setWeights([0, 1, 1]);
+        ai.setWeights([0, 1, 1]);
     ai.learn(lastSquares, currentSquares);
-    expect(ai.getWeights()).toEqual([-10, -9, 11]);
+    expect(ai.getWeights()).toEqual([-0.15707963267948966, 0.8429203673205103, 1.1570796326794897]);
 })
