@@ -29,7 +29,7 @@ export default class CultureSelector
 
     render() {
         return (
-            <span style={{fontSize: "small", marginLeft: "2em", fontWeight: "normal"}}>
+            <span style={{fontSize: "x-small", float: 'right', marginLeft: "2em", fontWeight: "normal"}}>
                 <a href="" onClick={(event) => this.changeCultureTo(event, 'en-US')}
                    style={{fontWeight: this.state.currentCulture === 'en-US' ? 'bold' : 'normal'}}>
                     {this.state.currentCulture === 'en-US' ? '[English]' : 'English'}
