@@ -1,3 +1,5 @@
+import Strategy from "./Strategy";
+
 const boardSides = {
     top: [0, 1, 2],
     left: [0, 3, 6],
@@ -55,14 +57,6 @@ function checkSides(bitmap) {
 
 export default {
     getBoardScore: function (bitmap, weights, meFirst, nextIsMe) {
-        function nameFactors(factors) {
-            return {
-                const: factors[0],
-                danger: factors[1],
-                occupyCenter: factors[2]
-            };
-        }
-
         let {danger, lost, chance, win} = checkSides(bitmap);
         let factors = [
                 1,
@@ -74,7 +68,7 @@ export default {
         if (lost) {
             return {
                 factors: factors,
-                namedFactors: nameFactors(factors),
+                namedFactors: Strategy.getNamedStrategy(factors),
                 total: -Math.PI / 2
             }
         }
@@ -82,7 +76,7 @@ export default {
         if (win) {
             return {
                 factors: factors,
-                namedFactors: nameFactors(factors),
+                namedFactors: Strategy.getNamedStrategy(factors),
                 total: Math.PI / 2
             }
         }
@@ -96,7 +90,7 @@ export default {
 
         return {
             factors: factors,
-            namedFactors: nameFactors(factors),
+            namedFactors: Strategy.getNamedStrategy(factors),
             total: score
         };
     },

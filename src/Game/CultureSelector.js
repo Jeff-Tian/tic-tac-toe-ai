@@ -28,19 +28,17 @@ export default class CultureSelector
 
 
     render() {
-        return (
-            <span style={{fontSize: "x-small", float: 'right', marginLeft: "2em", fontWeight: "normal"}}>
+        return <span style={{fontSize: "x-small", float: 'right', marginLeft: "2em", fontWeight: "normal"}}>
                 <a href="" onClick={(event) => this.changeCultureTo(event, 'en-US')}
                    style={{fontWeight: this.state.currentCulture === 'en-US' ? 'bold' : 'normal'}}>
                     {this.state.currentCulture === 'en-US' ? '[English]' : 'English'}
                 </a>
-                &nbsp;&nbsp;
-                <a href="" onClick={(event) => this.changeCultureTo(event, 'zh-CN')}
-                   style={{fontWeight: this.state.currentCulture === 'zh-CN' ? 'bold' : 'normal'}}>
+            &nbsp;&nbsp;
+            <a href="" onClick={(event) => this.changeCultureTo(event, 'zh-CN')}
+               style={{fontWeight: this.state.currentCulture === 'zh-CN' ? 'bold' : 'normal'}}>
                     {this.state.currentCulture === 'zh-CN' ? '【中文】' : '中文'}
                 </a>
-            </span>
-        );
+            </span>;
     }
 
 }

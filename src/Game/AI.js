@@ -50,9 +50,7 @@ export default class AI {
         }
 
         let estimatedLastScore = Judger.getBoardScore(lastSquares, this.weights, false, true);
-        console.log('I thought it was ', estimatedLastScore);
         let actualScore = Judger.getBoardScore(currentSquares, this.weights, false, true);
-        console.log('but turned out to be ', actualScore);
         let diff = actualScore.total - estimatedLastScore.total;
 
         for (let i = 0; i < estimatedLastScore.factors.length; i++) {
