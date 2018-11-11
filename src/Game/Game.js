@@ -232,10 +232,13 @@ export default class Game extends React.Component {
 
         return (
             <div className="container">
-                <h1>
-                    {Resources.getInstance().header}
+                <h1 style={{lineHeight: 0.8}}>
                     <CultureSelector currentCulture="zh-CN"
                                      cultureChanged={() => this.forceUpdate()}/>
+
+                    <span>{Resources.getInstance().header}</span>
+                    <br/>
+                    <span style={{color: 'gray', fontSize: 'xx-small'}}>{Resources.getInstance().subHeader}</span>
                 </h1>
                 <div>
                     <h2>{Resources.getInstance().getRound(this.state.round)}</h2>

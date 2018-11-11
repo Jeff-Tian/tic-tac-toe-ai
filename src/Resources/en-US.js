@@ -1,7 +1,8 @@
 import GameModes from "../Game/Modes";
 import ArrayHelper from "../Helpers/ArrayHelper";
 
-export const header = 'AI version of tic-tac-toe (Alhpa Go of tic-tac-toe)';
+export const header = 'AI version of tic-tac-toe';
+export const subHeader = 'Alpha Go of tic-tac-toe';
 export const winner = 'Winner is: ';
 export const weightsOf = '\'s Weights: ';
 export const autoPlay = 'Auto play ';

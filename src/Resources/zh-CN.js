@@ -1,7 +1,8 @@
 import GameModes from "../Game/Modes";
 import ArrayHelper from "../Helpers/ArrayHelper";
 
-export const header = '人工智能版三子棋 —— 三子棋里的阿尔法狗';
+export const header = '人工智能版三子棋';
+export const subHeader = '三子棋里的阿尔法狗';
 export const winner = '胜利者：';
 export const weightsOf = ' 的权重：';
 export const autoPlay = '自动学习';
