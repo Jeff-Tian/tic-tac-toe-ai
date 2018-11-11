@@ -234,10 +234,6 @@ export default class Game extends React.Component {
                     <h2>{Resources.getInstance().getRound(this.state.round)}</h2>
                     <p>
                         O {Resources.getInstance().weightsOf}{this.state.OWeights.map(w => w.toFixed(2)).join(', ')}
-                        <input type="checkbox" checked={this.players.O.getLearningEnabled() ? 'checked' : ''}
-                               id="enable-learning"
-                               onChange={() => this.setState({oLearningEnabled: this.players.O.toggleLearning()})}/>
-                        <label htmlFor="enable-learning">{Resources.getInstance().learningStatus}</label>
                     </p>
                     <p>{JSON.stringify(this.state.OFactors)}</p>
                 </div>

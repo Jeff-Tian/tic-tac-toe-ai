@@ -1,12 +1,12 @@
 import Judger from "./Judger";
 import ArrayHelper from "../Helpers/ArrayHelper";
+import Strategy from "./Strategy";
 
 let latestFactors = null;
 let lastSquares = null;
 export default class AI {
     constructor(meFirst) {
-        this.weights = Object.assign([], [0, 1, 1, 1]);
-        this.learningEnabled = true;
+        this.weights = Object.assign([], Strategy.getInitialWeights());
         this.meFirst = meFirst;
         this.setWeightsUpdatedCallback(function () {
         });
@@ -40,10 +40,9 @@ export default class AI {
         return next;
     }
 
-    tryLearn(currentSquares) {
-        if (this.learningEnabled) {
-            this.learn(lastSquares, currentSquares);
-        }
+    tryLearn(squares, nextIsMe) {
+        this.learn(this.lastBitmapSquares, squares);
+        this.lastBitmapSquares = squares;
     }
 
     clean() {
