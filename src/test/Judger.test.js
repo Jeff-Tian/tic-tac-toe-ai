@@ -62,7 +62,7 @@ test('裁判打分', () => {
             bad: 1,
             chance: 0
         },
-        total: 100
+        total: Math.PI / 2
     });
 });
 
@@ -80,7 +80,7 @@ test('Judger can give score to current board', () => {
             bad: 2,
             chance: 1
         },
-        total: -100
+        total: -Math.PI / 2
     });
 
     expect(Judger.getBoardScore([
@@ -95,7 +95,7 @@ test('Judger can give score to current board', () => {
             bad: 1,
             chance: 2
         },
-        total: 594
+        total: 1.565745864685824
     });
 
     expect(Judger.getBoardScore([
@@ -110,7 +110,7 @@ test('Judger can give score to current board', () => {
             bad: 1,
             chance: 2
         },
-        total: -594
+        total: -1.565745864685824
     });
 });
 
