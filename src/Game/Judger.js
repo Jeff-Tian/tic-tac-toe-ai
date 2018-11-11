@@ -21,49 +21,9 @@ const sides = [
     boardSides.slash,
     boardSides.antiSlash
 ];
-
-function checkSides(bitmap) {
-    let d = 0;
-    let dead = 0;
-    let w = 0;
-    let c = 0;
-
-    for (let i = 0; i < sides.length; i++) {
-        let side = bitmap.filter((_, j) => sides[i].indexOf(j) >= 0);
-
-        let negatives = side.filter(b => b === -1);
-        let zeros = side.filter(b => b === 0);
-        let ones = side.filter(b => b === 1);
-
-        if (negatives.length === 2 && zeros.length === 1) {
-            d++;
-        }
-
-        if (negatives.length === 3) {
-            dead++;
-        }
-
-        if (ones.length === 3) {
-            w++;
-        }
-
-        if (ones.length === 2 && zeros.length === 1) {
-            c++;
-        }
-    }
-
-    return {danger: d, lost: dead, chance: c, win: w};
-}
-
 export default {
-    getBoardScore: function (bitmap, weights, meFirst, nextIsMe) {
-        let {danger, lost, chance, win} = checkSides(bitmap);
-        let factors = [
-                1,
-                danger,
-                bitmap[4] === 1 ? 1 : -1
-            ]
-        ;
+    getBoardScore: function (bitmap, weights) {
+        let {lost, win, factors} = Strategy.getBoardStatus(bitmap);
 
         if (lost) {
             return {
@@ -81,12 +41,7 @@ export default {
             }
         }
 
-        let base = 0;
-        if (nextIsMe) {
-            base += chance;
-        }
-
-        let score = Math.atan(factors.map((s, i) => s * weights[i]).reduce((prev, next) => prev + next, base));
+        let score = Math.atan(factors.map((s, i) => s * weights[i]).reduce((prev, next) => prev + next, 0));
 
         return {
             factors: factors,

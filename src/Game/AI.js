@@ -9,10 +9,10 @@ export default class AI {
         });
     }
 
-    static nextMove(squares, weights, meFirst, nextIsMe) {
+    static nextMove(squares, weights, nextIsMe) {
         let spots = Judger.getSpots(squares);
         let nextBoards = Judger.generateNewBoardsBySpots(squares, spots);
-        let scores = nextBoards.map(b => Judger.getBoardScore(b, weights, meFirst, nextIsMe).total);
+        let scores = nextBoards.map(b => Judger.getBoardScore(b, weights).total);
         let index = ArrayHelper.findIndexOfMax(scores);
 
         return spots[index];
@@ -24,7 +24,7 @@ export default class AI {
 
     nextMove(squares, nextIsMe) {
         this.tryLearn(squares);
-        return AI.nextMove(squares, this.weights, false, nextIsMe);
+        return AI.nextMove(squares, this.weights, nextIsMe);
     }
 
     tryLearn(squares) {
@@ -49,8 +49,8 @@ export default class AI {
             return;
         }
 
-        let estimatedLastScore = Judger.getBoardScore(lastSquares, this.weights, false, true);
-        let actualScore = Judger.getBoardScore(currentSquares, this.weights, false, true);
+        let estimatedLastScore = Judger.getBoardScore(lastSquares, this.weights);
+        let actualScore = Judger.getBoardScore(currentSquares, this.weights);
         let diff = actualScore.total - estimatedLastScore.total;
 
         for (let i = 0; i < estimatedLastScore.factors.length; i++) {
