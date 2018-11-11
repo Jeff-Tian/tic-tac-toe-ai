@@ -4,7 +4,6 @@ import ArrayHelper from "../Helpers/ArrayHelper";
 export const header = '人工智能版三子棋 —— 三子棋里的阿尔法狗';
 export const winner = '胜利者：';
 export const weightsOf = ' 的权重：';
-export const learningStatus = '学习状态';
 export const autoPlay = '自动学习';
 export const round = '回合';
 export const startLearning = '开始学习';

@@ -1,10 +1,10 @@
 import Judger from "./Judger";
 import ArrayHelper from "../Helpers/ArrayHelper";
+import Strategy from "./Strategy";
 
 export default class AI {
     constructor(meFirst) {
-        this.weights = Object.assign([], [0, 1, 1]);
-        this.learningEnabled = true;
+        this.weights = Object.assign([], Strategy.getInitialWeights());
         this.meFirst = meFirst;
         this.setWeightsUpdatedCallback(function () {
         });
@@ -29,10 +29,8 @@ export default class AI {
     }
 
     tryLearn(squares, nextIsMe) {
-        if (this.learningEnabled) {
-            this.learn(this.lastBitmapSquares, squares);
-            this.lastBitmapSquares = squares;
-        }
+        this.learn(this.lastBitmapSquares, squares);
+        this.lastBitmapSquares = squares;
     }
 
     clean() {

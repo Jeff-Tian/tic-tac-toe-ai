@@ -40,16 +40,6 @@ export default class PlayerExpert {
         this.expert.setWeightsUpdatedCallback(cb);
     }
 
-    getLearningEnabled() {
-        return this.expert.learningEnabled;
-    }
-
-    toggleLearning() {
-        this.expert.learningEnabled = !this.expert.learningEnabled;
-
-        return this.expert.learningEnabled;
-    }
-
     tryLearn(squares) {
         this.expert.tryLearn(this.convertSquaresToBitmap(squares));
     }

@@ -4,7 +4,6 @@ import ArrayHelper from "../Helpers/ArrayHelper";
 export const header = 'AI version of tic-tac-toe (Alhpa Go of tic-tac-toe)';
 export const winner = 'Winner is: ';
 export const weightsOf = '\'s Weights: ';
-export const learningStatus = 'Learning status';
 export const autoPlay = 'Auto play ';
 export const round = 'round';
 export const startLearning = 'Start learning';
