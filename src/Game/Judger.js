@@ -1,3 +1,5 @@
+import Strategy from "./Strategy";
+
 const boardSides = {
     top: [0, 1, 2],
     left: [0, 3, 6],
@@ -62,16 +64,7 @@ let maxScore = 100;
 let minScore = -100;
 export default {
     getBoardScore: function (bitmap, weights, meFirst, nextIsMe) {
-        function nameFactors(factors) {
-            return {
-                const: factors[0],
-                danger: factors[1],
-                bad: factors[2],
-                chance: factors[3]
-            };
-        }
-
-        let {danger, lost, chance, win, bad} = checkSides(bitmap);
+        let {danger, lost, chance, win} = checkSides(bitmap);
         let factors = [
                 1,
                 danger,
@@ -84,7 +77,7 @@ export default {
         if (lost) {
             return {
                 factors: factors,
-                namedFactors: nameFactors(factors),
+                namedFactors: Strategy.getNamedStrategy(factors),
                 total: -Math.PI / 2
             }
         }
@@ -92,7 +85,7 @@ export default {
         if (win) {
             return {
                 factors: factors,
-                namedFactors: nameFactors(factors),
+                namedFactors: Strategy.getNamedStrategy(factors),
                 total: Math.PI / 2
             }
         }
@@ -106,7 +99,7 @@ export default {
 
         let res = {
             factors: factors,
-            namedFactors: namedFactors,
+            namedFactors: Strategy.getNamedStrategy(factors),
             total: score
         };
         return res;
@@ -177,5 +170,4 @@ export default {
     gameEnds(progress) {
         return progress.fair || progress.win || progress.lost;
     },
-    checkSides: checkSides
 }
