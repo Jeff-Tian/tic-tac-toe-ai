@@ -1,6 +1,5 @@
 import React from 'react';
 import Resources from '../Game/Resources';
-import GameModes from "../Game/Modes";
 
 test('get round', () => {
     Resources.setCulture('zh-CN');

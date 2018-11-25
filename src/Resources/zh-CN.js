@@ -1,4 +1,3 @@
-import GameModes from "../Game/Modes";
 import ArrayHelper from "../Helpers/ArrayHelper";
 
 export const header = '人工智能版三子棋';
