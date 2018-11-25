@@ -160,14 +160,6 @@ export default class Game extends React.Component {
         }
     }
 
-    silentLearn() {
-        PlayerO.clean();
-        PlayerX.clean();
-        this.jumpTo(0, () => {
-            this.autoPlay();
-        });
-    }
-
     weightsUpdated(newWeights) {
         this.setState({
             OWeights: Object.assign([], PlayerO.getWeights()),
@@ -271,9 +263,6 @@ export default class Game extends React.Component {
                                                                   value={this.state.countDown}/> {Resources.getInstance().round}
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <button onClick={() => this.learn()}>{Resources.getInstance().startLearning}</button>
-                        <button id="silent-learn-button" onClick={() => this.silentLearn()}
-                                disabled={this.state.autoPlaying} style={{display: 'none'}}>静默学习
-                        </button>
                     </p>
                 </div>
                 <Stats/>
