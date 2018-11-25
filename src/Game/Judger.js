@@ -114,5 +114,5 @@ export default {
 
     gameEnds(progress) {
         return progress.fair || progress.win || progress.lost;
-    },
+    }
 }
