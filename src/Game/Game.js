@@ -8,6 +8,7 @@ import Stats from './Stats';
 import Judger from "./Judger";
 import CultureSelector from './CultureSelector';
 import Resources from './Resources';
+import Strategy from "./Strategy";
 
 let PlayerX = new PlayerFool('X', 'O', true);
 let PlayerO = new ai('O', 'X');
@@ -223,7 +224,9 @@ export default class Game extends React.Component {
                     <p>
                         O {Resources.getInstance().weightsOf}{this.state.OWeights.map(w => w.toFixed(2)).join(', ')}
                     </p>
-                    <p>{JSON.stringify(this.state.OFactors)}</p>
+                    <p>
+                        Strategy: {JSON.stringify(Strategy.getNamedStrategy(Strategy.getBoardStatus(new ai('O', 'X').convertSquaresToBitmap(this.state.history[this.state.history.length - 1].squares)).factors))}
+                    </p>
                 </div>
                 <div className="game">
                     <div className="game-options">
