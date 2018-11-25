@@ -260,9 +260,11 @@ export default class Game extends React.Component {
                 <div>
                     <p>
                         {Resources.getInstance().autoPlay} <input type="number" onChange={this.changeCountdownNumber}
+                                                                  id="turns"
                                                                   value={this.state.countDown}/> {Resources.getInstance().round}
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <button onClick={() => this.learn()}>{Resources.getInstance().startLearning}</button>
+                        <button id="start-auto-button"
+                                onClick={() => this.learn()}>{Resources.getInstance().startLearning}</button>
                     </p>
                 </div>
                 <Stats/>
