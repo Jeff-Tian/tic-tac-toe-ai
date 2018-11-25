@@ -69,7 +69,7 @@ export default class Game extends React.Component {
 
             if (!this.state.autoPlaying) {
                 setTimeout(() => {
-                    if (!this.state.xIsNext && this.state.currentMode !== GameModes.humanVsHuman) {
+                    if (!this.state.xIsNext) {
                         PlayerO.nextMove(this.state.history[this.state.stepNumber].squares, this);
                         return;
                     }

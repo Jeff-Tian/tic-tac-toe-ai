@@ -11,7 +11,6 @@ export const startLearning = '开始学习';
 export const sourceCode = '源代码：';
 export const autoStart = '自动运行（机-机对战模式）';
 
-export const humanVsHuman = '人-人对战';
 export const humanVsComputer = '人-机对战';
 export const computerVsComputer = '机-机对战';
 
@@ -26,7 +25,7 @@ export function getRound(round) {
 }
 
 export function getNextPlayer(xIsNext, currentMode) {
-    return '轮到：' + (xIsNext ? 'X' : (currentMode === GameModes.humanVsHuman ? 'O' : '电脑')) + ' 走子';
+    return '轮到：' + (xIsNext ? 'X' :  '电脑 O ') + ' 走子';
 }
 
 export function getMove(move, squares, squareIndex) {

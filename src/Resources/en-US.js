@@ -1,4 +1,3 @@
-import GameModes from "../Game/Modes";
 import ArrayHelper from "../Helpers/ArrayHelper";
 
 export const header = 'AI version of tic-tac-toe';
@@ -11,7 +10,6 @@ export const startLearning = 'Start learning';
 export const sourceCode = 'Source code: ';
 export const autoStart = 'Auto start (computer-vs-computer mode only)';
 
-export const humanVsHuman = 'Human vs Human';
 export const humanVsComputer = 'Human vs Computer';
 export const computerVsComputer = 'Computer vs Computer';
 
@@ -39,7 +37,7 @@ export function getRound(round) {
 
 
 export function getNextPlayer(xIsNext, currentMode) {
-    return 'It\'s ' + (xIsNext ? 'X' : (currentMode === GameModes.humanVsHuman ? 'O' : 'Computer')) + '\'s turn.';
+    return 'It\'s ' + (xIsNext ? 'X' : 'Computer O') + '\'s turn.';
 }
 
 export function getMove(move, squares, squareIndex) {
