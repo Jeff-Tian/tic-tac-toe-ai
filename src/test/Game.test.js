@@ -33,8 +33,8 @@ test('Game can train players', async () => {
 
     await new Promise(resolve => setTimeout(resolve, 3000));
 
-    expect(game.state().history.length).toEqual(7);
+    expect(game.state().history.length > 3).toEqual(true);
 
-    const gameProgress = Judger.gameProgress(new PlayerO('O', 'X', false).convertSquaresToBitmap(game.state().history[game.state().history.length - 1].squares));
+    const gameProgress = Judger.gameProgress(new PlayerO('O', 'X').convertSquaresToBitmap(game.state().history[game.state().history.length - 1].squares));
     expect(!!(gameProgress.win || gameProgress.lost || gameProgress.fair)).toEqual(true);
 });
