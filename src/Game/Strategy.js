@@ -95,7 +95,7 @@ export default class Strategy {
                 ] :
                 [
                     1,
-                    danger,
+                    danger + Strategy.getIntersectedBads(bitmap),
                     bitmap[4] === 1 ? 1 : -1,
                     Strategy.getIntersectedBads(bitmap)
                 ]
