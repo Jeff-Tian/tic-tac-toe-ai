@@ -10,7 +10,6 @@ let state = {
 class Stats extends React.Component {
 
     static updateRoundResult(winner) {
-        console.log('congratulates: ', winner);
         if (winner === 'X') {
             state.XWin = state.XWin + 1
             return;

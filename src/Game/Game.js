@@ -8,31 +8,43 @@ import Stats from './Stats';
 import Judger from "./Judger";
 import CultureSelector from './CultureSelector';
 import Resources from './Resources';
-import Strategy from "./Strategy";
+import Strategy, { StrategySettings } from "./Strategy";
 
-let PlayerX = new PlayerFool('X', 'O', true);
-let PlayerO = new ai('O', 'X');
 
-const initialState = {
-    history: [{
-        squares: Array(9).fill(null),
-        squareIndex: null
-    }],
-    xIsNext: true,
-    stepNumber: 0,
-    currentMode: GameModes.humanVsComputer,
-    autoStart: false,
-    OWeights: Object.assign([], PlayerO.getWeights()),
-    OFactors: Object.assign({}, PlayerO.getFactors()),
-    XWeights: Object.assign([], PlayerX.getWeights()),
-    winnerInfo: null,
-    round: 1,
-    countDown: 0,
-};
+StrategySettings.setInitialWeights([0, 1, 1, 1])
+StrategySettings.setNamedStrategy((factors) => {
+    return {
+        const: factors[0],
+        danger: factors[1],
+        occupyCenter: factors[2],
+        intersectedBads: factors[3]
+    };
+})
 
+let PlayerX, PlayerO
 export default class Game extends React.Component {
     constructor(props) {
         super(props);
+
+        PlayerX = new PlayerFool('X', 'O', true);
+        PlayerO = new ai('O', 'X');
+
+        const initialState = {
+            history: [{
+                squares: Array(9).fill(null),
+                squareIndex: null
+            }],
+            xIsNext: true,
+            stepNumber: 0,
+            currentMode: GameModes.humanVsComputer,
+            autoStart: false,
+            OWeights: Object.assign([], PlayerO.getWeights()),
+            strategy: {},
+            winnerInfo: null,
+            round: 1,
+            countDown: 0,
+        };
+
         this.state = initialState;
 
         this.optionChanged = this.optionChanged.bind(this);
@@ -109,7 +121,6 @@ export default class Game extends React.Component {
         }
 
         squares[i] = this.state.xIsNext ? 'X' : 'O';
-        console.log(squares);
         this.setState({
             history: history.concat([{
                 squares: squares,
@@ -143,7 +154,7 @@ export default class Game extends React.Component {
 
     autoStart(selectedMode, autoStart) {
         if (selectedMode === GameModes.computerVsComputer && autoStart && this.state.stepNumber === 0) {
-            this.setState({endsAt: undefined}, () => {
+            this.setState({ endsAt: undefined }, () => {
                 PlayerX.nextMove(this.state.history[this.state.stepNumber].squares, this);
             });
         }
@@ -165,8 +176,7 @@ export default class Game extends React.Component {
     weightsUpdated(newWeights) {
         this.setState({
             OWeights: Object.assign([], PlayerO.getWeights()),
-            OFactors: Object.assign({}, PlayerO.getFactors()),
-            XWeights: Object.assign([], PlayerX.getWeights())
+            strategy: Strategy.getNamedStrategy(Strategy.getBoardStatus(new ai('O', 'X').convertSquaresToBitmap(this.state.history[this.state.history.length - 1].squares)).factors)
         });
     }
 
@@ -188,7 +198,7 @@ export default class Game extends React.Component {
                         this.jumpTo(0);
                     });
                 } else {
-                    this.setState({autoPlaying: false})
+                    this.setState({ autoPlaying: false })
                 }
             }
         );
@@ -211,13 +221,13 @@ export default class Game extends React.Component {
 
         return (
             <div className="container">
-                <h1 style={{lineHeight: 0.8}}>
+                <h1 style={{ lineHeight: 0.8 }}>
                     <CultureSelector currentCulture="zh-CN"
-                                     cultureChanged={() => this.forceUpdate()}/>
+                        cultureChanged={() => this.forceUpdate()} />
 
                     <span>{Resources.getInstance().header}</span>
-                    <br/>
-                    <span style={{color: 'gray', fontSize: 'xx-small'}}>{Resources.getInstance().subHeader}</span>
+                    <br />
+                    <span style={{ color: 'gray', fontSize: 'xx-small' }}>{Resources.getInstance().subHeader}</span>
                 </h1>
                 <div>
                     <h2>{Resources.getInstance().getRound(this.state.round)}</h2>
@@ -225,20 +235,20 @@ export default class Game extends React.Component {
                         O {Resources.getInstance().weightsOf}{this.state.OWeights.map(w => w.toFixed(2)).join(', ')}
                     </p>
                     <p>
-                        Strategy: {JSON.stringify(Strategy.getNamedStrategy(Strategy.getBoardStatus(new ai('O', 'X').convertSquaresToBitmap(this.state.history[this.state.history.length - 1].squares)).factors))}
+                        Strategy: {JSON.stringify(this.state.strategy)}
                     </p>
                 </div>
                 <div className="game">
                     <div className="game-options">
                         <GameOptions readonly={this.state.stepNumber}
-                                     optionChanged={this.optionChanged} autoStart={this.state.autoStart}
-                                     mode={this.state.currentMode}
-                                     ref={gameOptions => this.gameOptions = gameOptions}/>
+                            optionChanged={this.optionChanged} autoStart={this.state.autoStart}
+                            mode={this.state.currentMode}
+                            ref={gameOptions => this.gameOptions = gameOptions} />
                     </div>
                     <div className="game-board">
                         <Board squares={current.squares}
-                               onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleClick(i)}
-                               winner={this.state.winnerInfo}/>
+                            onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleClick(i)}
+                            winner={this.state.winnerInfo} />
                     </div>
                     <div className="game-info">
                         <div>{status}</div>
@@ -248,18 +258,18 @@ export default class Game extends React.Component {
                 <div>
                     <p>
                         {Resources.getInstance().autoPlay} <input type="number" onChange={this.changeCountdownNumber}
-                                                                  id="turns"
-                                                                  value={this.state.countDown}/> {Resources.getInstance().round}
+                            id="turns"
+                            value={this.state.countDown} /> {Resources.getInstance().round}
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <button id="start-auto-button"
-                                onClick={() => this.learn()}>{Resources.getInstance().startLearning}</button>
+                            onClick={() => this.learn()}>{Resources.getInstance().startLearning}</button>
                     </p>
                 </div>
-                <Stats/>
+                <Stats />
                 <p>
                     {Resources.getInstance().sourceCode}
                     <a href="https://github.com/Jeff-Tian/tic-tac-toe-ai"
-                       target="_blank" rel="noopener noreferrer">https://github.com/Jeff-Tian/tic-tac-toe-ai</a>
+                        target="_blank" rel="noopener noreferrer">https://github.com/Jeff-Tian/tic-tac-toe-ai</a>
                 </p>
             </div>
         );

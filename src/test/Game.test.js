@@ -5,15 +5,24 @@ import PlayerO from '../Game/player-ai';
 import Judger from "../Game/Judger";
 import Enzyme, {mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import {StrategySettings} from "../Game/Strategy";
 
 Enzyme.configure({adapter: new Adapter()});
 
 test('Game can train players', async () => {
+    StrategySettings.setInitialWeights([0, 1, 1])
+    StrategySettings.setNamedStrategy((factors) => {
+        return {
+            const: factors[0],
+            danger: factors[1],
+            occupyCenter: factors[2],
+        };
+    })
+
     let game = mount(<Game/>);
     expect(game.state()).toEqual({
-        "OWeights": [0, 1, 1, 1],
-        "XWeights": [],
-        "OFactors": {},
+        "OWeights": [0, 1, 1],
+        strategy: {},
         "autoStart": false,
         "countDown": 0,
         "currentMode": Modes.humanVsComputer,

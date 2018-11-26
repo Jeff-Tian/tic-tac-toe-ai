@@ -1,3 +1,5 @@
+import ArrayHelper from "../Helpers/ArrayHelper";
+
 const boardSides = {
     top: [0, 1, 2],
     left: [0, 3, 6],
@@ -53,30 +55,88 @@ function checkSides(bitmap) {
     return {danger: d, lost: dead, chance: c, win: w};
 }
 
+let initialWeights = [0, 1, 1];
+let namedStrategy = (factors) => {
+    return {
+        const: factors[0],
+        danger: factors[1],
+        occupyCenter: factors[2],
+    };
+}
+
+export class StrategySettings {
+    static setInitialWeights(iw) {
+        initialWeights = iw;
+    }
+
+    static setNamedStrategy(func) {
+        namedStrategy = func;
+    }
+}
+
 export default class Strategy {
     static getInitialWeights() {
-        return [0, 1, 1]
+        return initialWeights;
     }
 
     static getNamedStrategy(factors) {
-        return {
-            const: factors[0],
-            danger: factors[1],
-            occupyCenter: factors[2]
-        };
+        return namedStrategy(factors);
     }
 
     static getBoardStatus(bitmap) {
         let {danger, lost, chance, win} = checkSides(bitmap);
         return {
             danger, lost, chance, win,
-            factors:
+            factors: Strategy.getInitialWeights().length === 3 ?
                 [
                     1,
                     danger,
-                    bitmap[4] === 1 ? 1 : -1
+                    bitmap[4] === 1 ? 1 : -1,
+                ] :
+                [
+                    1,
+                    danger,
+                    bitmap[4] === 1 ? 1 : -1,
+                    Strategy.getIntersectedBads(bitmap)
                 ]
         }
             ;
+    }
+
+    static getIntersectedBads(bitmap) {
+        let intersectedBads = 0;
+        const bads = [];
+
+        for (let i = 0; i < sides.length; i++) {
+            let side = bitmap.filter((_, j) => sides[i].indexOf(j) >= 0);
+
+            const [v1, v2, v3] = side;
+
+            if ((v1 === -1 && v2 === 0 && v3 === 0) ||
+                (v1 === 0 && v2 === -1 && v3 === 0) ||
+                (v1 === 0 && v2 === 0 && v3 === -1)
+            ) {
+                bads.push(sides[i]);
+            }
+        }
+
+        if (bads.length <= 1) {
+            return 0;
+        }
+
+        for (let i = 0; i < bads.length - 1; i++) {
+            for (let j = i + 1; j < bads.length; j++) {
+                const bad1 = bads[i];
+                const bad2 = bads[j];
+
+                const intersects = ArrayHelper.intersects(bad1, bad2);
+
+                if (intersects.length > 0 && bitmap[intersects[0]] === 0) {
+                    intersectedBads++;
+                }
+            }
+        }
+
+        return intersectedBads;
     }
 }
