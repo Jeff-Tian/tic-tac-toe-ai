@@ -28,5 +28,16 @@ export default {
         }
 
         return index;
+    },
+
+    intersects(a1, a2) {
+        const res = [];
+        for (const e1 of a1) {
+            if (a2.indexOf(e1) >= 0) {
+                res.push(e1);
+            }
+        }
+
+        return res;
     }
 }
