@@ -87,20 +87,15 @@ export default class Strategy {
         let {danger, lost, chance, win} = checkSides(bitmap);
         return {
             danger, lost, chance, win,
-            factors: Strategy.getInitialWeights().length === 3 ?
-                [
-                    1,
-                    danger,
-                    bitmap[4] === 1 ? 1 : -1,
-                ] :
-                [
-                    1,
-                    danger,
-                    bitmap[4] === 1 ? 1 : -1,
-                    Strategy.getIntersectedBads(bitmap)
-                ]
-        }
-            ;
+            factors: Object.keys(namedStrategy(Strategy.getInitialWeights())).map(key => {
+                return {
+                    const: 1,
+                    danger: danger,
+                    occupyCenter: bitmap[4] === 1 ? 1 : -1,
+                    intersectedBads: Strategy.getIntersectedBads(bitmap)
+                }[key];
+            })
+        };
     }
 
     static getIntersectedBads(bitmap) {
