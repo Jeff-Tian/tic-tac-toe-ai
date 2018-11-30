@@ -29,9 +29,10 @@ export default class Game extends React.Component {
         PlayerX = new PlayerFool('X', 'O', true);
         PlayerO = new ai('O', 'X');
 
+        let initialSquares = Array(9).fill(null);
         const initialState = {
             history: [{
-                squares: Array(9).fill(null),
+                squares: initialSquares,
                 squareIndex: null
             }],
             xIsNext: true,
@@ -39,7 +40,7 @@ export default class Game extends React.Component {
             currentMode: GameModes.humanVsComputer,
             autoStart: false,
             OWeights: Object.assign([], PlayerO.getWeights()),
-            strategy: {},
+            strategy: Strategy.getNamedStrategy(Strategy.getBoardStatus(new ai('O', 'X').convertSquaresToBitmap(initialSquares)).factors),
             winnerInfo: null,
             round: 1,
             countDown: 0,
@@ -76,7 +77,9 @@ export default class Game extends React.Component {
             return;
         }
 
-        this.placeAt(squares, i, history, function () {
+        this.placeAt(squares, i, history, () => {
+            this.setState({strategy: Strategy.getNamedStrategy(Strategy.getBoardStatus(new ai('O', 'X').convertSquaresToBitmap(this.state.history[this.state.history.length - 1].squares)).factors)})
+
             if (this.notifyGameOverIfEnds(this.state.history[this.state.stepNumber].squares)) {
                 return;
             }
@@ -176,7 +179,6 @@ export default class Game extends React.Component {
     weightsUpdated(newWeights) {
         this.setState({
             OWeights: Object.assign([], PlayerO.getWeights()),
-            strategy: Strategy.getNamedStrategy(Strategy.getBoardStatus(new ai('O', 'X').convertSquaresToBitmap(this.state.history[this.state.history.length - 1].squares)).factors)
         });
     }
 
