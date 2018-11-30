@@ -1,6 +1,5 @@
 import React from 'react';
 import Game from '../Game/Game';
-import Modes from "../Game/Modes";
 import PlayerO from '../Game/player-ai';
 import Judger from "../Game/Judger";
 import Enzyme, {mount} from 'enzyme';
@@ -22,18 +21,13 @@ test('Game can train players', async () => {
     let game = mount(<Game/>);
     expect(game.state()).toEqual({
         "OWeights": [0, 1, 1],
-        strategy: {},
         "autoStart": false,
         "countDown": 0,
-        "currentMode": Modes.humanVsComputer,
-        "history": [
-            {
-                "squareIndex": null,
-                "squares": [null, null, null, null, null, null, null, null, null]
-            }
-        ],
+        "currentMode": "humanVsComputer",
+        "history": [{"squareIndex": null, "squares": [null, null, null, null, null, null, null, null, null]}],
         "round": 1,
         "stepNumber": 0,
+        "strategy": {"const": 1, "danger": 0, "occupyCenter": -1},
         "winnerInfo": null,
         "xIsNext": true
     });
