@@ -95,7 +95,7 @@ export default class Strategy {
                 ] :
                 [
                     1,
-                    danger + Strategy.getIntersectedBads(bitmap),
+                    danger,
                     bitmap[4] === 1 ? 1 : -1,
                     Strategy.getIntersectedBads(bitmap)
                 ]
@@ -114,7 +114,11 @@ export default class Strategy {
 
             if ((v1 === -1 && v2 === 0 && v3 === 0) ||
                 (v1 === 0 && v2 === -1 && v3 === 0) ||
-                (v1 === 0 && v2 === 0 && v3 === -1)
+                (v1 === 0 && v2 === 0 && v3 === -1) ||
+
+                (v1 === -1 && v2 === -1 && v3 === 0) ||
+                (v1 === -1 && v2 === 0 && v3 === -1) ||
+                (v1 === 0 && v2 === -1 && v3 === -1)
             ) {
                 bads.push(sides[i]);
             }
@@ -131,7 +135,7 @@ export default class Strategy {
 
                 const intersects = ArrayHelper.intersects(bad1, bad2);
 
-                if (intersects.length > 0 && bitmap[intersects[0]] === 0) {
+                if (intersects.length > 0 && (bitmap[intersects[0]] === 0 || bitmap[intersects[0]] === -1)) {
                     intersectedBads++;
                 }
             }
