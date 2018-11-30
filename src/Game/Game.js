@@ -9,15 +9,16 @@ import Judger from "./Judger";
 import CultureSelector from './CultureSelector';
 import Resources from './Resources';
 import Strategy, {StrategySettings} from "./Strategy";
-import {spotScoreMap} from "./globals";
 
 
-StrategySettings.setInitialWeights([0.46, -0.34, 0.14])
+StrategySettings.setInitialWeights([0, -2, -1, 1, 1.5])
 StrategySettings.setNamedStrategy((factors) => {
     return {
         const: factors[0],
         danger: factors[1],
-        intersectedBads: factors[2]
+        intersectedBads: factors[2],
+        chance: factors[3],
+        occupyCenter: factors[4]
     };
 })
 
@@ -88,7 +89,6 @@ export default class Game extends React.Component {
                 setTimeout(() => {
                     if (!this.state.xIsNext) {
                         PlayerO.nextMove(this.state.history[this.state.stepNumber].squares, this);
-                        console.log(spotScoreMap);
                         return;
                     }
 
