@@ -23,7 +23,11 @@ export default class AI {
             const spot = spots[i];
             const score = scores[i];
 
-            spotScoreMap.set(spot, score);
+            spotScoreMap.set(spot, {
+                weights: weights,
+                strategy: Strategy.getBoardStatus(squares).factors,
+                score: score
+            });
         }
 
         let index = ArrayHelper.findIndexOfMax(scores);

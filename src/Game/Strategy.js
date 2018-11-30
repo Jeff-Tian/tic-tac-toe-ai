@@ -92,7 +92,8 @@ export default class Strategy {
                     const: 1,
                     danger: danger,
                     occupyCenter: bitmap[4] === 1 ? 1 : -1,
-                    intersectedBads: Strategy.getIntersectedBads(bitmap)
+                    intersectedBads: Strategy.getIntersectedBads(bitmap) / 2,
+                    chance: chance
                 }[key];
             })
         };
