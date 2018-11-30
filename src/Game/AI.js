@@ -1,6 +1,7 @@
 import Judger from "./Judger";
 import ArrayHelper from "../Helpers/ArrayHelper";
 import Strategy from "./Strategy";
+import {spotScoreMap} from "./globals";
 
 let latestFactors = null;
 let lastSquares = null;
@@ -12,10 +13,19 @@ export default class AI {
     }
 
     static nextMove(squares, weights, nextIsMe) {
+        spotScoreMap.clear();
         let spots = Judger.getSpots(squares);
         console.log('sopts = ', spots);
         let nextBoards = Judger.generateNewBoardsBySpots(squares, spots);
         let scores = nextBoards.map(b => Judger.getBoardScore(b, weights).total);
+
+        for (let i = 0; i < spots.length; i++) {
+            const spot = spots[i];
+            const score = scores[i];
+
+            spotScoreMap.set(spot, score);
+        }
+
         let index = ArrayHelper.findIndexOfMax(scores);
         latestFactors = perf[index].namedFactors;
         lastSquares = nextBoards[index];
