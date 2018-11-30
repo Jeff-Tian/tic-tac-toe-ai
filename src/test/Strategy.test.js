@@ -46,6 +46,6 @@ describe('Strategy', () => {
 
         expect(Strategy.getIntersectedBads(bitmap)).toEqual(3);
 
-        
+
     })
 })
