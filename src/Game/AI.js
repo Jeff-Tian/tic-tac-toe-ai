@@ -1,7 +1,7 @@
 import Judger from "./Judger";
 import ArrayHelper from "../Helpers/ArrayHelper";
 import Strategy from "./Strategy";
-import {spotScoreMap} from "./globals";
+import {GlobalSettings, spotScoreMap} from "./globals";
 
 export default class AI {
     constructor() {
@@ -60,6 +60,10 @@ export default class AI {
 
     learn(lastSquares, currentSquares) {
         if (!lastSquares) {
+            return;
+        }
+
+        if (!GlobalSettings.learn) {
             return;
         }
 

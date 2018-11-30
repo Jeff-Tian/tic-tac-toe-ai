@@ -19,12 +19,14 @@ export const wins = '胜出';
 export const fair = '平局';
 export const total = '总计';
 
+export const showAdvancedSettings = '显示高级设置'
+
 export function getRound(round) {
     return `第 ${round} 回合`;
 }
 
 export function getNextPlayer(xIsNext, currentMode) {
-    return '轮到：' + (xIsNext ? 'X' :  '电脑 O ') + ' 走子';
+    return '轮到：' + (xIsNext ? 'X' : '电脑 O ') + ' 走子';
 }
 
 export function getMove(move, squares, squareIndex) {

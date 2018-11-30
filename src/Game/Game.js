@@ -9,6 +9,8 @@ import Judger from "./Judger";
 import CultureSelector from './CultureSelector';
 import Resources from './Resources';
 import Strategy, {StrategySettings} from "./Strategy";
+import Settings from "./Settings";
+import {GlobalSettings} from "./globals";
 
 
 StrategySettings.setInitialWeights([0, -2, -1, 1, 1.5])
@@ -241,6 +243,7 @@ export default class Game extends React.Component {
         return (
             <div className="container">
                 <h1 style={{lineHeight: 0.8}}>
+                    <Settings/>
                     <CultureSelector currentCulture="zh-CN"
                                      cultureChanged={() => this.forceUpdate()}/>
 
@@ -248,12 +251,12 @@ export default class Game extends React.Component {
                     <br/>
                     <span style={{color: 'gray', fontSize: 'xx-small'}}>{Resources.getInstance().subHeader}</span>
                 </h1>
-                <div style={{display: 'none'}}>
+                <div>
                     <h2>{Resources.getInstance().getRound(this.state.round)}</h2>
-                    <p>
+                    <p style={{display: GlobalSettings.showAdvancedSetting ? 'block' : 'none'}}>
                         O {Resources.getInstance().weightsOf}{this.state.OWeights.map(w => w.toFixed(2)).join(', ')}
                     </p>
-                    <p>
+                    <p style={{display: GlobalSettings.showAdvancedSetting ? 'block' : 'none'}}>
                         Strategy: {JSON.stringify(this.state.strategy)}
                     </p>
                 </div>
