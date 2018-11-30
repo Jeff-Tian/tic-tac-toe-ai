@@ -248,7 +248,7 @@ export default class Game extends React.Component {
                     <br/>
                     <span style={{color: 'gray', fontSize: 'xx-small'}}>{Resources.getInstance().subHeader}</span>
                 </h1>
-                <div>
+                <div style={{display: 'none'}}>
                     <h2>{Resources.getInstance().getRound(this.state.round)}</h2>
                     <p>
                         O {Resources.getInstance().weightsOf}{this.state.OWeights.map(w => w.toFixed(2)).join(', ')}
