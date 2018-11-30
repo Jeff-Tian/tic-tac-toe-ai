@@ -11,7 +11,7 @@ import Resources from './Resources';
 import Strategy, { StrategySettings } from "./Strategy";
 
 
-StrategySettings.setInitialWeights([0.62, -0.31, 0.44, 0.23])
+StrategySettings.setInitialWeights([0.46, -0.34, 0.27, 0.14])
 StrategySettings.setNamedStrategy((factors) => {
     return {
         const: factors[0],

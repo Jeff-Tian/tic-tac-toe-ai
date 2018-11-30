@@ -16,7 +16,7 @@ describe('Strategy', () => {
             0, 0, 0
         ]
 
-        expect(Strategy.getIntersectedBads(bitmap)).toEqual(2);
+        expect(Strategy.getIntersectedBads(bitmap)).toEqual(4);
 
         bitmap = [
             -1, 0, 0,
@@ -24,6 +24,28 @@ describe('Strategy', () => {
             0, -1, 0
         ]
 
-        expect(Strategy.getIntersectedBads(bitmap)).toEqual(1);
+        expect(Strategy.getIntersectedBads(bitmap)).toEqual(2);
+    })
+
+    it('更危险的情况也应该考虑进去', () => {
+        let bitmap = [
+            -1, -1, 0,
+            -1, 0, 0,
+            0, 0, 0
+        ]
+
+        expect(Strategy.getIntersectedBads(bitmap)).toEqual(8);
+    })
+
+    it('被敌方占中', () => {
+        let bitmap = [
+            1, 0, 0,
+            0, -1, 0,
+            0, 0, 0
+        ]
+
+        expect(Strategy.getIntersectedBads(bitmap)).toEqual(3);
+
+        
     })
 })
