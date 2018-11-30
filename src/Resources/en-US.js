@@ -18,6 +18,7 @@ export const measure = 'Measure';
 export const wins = 'Wins';
 export const fair = 'Fair';
 export const total = 'Total';
+export const showAdvancedSettings = 'Show Advanced Settings'
 
 export function getRound(round) {
     if (round === 1) {
