@@ -16,7 +16,7 @@ export const computerVsComputer = 'Computer vs Computer';
 export const stats = 'Statistics:';
 export const measure = 'Measure';
 export const wins = 'Wins';
-export const fair = 'Fair';
+export const fair = 'Draw';
 export const total = 'Total';
 export const showAdvancedSettings = 'Show Advanced Settings'
 
