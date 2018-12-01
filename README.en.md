@@ -28,7 +28,7 @@ npm run coverage
 * 1.0.0
     * CHANGE: Found a better evaluation function to make the program never lose even it is at the bad position in game. But if the learning status is enabled, then the evaluation function keeps change that makes the program stupid after several succeeded wins. The good thing is it can recover quickly after lose.
     * It can beat the opponent even it is trying to win in 2 lines.
-    * When play with the random gamer, the winning percentage can achieve 93%, the rest 7% is fair. In other words, the random gamer can never win.
+    * When play with the random gamer, the winning percentage can achieve 93%, the rest 7% is draw. In other words, the random gamer can never win.
     
 * 0.1.0
     * Implemented a rough evaluation function, can become smart after 6 losings. But if the opponent uses some advanced strategy such as trying to set 2 lines to win, then this program will always lose.
