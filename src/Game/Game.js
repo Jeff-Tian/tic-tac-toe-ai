@@ -212,23 +212,23 @@ export default class Game extends React.Component {
         const current = history[this.state.stepNumber];
         const winner = this.state.winnerInfo ? this.state.winnerInfo.who : null;
 
-        const moves = history.map((step, move) => {
-            const desc = Resources.getInstance().getMove(move, step.squares, step.squareIndex);
-            return (
-                <li key={move}>
-                    <button onClick={() => this.jumpTo(move)}>
-                        {
-                            move === this.state.stepNumber ?
-                                <strong>
-                                    {desc}
-                                </strong>
-                                : <span>{desc}</span>
-                        }
-                    </button>
-                    {/*<span>{step.score}</span>*/}
-                </li>
-            );
-        });
+        // const moves = history.map((step, move) => {
+        //     const desc = Resources.getInstance().getMove(move, step.squares, step.squareIndex);
+        //     return (
+        //         <li key={move}>
+        //             <button onClick={() => this.jumpTo(move)}>
+        //                 {
+        //                     move === this.state.stepNumber ?
+        //                         <strong>
+        //                             {desc}
+        //                         </strong>
+        //                         : <span>{desc}</span>
+        //                 }
+        //             </button>
+        //             {/*<span>{step.score}</span>*/}
+        //         </li>
+        //     );
+        // });
 
 
         let status;
