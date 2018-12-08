@@ -9,10 +9,10 @@
     "react-scripts": "1.0.17"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "coverage": "react-scripts test --env=jsdom --coverage",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom",
+    "coverage": "react-app-rewired test --env=jsdom --coverage",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
@@ -27,6 +27,7 @@
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "react-addons-test-utils": "^15.6.2",
+    "react-app-rewired": "^1.6.2",
     "react-test-renderer": "^16.2.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.27.1",
