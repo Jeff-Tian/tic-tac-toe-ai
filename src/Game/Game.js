@@ -244,11 +244,15 @@ export default class Game extends React.Component {
                     <Flex.Item>
                         <div>{status}</div>
                     </Flex.Item>
+                </Flex>
+                <Flex>
                     <Flex.Item>
                         <Board squares={current.squares}
                                onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleClick(i)}
                                winner={this.state.winnerInfo}/>
                     </Flex.Item>
+                </Flex>
+                <Flex>
                     <Flex.Item>
                         <Stats/>
                     </Flex.Item>
