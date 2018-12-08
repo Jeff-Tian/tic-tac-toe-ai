@@ -7,6 +7,7 @@ import Stats from './Stats';
 import Judger from "./Judger";
 import Resources from './Resources';
 import Strategy, {StrategySettings} from "./Strategy";
+import {Flex} from 'antd-mobile'
 
 
 StrategySettings.setInitialWeights([0, -2, -1, 1, 1.5])
@@ -238,12 +239,19 @@ export default class Game extends React.Component {
 
         return (
             <div className="flex-container">
-                <div>{status}</div>
-                <Board squares={current.squares}
-                       onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleClick(i)}
-                       winner={this.state.winnerInfo}/>
-
-                <Stats/>
+                <Flex>
+                    <Flex.Item>
+                        <div>{status}</div>
+                    </Flex.Item>
+                    <Flex.Item>
+                        <Board squares={current.squares}
+                               onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleClick(i)}
+                               winner={this.state.winnerInfo}/>
+                    </Flex.Item>
+                    <Flex.Item>
+                        <Stats/>
+                    </Flex.Item>
+                </Flex>
             </div>
         );
     }
