@@ -1,16 +1,13 @@
 import React from 'react';
 import Board from './Board';
-import GameOptions from './Options';
 import GameModes from './Modes';
 import PlayerFool from './player-fool';
 import ai from './player-ai';
 import Stats from './Stats';
 import Judger from "./Judger";
-import CultureSelector from './CultureSelector';
 import Resources from './Resources';
 import Strategy, {StrategySettings} from "./Strategy";
-import Settings from "./Settings";
-import {GlobalSettings} from "./globals";
+import {Flex} from 'antd-mobile'
 
 
 StrategySettings.setInitialWeights([0, -2, -1, 1, 1.5])
@@ -241,58 +238,20 @@ export default class Game extends React.Component {
         }
 
         return (
-            <div className="container">
-                <h1 style={{lineHeight: 0.8}}>
-                    <Settings/>
-                    <CultureSelector currentCulture="zh-CN"
-                                     cultureChanged={() => this.forceUpdate()}/>
-
-                    <span>{Resources.getInstance().header}</span>
-                    <br/>
-                    <span style={{color: 'gray', fontSize: 'xx-small'}}>{Resources.getInstance().subHeader}</span>
-                </h1>
-                <div>
-                    <h2>{Resources.getInstance().getRound(this.state.round)}</h2>
-                    <p style={{display: GlobalSettings.showAdvancedSetting ? 'block' : 'none'}}>
-                        O {Resources.getInstance().weightsOf}{this.state.OWeights.map(w => w.toFixed(2)).join(', ')}
-                    </p>
-                    <p style={{display: GlobalSettings.showAdvancedSetting ? 'block' : 'none'}}>
-                        Strategy: {JSON.stringify(this.state.strategy)}
-                    </p>
-                </div>
-                <div className="game">
-                    <div className="game-options">
-                        <GameOptions readonly={this.state.stepNumber}
-                                     optionChanged={this.optionChanged} autoStart={this.state.autoStart}
-                                     mode={this.state.currentMode}
-                                     ref={gameOptions => this.gameOptions = gameOptions}/>
-                    </div>
-                    <div className="game-board">
+            <div className="flex-container">
+                <Flex>
+                    <Flex.Item>
+                        <div>{status}</div>
+                    </Flex.Item>
+                    <Flex.Item>
                         <Board squares={current.squares}
                                onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleClick(i)}
                                winner={this.state.winnerInfo}/>
-                    </div>
-                    <div className="game-info">
-                        <div>{status}</div>
-                        <ol>{moves}</ol>
-                    </div>
-                </div>
-                <div>
-                    <p>
-                        {Resources.getInstance().autoPlay} <input type="number" onChange={this.changeCountdownNumber}
-                                                                  id="turns"
-                                                                  value={this.state.countDown}/> {Resources.getInstance().round}
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <button id="start-auto-button"
-                                onClick={() => this.learn()}>{Resources.getInstance().startLearning}</button>
-                    </p>
-                </div>
-                <Stats/>
-                <p>
-                    {Resources.getInstance().sourceCode}
-                    <a href="https://github.com/Jeff-Tian/tic-tac-toe-ai"
-                       target="_blank" rel="noopener noreferrer">https://github.com/Jeff-Tian/tic-tac-toe-ai</a>
-                </p>
+                    </Flex.Item>
+                    <Flex.Item>
+                        <Stats/>
+                    </Flex.Item>
+                </Flex>
             </div>
         );
     }
