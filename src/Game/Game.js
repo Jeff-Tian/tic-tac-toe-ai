@@ -7,7 +7,7 @@ import Stats from './Stats';
 import Judger from "./Judger";
 import Resources from './Resources';
 import Strategy, {StrategySettings} from "./Strategy";
-import {Flex} from 'antd-mobile'
+import {Flex, WhiteSpace} from 'antd-mobile'
 import GameOptions from "./Options";
 
 
@@ -240,11 +240,13 @@ export default class Game extends React.Component {
 
         return (
             <div className="flex-container">
+                <WhiteSpace size="lg"/>
                 <Flex>
                     <Flex.Item>
                         <div>{status}</div>
                     </Flex.Item>
                 </Flex>
+                <WhiteSpace size="lg"/>
                 <Flex>
                     <Flex.Item>
                         <Board squares={current.squares}
@@ -252,11 +254,13 @@ export default class Game extends React.Component {
                                winner={this.state.winnerInfo}/>
                     </Flex.Item>
                 </Flex>
+                <WhiteSpace size="lg"/>
                 <Flex>
                     <Flex.Item>
                         <Stats/>
                     </Flex.Item>
                 </Flex>
+                <WhiteSpace size="lg"/>
                 <Flex style={{display: 'none'}}>
                     <Flex.Item>
                         <p>
