@@ -8,6 +8,7 @@ import Judger from "./Judger";
 import Resources from './Resources';
 import Strategy, {StrategySettings} from "./Strategy";
 import {Flex} from 'antd-mobile'
+import GameOptions from "./Options";
 
 
 StrategySettings.setInitialWeights([0, -2, -1, 1, 1.5])
@@ -250,6 +251,25 @@ export default class Game extends React.Component {
                     </Flex.Item>
                     <Flex.Item>
                         <Stats/>
+                    </Flex.Item>
+                </Flex>
+                <Flex style={{display: 'none'}}>
+                    <Flex.Item>
+                        <p>
+                            {Resources.getInstance().autoPlay} <input type="number"
+                                                                      onChange={this.changeCountdownNumber}
+                                                                      id="turns"
+                                                                      value={this.state.countDown}/> {Resources.getInstance().round}
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <button id="start-auto-button"
+                                    onClick={() => this.learn()}>{Resources.getInstance().startLearning}</button>
+                        </p>
+                    </Flex.Item>
+                    <Flex.Item>
+                        <GameOptions readonly={this.state.stepNumber}
+                                     optionChanged={this.optionChanged} autoStart={this.state.autoStart}
+                                     mode={this.state.currentMode}
+                                     ref={gameOptions => this.gameOptions = gameOptions}/>
                     </Flex.Item>
                 </Flex>
             </div>
