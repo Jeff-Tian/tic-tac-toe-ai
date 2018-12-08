@@ -1,4 +1,5 @@
 const path = require('path');
+const theme = require('./package.json').theme;
 
 module.exports = {
     entry: './src/index.js',
@@ -14,6 +15,7 @@ module.exports = {
                     'style-loader',
                     'css-loader',
                 ],
+                noParse: /jquery/,
             },
             {
                 test: /\.less$/,
