@@ -25,7 +25,6 @@ export default {
     getBoardScore: function (bitmap, weights) {
         let {lost, win, factors} = Strategy.getBoardStatus(bitmap);
 
-        const namedFactors = nameFactors(factors);
         if (lost) {
             return {
                 factors: factors,

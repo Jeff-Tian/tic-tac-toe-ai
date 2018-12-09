@@ -6,7 +6,8 @@
     "antd-mobile": "^2.2.6",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.0.17"
+    "react-scripts": "^2.1.1",
+    "webpack": "^4.19.1"
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -16,26 +17,30 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "babel-jest": "^21.2.0",
+    "babel-jest": "^23.6.0",
     "babel-plugin-import": "^1.11.0",
     "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
     "css-loader": "^2.0.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "jest": "^21.2.1",
+    "jest": "^23.6.0",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "react-addons-test-utils": "^15.6.2",
     "react-app-rewired": "^1.6.2",
     "react-test-renderer": "^16.2.0",
     "style-loader": "^0.23.1",
-    "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2"
   },
   "homepage": "https://Jeff-Tian.github.io/tic-tac-toe-ai/",
   "theme": {
     "brand-primary": "red",
     "color-text-base": "#333"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

@@ -15,7 +15,6 @@ export default class AI {
     static nextMove(squares, weights, nextIsMe) {
         spotScoreMap.clear();
         let spots = Judger.getSpots(squares);
-        console.log('sopts = ', spots);
         let nextBoards = Judger.generateNewBoardsBySpots(squares, spots);
         let scores = nextBoards.map(b => Judger.getBoardScore(b, weights).total);
 
@@ -31,12 +30,8 @@ export default class AI {
         }
 
         let index = ArrayHelper.findIndexOfMax(scores);
-        latestFactors = perf[index].namedFactors;
+        latestFactors = scores[index].namedFactors;
         lastSquares = nextBoards[index];
-        console.log('latest= ', latestFactors, lastSquares);
-        console.log('weights = ', weights);
-        console.log('factors = ', perf[index].factors);
-        console.log('score = ', perf[index].total);
 
         return spots[index];
     }
