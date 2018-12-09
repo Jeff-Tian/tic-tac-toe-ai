@@ -7,7 +7,7 @@ import Stats from './Stats';
 import Judger from "./Judger";
 import Resources from './Resources';
 import Strategy, {StrategySettings} from "./Strategy";
-import {Flex} from 'antd-mobile'
+import {Flex, WhiteSpace} from 'antd-mobile'
 import GameOptions from "./Options";
 
 
@@ -158,7 +158,7 @@ export default class Game extends React.Component {
 
     autoStart(selectedMode, autoStart) {
         if (selectedMode === GameModes.computerVsComputer && autoStart && this.state.stepNumber === 0) {
-            this.setState({ endsAt: undefined }, () => {
+            this.setState({endsAt: undefined}, () => {
                 PlayerX.nextMove(this.state.history[this.state.stepNumber].squares, this);
             });
         }
@@ -201,7 +201,7 @@ export default class Game extends React.Component {
                         this.jumpTo(0);
                     });
                 } else {
-                    this.setState({ autoPlaying: false })
+                    this.setState({autoPlaying: false})
                 }
             }
         );
@@ -215,19 +215,22 @@ export default class Game extends React.Component {
         // const moves = history.map((step, move) => {
         //     const desc = Resources.getInstance().getMove(move, step.squares, step.squareIndex);
         //     return (
-                {/*<li key={move}>*/}
-                    {/*<button onClick={() => this.jumpTo(move)}>*/}
-                        // {
-                        //     move === this.state.stepNumber ?
-                                {/*<strong>*/}
-                                    // {desc}
-                                // </strong>
-                                // : <span>{desc}</span>
-                        // }
-                    // </button>
-                    // {/*<span>{step.score}</span>*/}
-                // </li>
-            // );
+        {/*<li key={move}>*/
+        }
+        {/*<button onClick={() => this.jumpTo(move)}>*/
+        }
+        // {
+        //     move === this.state.stepNumber ?
+        {/*<strong>*/
+        }
+        // {desc}
+        // </strong>
+        // : <span>{desc}</span>
+        // }
+        // </button>
+        // {/*<span>{step.score}</span>*/}
+        // </li>
+        // );
         // });
 
 
@@ -240,19 +243,27 @@ export default class Game extends React.Component {
 
         return (
             <div className="flex-container">
+                <WhiteSpace size="lg"/>
                 <Flex>
                     <Flex.Item>
                         <div>{status}</div>
                     </Flex.Item>
+                </Flex>
+                <WhiteSpace size="lg"/>
+                <Flex>
                     <Flex.Item>
                         <Board squares={current.squares}
                                onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleClick(i)}
                                winner={this.state.winnerInfo}/>
                     </Flex.Item>
+                </Flex>
+                <WhiteSpace size="lg"/>
+                <Flex>
                     <Flex.Item>
                         <Stats/>
                     </Flex.Item>
                 </Flex>
+                <WhiteSpace size="lg"/>
                 <Flex style={{display: 'none'}}>
                     <Flex.Item>
                         <p>
