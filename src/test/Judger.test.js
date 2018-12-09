@@ -55,12 +55,11 @@ test('裁判打分', () => {
         -1, -1, 0,
         -1, 0, 0
     ])).toEqual({
-        factors: [1, 1, 1, 0],
+        factors: [1, 1, -1],
         namedFactors: {
             const: 1,
             danger: 1,
-            bad: 1,
-            chance: 0
+            occupyCenter: -1
         },
         total: Math.PI / 2
     });
@@ -73,12 +72,11 @@ test('Judger can give score to current board', () => {
         1, 0, 0,
         -1, -1, -1
     ])).toEqual({
-        factors: [1, 0, 2, 1],
+        factors: [1, 0, -1],
         namedFactors: {
             const: 1,
             danger: 0,
-            bad: 2,
-            chance: 1
+            occupyCenter: -1
         },
         total: -Math.PI / 2
     });
@@ -88,12 +86,11 @@ test('Judger can give score to current board', () => {
         1, -1, -1,
         0, -1, -1
     ], [99, 99, 99, 99, 99])).toEqual({
-        factors: [1, 2, 1, 2],
+        factors: [1, 2, -1],
         namedFactors: {
             const: 1,
             danger: 2,
-            bad: 1,
-            chance: 2
+            occupyCenter: -1
         },
         total: 1.565745864685824
     });
@@ -103,12 +100,11 @@ test('Judger can give score to current board', () => {
         1, -1, -1,
         0, -1, -1
     ], [-99, -99, -99, -99, -99])).toEqual({
-        factors: [1, 2, 1, 2],
+        factors: [1, 2, -1],
         namedFactors: {
             const: 1,
             danger: 2,
-            bad: 1,
-            chance: 2
+            occupyCenter: -1
         },
         total: -1.565745864685824
     });
@@ -154,19 +150,4 @@ test('Judger can decide whether game ends', () => {
         lost: [0, 4, 8],
         fair: false
     })
-});
-
-test("Judger can check sides", () => {
-    expect(Judger.checkSides([
-        -1, 0, -1,
-        0, 1, 0,
-        1, -1, 1
-    ])).toEqual({danger: 1, bad: 0, lost: 0, win: 0, chance: 0});
-
-
-    expect(Judger.checkSides([
-        -1, 1, -1,
-        0, 1, 0,
-        1, -1, 0
-    ])).toEqual({danger: 0, bad: 1, lost: 0, win: 0, chance: 0});
 });
