@@ -29,7 +29,7 @@ export function getNextPlayer(xIsNext, historyLength) {
     if (historyLength <= 1) {
         return '你（X）先走'
     }
-    return '轮到：' + (xIsNext ? '你（X）' : '电脑（O）') + ' 走子';
+    return '轮到：' + (xIsNext ? '你（X）' : '电脑（O）') + ' 了';
 }
 
 export function getMove(move, squares, squareIndex) {

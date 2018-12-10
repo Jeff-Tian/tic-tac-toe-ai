@@ -56,8 +56,8 @@ class Stats extends React.Component {
                     <thead>
                     <tr>
                         <th>Measure</th>
-                        <th>X {Resources.getInstance().wins}</th>
-                        <th>O {Resources.getInstance().wins}</th>
+                        <th>你 (X) {Resources.getInstance().wins}</th>
+                        <th>电脑 (O) {Resources.getInstance().wins}</th>
                         <th>{Resources.getInstance().fair}</th>
                         <th>{Resources.getInstance().total}</th>
                     </tr>

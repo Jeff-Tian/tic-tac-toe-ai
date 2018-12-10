@@ -7,8 +7,10 @@ import Stats from './Stats';
 import Judger from "./Judger";
 import Resources from './Resources';
 import Strategy, {StrategySettings} from "./Strategy";
-import {Flex, WhiteSpace} from 'antd-mobile'
+import {Button, Flex, WhiteSpace} from 'antd-mobile'
 import GameOptions from "./Options";
+import classnames from 'classnames'
+import './game.css';
 
 
 StrategySettings.setInitialWeights([0, -2, -1, 1, 1.5])
@@ -27,11 +29,11 @@ export default class Game extends React.Component {
     constructor(props) {
         super(props);
 
-        PlayerX = new PlayerFool('X', 'O', true);
+        PlayerX = new PlayerFool('X');
         PlayerO = new ai('O', 'X');
 
         let initialSquares = Array(9).fill(null);
-        const initialState = {
+        this.state = {
             history: [{
                 squares: initialSquares,
                 squareIndex: null
@@ -46,8 +48,6 @@ export default class Game extends React.Component {
             round: 1,
             countDown: 0,
         };
-
-        this.state = initialState;
 
         this.optionChanged = this.optionChanged.bind(this);
         this.changeCountdownNumber = this.changeCountdownNumber.bind(this);
@@ -216,7 +216,11 @@ export default class Game extends React.Component {
         if (winner) {
             status = Resources.getInstance().winner + winner;
         } else {
-            status = Resources.getInstance().getNextPlayer(this.state.xIsNext, this.state.history.length);
+            if (!this.state.winnerInfo) {
+                status = Resources.getInstance().getNextPlayer(this.state.xIsNext, this.state.history.length);
+            } else {
+                status = '和棋！'
+            }
         }
 
         return (
@@ -224,7 +228,10 @@ export default class Game extends React.Component {
                 <WhiteSpace size="lg"/>
                 <Flex>
                     <Flex.Item>
-                        <div>{status}</div>
+                        <div className={classnames({
+                            'win': this.state.winnerInfo,
+                            'progress': !this.state.winnerInfo
+                        })}>{status}</div>
                     </Flex.Item>
                 </Flex>
                 <WhiteSpace size="lg"/>
@@ -233,6 +240,16 @@ export default class Game extends React.Component {
                         <Board squares={current.squares}
                                onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleClick(i)}
                                winner={this.state.winnerInfo}/>
+                    </Flex.Item>
+                </Flex>
+                <WhiteSpace size="lg"/>
+                <Flex>
+                    <Flex.Item>
+                        {
+                            this.state.winnerInfo !== null &&
+                            <Button icon={<img src="https://gw.alipayobjects.com/zos/rmsportal/jBfVSpDwPbitsABtDDlB.svg"
+                                               alt=""/>} onClick={() => this.jumpTo(0)}>再来一局！</Button>
+                        }
                     </Flex.Item>
                 </Flex>
                 <WhiteSpace size="lg"/>
@@ -264,6 +281,7 @@ export default class Game extends React.Component {
             </div>
         );
     }
+
     move(squares, callback) {
         if (this.state.xIsNext) {
             return PlayerX.nextMove(squares, this, callback);
