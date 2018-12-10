@@ -37,7 +37,10 @@ export function getRound(round) {
 }
 
 
-export function getNextPlayer(xIsNext, currentMode) {
+export function getNextPlayer(xIsNext, historyLength) {
+    if (historyLength <= 1) {
+        return 'Your turn.'
+    }
     return 'It\'s ' + (xIsNext ? 'X' : 'Computer O') + '\'s turn.';
 }
 

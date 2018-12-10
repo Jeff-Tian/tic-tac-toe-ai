@@ -216,7 +216,7 @@ export default class Game extends React.Component {
         if (winner) {
             status = Resources.getInstance().winner + winner;
         } else {
-            status = Resources.getInstance().getNextPlayer(this.state.xIsNext, this.state.currentMode);
+            status = Resources.getInstance().getNextPlayer(this.state.xIsNext, this.state.history.length);
         }
 
         return (
@@ -264,27 +264,6 @@ export default class Game extends React.Component {
             </div>
         );
     }
-
-    getMoves(history) {
-        return history.map((step, move) => {
-            const desc = Resources.getInstance().getMove(move, step.squares, step.squareIndex);
-            return (
-                <li key={move}>
-                    <button onClick={() => this.jumpTo(move)}>
-                        {
-                            move === this.state.stepNumber ?
-                                <strong>
-                                    {desc}
-                                </strong>
-                                : <span>{desc}</span>
-                        }
-                    </button>
-                    {/*<span>{step.score}</span>*/}
-                </li>
-            );
-        });
-    }
-
     move(squares, callback) {
         if (this.state.xIsNext) {
             return PlayerX.nextMove(squares, this, callback);

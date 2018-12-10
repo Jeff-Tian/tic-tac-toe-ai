@@ -25,8 +25,11 @@ export function getRound(round) {
     return `第 ${round} 回合`;
 }
 
-export function getNextPlayer(xIsNext, currentMode) {
-    return '轮到：' + (xIsNext ? 'X' : '电脑 O ') + ' 走子';
+export function getNextPlayer(xIsNext, historyLength) {
+    if (historyLength <= 1) {
+        return '你（X）先走'
+    }
+    return '轮到：' + (xIsNext ? '你（X）' : '电脑（O）') + ' 走子';
 }
 
 export function getMove(move, squares, squareIndex) {
