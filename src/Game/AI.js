@@ -4,7 +4,6 @@ import Strategy from "./Strategy";
 import {GlobalSettings, spotScoreMap} from "./globals";
 
 let latestFactors = null;
-let lastSquares = null;
 export default class AI {
     constructor() {
         this.weights = Object.assign([], Strategy.getInitialWeights());
@@ -31,7 +30,6 @@ export default class AI {
 
         let index = ArrayHelper.findIndexOfMax(scores);
         latestFactors = scores[index].namedFactors;
-        lastSquares = nextBoards[index];
 
         return spots[index];
     }
@@ -51,7 +49,6 @@ export default class AI {
     }
 
     clean() {
-        lastSquares = null;
         latestFactors = null;
     }
 
