@@ -1,8 +1,15 @@
 import {List} from "antd-mobile";
 import React from 'react'
+import {Link} from "react-router-dom";
 
 export const sidebar = (<List>
-    <List.Item key="1"
+    <List.Item key="0" multipleLine>
+        <Link to="/">主页</Link>
+    </List.Item>
+    <List.Item key="1" multipleLine>
+        <Link to="/settings">设置</Link>
+    </List.Item>
+    <List.Item key="2"
                thumb={<svg height="32" className="octicon octicon-mark-github"
                            viewBox="0 0 16 16"
                            version="1.1" width="32" aria-hidden="true">

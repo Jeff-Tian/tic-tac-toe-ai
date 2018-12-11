@@ -1,6 +1,6 @@
 import AI from "./AI";
 
-export default class PlayerExpert {
+export default class PlayerAI {
     constructor(me, enemy) {
         this.me = me;
         this.enemy = enemy;

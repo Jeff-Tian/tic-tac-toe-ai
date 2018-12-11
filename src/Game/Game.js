@@ -11,6 +11,7 @@ import {Button, Flex, WhiteSpace} from 'antd-mobile'
 import GameOptions from "./Options";
 import classnames from 'classnames'
 import './game.css';
+import LearningStatus from "./LearningStatus";
 
 
 StrategySettings.setInitialWeights([0, -2, -1, 1, 1.5])
@@ -225,6 +226,7 @@ export default class Game extends React.Component {
 
         return (
             <div className="flex-container">
+                <LearningStatus state={this.state}/>
                 <Flex>
                     <Flex.Item style={{textAlign: 'center'}}>
                         <div className={classnames({

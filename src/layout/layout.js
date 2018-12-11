@@ -3,6 +3,8 @@ import Game from "../Game/Game";
 import React from "react";
 import {sidebar} from "./sidebar";
 import './layout.css';
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import Settings from "../Game/globals";
 
 export default class Layout extends React.Component {
     state = {
@@ -22,18 +24,21 @@ export default class Layout extends React.Component {
                 AI 三子棋
             </NavBar>
 
-            <Drawer
-                className="my-drawer"
-                style={{minHeight: document.documentElement.clientHeight}}
-                contentStyle={{color: '#A6A6A6', textAlign: 'center', paddingTop: 42}}
-                sidebarStyle={{border: '1px solid #ddd'}}
-                sidebar={sidebar}
-                docked={this.state.docked}
-            >
-                <WingBlank>
-                    <Game/>
-                </WingBlank>
-            </Drawer>
+            <Router>
+                <Drawer
+                    className="my-drawer"
+                    style={{minHeight: document.documentElement.clientHeight}}
+                    contentStyle={{color: '#A6A6A6', textAlign: 'center', paddingTop: 42}}
+                    sidebarStyle={{border: '1px solid #ddd'}}
+                    sidebar={sidebar}
+                    docked={this.state.docked}
+                >
+                    <WingBlank>
+                        <Route path="/" exact component={Game}/>
+                        <Route path="/settings" component={Settings}/>
+                    </WingBlank>
+                </Drawer>
+            </Router>
         </div>;
     }
 }
