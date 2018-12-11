@@ -1,6 +1,6 @@
 export const spotScoreMap = new Map();
 
 export const GlobalSettings = {
-    learn: false,
+    learn: true,
     showAdvancedSettings: false
 };

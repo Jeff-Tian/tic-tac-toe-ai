@@ -69,11 +69,11 @@ class Stats extends React.Component {
             dataIndex: 'key',
             key: 'key',
         }, {
-            title: `你 (X) ${Resources.getInstance().wins}`,
+            title: <div>你 (X) <br/>{Resources.getInstance().wins}</div>,
             dataIndex: 'XWin',
             key: 'XWin',
         }, {
-            title: `电脑 (O) ${Resources.getInstance().wins}`,
+            title: <div>电脑 (O) <br/>{Resources.getInstance().wins}</div>,
             dataIndex: 'OWin',
             key: 'OWin',
         }, {
@@ -85,7 +85,7 @@ class Stats extends React.Component {
             dataIndex: 'subtotal',
             key: 'subtotal'
         }];
-        return <Table dataSource={dataSource} columns={columns}/>;
+        return <Table dataSource={dataSource} columns={columns} pagination={false}/>;
     }
 }
 

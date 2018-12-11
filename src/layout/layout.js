@@ -10,14 +10,13 @@ export default class Layout extends React.Component {
     }
 
     onDock = (d) => {
-        console.log('hello');
         this.setState({
             [d]: !this.state[d],
         });
     }
 
     render() {
-        return <div style={{height: '100%'}}>
+        return <div>
             <NavBar leftContent={[<Icon key="1" type="ellipsis"/>]} onLeftClick={() => this.onDock('docked')}
                     rightContent={[]}>
                 AI 三子棋
