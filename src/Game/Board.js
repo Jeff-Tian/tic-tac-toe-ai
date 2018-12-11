@@ -1,5 +1,6 @@
 import React from 'react';
 import Square from './Square';
+import './board.css'
 
 export default class Board extends React.Component {
 
@@ -31,7 +32,7 @@ export default class Board extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{display: 'inline-block'}}>
                 {this.renderBoard()}
             </div>
         );

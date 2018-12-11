@@ -217,7 +217,7 @@ export default class Game extends React.Component {
             status = Resources.getInstance().winner + winner;
         } else {
             if (!this.state.winnerInfo) {
-                status = Resources.getInstance().getNextPlayer(this.state.xIsNext, this.state.history.length);
+                status = Resources.getInstance().getNextPlayer(this.state.xIsNext, this.state.stepNumber);
             } else {
                 status = '和棋！'
             }
@@ -225,9 +225,8 @@ export default class Game extends React.Component {
 
         return (
             <div className="flex-container">
-                <WhiteSpace size="lg"/>
                 <Flex>
-                    <Flex.Item>
+                    <Flex.Item style={{textAlign: 'center'}}>
                         <div className={classnames({
                             'win': this.state.winnerInfo,
                             'progress': !this.state.winnerInfo
@@ -236,7 +235,7 @@ export default class Game extends React.Component {
                 </Flex>
                 <WhiteSpace size="lg"/>
                 <Flex>
-                    <Flex.Item>
+                    <Flex.Item style={{textAlign: 'center'}}>
                         <Board squares={current.squares}
                                onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleClick(i)}
                                winner={this.state.winnerInfo}/>
@@ -254,7 +253,7 @@ export default class Game extends React.Component {
                 </Flex>
                 <WhiteSpace size="lg"/>
                 <Flex>
-                    <Flex.Item>
+                    <Flex.Item style={{textAlign: 'center'}}>
                         <Stats/>
                     </Flex.Item>
                 </Flex>

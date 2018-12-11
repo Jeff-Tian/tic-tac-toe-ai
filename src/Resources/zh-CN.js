@@ -25,8 +25,8 @@ export function getRound(round) {
     return `第 ${round} 回合`;
 }
 
-export function getNextPlayer(xIsNext, historyLength) {
-    if (historyLength <= 1) {
+export function getNextPlayer(xIsNext, step) {
+    if (step <= 0) {
         return '你（X）先走'
     }
     return '轮到：' + (xIsNext ? '你（X）' : '电脑（O）') + ' 了';
