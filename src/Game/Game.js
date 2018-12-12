@@ -14,14 +14,15 @@ import './game.css';
 import LearningStatus from "./LearningStatus";
 
 
-StrategySettings.setInitialWeights([0, -2, -1, 1, 1.5])
+StrategySettings.setInitialWeights([0, -2, -1, 1, 1.5, -7])
 StrategySettings.setNamedStrategy((factors) => {
     return {
         const: factors[0],
         danger: factors[1],
         intersectedBads: factors[2],
         chance: factors[3],
-        occupyCenter: factors[4]
+        occupyCenter: factors[4],
+        componentDiagonose: factors[5]
     };
 })
 

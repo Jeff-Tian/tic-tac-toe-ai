@@ -90,10 +90,11 @@ export default class Strategy {
             factors: Object.keys(namedStrategy(Strategy.getInitialWeights())).map(key => {
                 return {
                     const: 1,
-                    danger: danger,
-                    occupyCenter: bitmap[4] === 1 ? 1 : -1,
+                    danger: danger * 1.1,
+                    occupyCenter: bitmap[4] === 1 ? 1 : 0,
                     intersectedBads: Strategy.getIntersectedBads(bitmap) / 2,
-                    chance: chance
+                    chance: chance,
+                    componentDiagonose: Strategy.getComponentDiagonose(bitmap)
                 }[key];
             })
         };
@@ -138,5 +139,27 @@ export default class Strategy {
         }
 
         return intersectedBads;
+    }
+
+    static getComponentDiagonose(bitmap) {
+        let res = 0;
+
+        if (bitmap[0] === -1 && bitmap[8] === 0 || bitmap[0] === 0 && bitmap[8] === -1) {
+            res += 0.5;
+        }
+
+        if (bitmap[0] === -1 && bitmap[8] === -1) {
+            res += 1;
+        }
+
+        if (bitmap[2] === -1 && bitmap[6] === 0 || bitmap[2] === 0 && bitmap[6] === -1) {
+            res += 0.5;
+        }
+
+        if (bitmap[2] === -1 && bitmap[6] === -1) {
+            res += 1
+        }
+
+        return res;
     }
 }

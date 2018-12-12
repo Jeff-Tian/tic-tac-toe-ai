@@ -23,6 +23,8 @@ const sides = [
 ];
 export default {
     getBoardScore: function (bitmap, weights) {
+        weights = weights || Strategy.getInitialWeights();
+
         let {lost, win, factors} = Strategy.getBoardStatus(bitmap);
 
         if (lost) {
@@ -43,12 +45,11 @@ export default {
 
         let score = Math.atan(factors.map((s, i) => s * weights[i]).reduce((prev, next) => prev + next, 0));
 
-        let res = {
+        return {
             factors: factors,
             namedFactors: Strategy.getNamedStrategy(factors),
             total: score
         };
-        return res;
     },
 
     getSpots(bitmapSquares) {

@@ -27,7 +27,7 @@ test('Game can train players', async () => {
         "history": [{"squareIndex": null, "squares": [null, null, null, null, null, null, null, null, null]}],
         "round": 1,
         "stepNumber": 0,
-        "strategy": {"const": 1, "danger": 0, "occupyCenter": -1},
+        "strategy": {"const": 1, "danger": 0, "occupyCenter": 0},
         "winnerInfo": null,
         "xIsNext": true
     });
