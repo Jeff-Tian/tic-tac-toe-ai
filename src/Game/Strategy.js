@@ -144,7 +144,7 @@ export default class Strategy {
     static getComponentDiagonose(bitmap) {
         let res = 0;
 
-        if (bitmap[0] === -1 && bitmap[8] === 0 || bitmap[0] === 0 && bitmap[8] === -1) {
+        if ((bitmap[0] === -1 && bitmap[8] === 0) || (bitmap[0] === 0 && bitmap[8] === -1)) {
             res += 0.5;
         }
 
@@ -152,7 +152,7 @@ export default class Strategy {
             res += 1;
         }
 
-        if (bitmap[2] === -1 && bitmap[6] === 0 || bitmap[2] === 0 && bitmap[6] === -1) {
+        if ((bitmap[2] === -1 && bitmap[6] === 0) || (bitmap[2] === 0 && bitmap[6] === -1)) {
             res += 0.5;
         }
 
