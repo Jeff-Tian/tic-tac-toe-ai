@@ -48,4 +48,22 @@ describe('Strategy', () => {
 
 
     })
+
+
+    test('自己的机会赢面不要给对手机会。', () => {
+        let b = [
+            -1, 0, 1,
+            0, 1, 0,
+            0, 0, -1
+        ]
+        expect(Strategy.getNumberOfBadsOfMyChancePosition(b)).toEqual(2)
+
+        b = [
+            -1, 0, 0,
+            0, 1, 1,
+            0, 0, -1
+        ]
+
+        expect(Strategy.getNumberOfBadsOfMyChancePosition(b)).toEqual(1)
+    })
 })

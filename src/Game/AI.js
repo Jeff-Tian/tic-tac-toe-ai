@@ -24,7 +24,7 @@ export default class AI {
             spotScoreMap.set(spot, {
                 weights: weights,
                 strategy: Strategy.getBoardStatus(squares).factors,
-                score: score
+                score: score,
             });
         }
 

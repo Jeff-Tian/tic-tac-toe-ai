@@ -1,6 +1,5 @@
 import React from 'react';
 import Judger from '../Game/Judger';
-import {StrategySettings} from "../Game/Strategy";
 
 test('Judger can find empty spots on board', () => {
     expect(Judger.getSpots([
@@ -139,30 +138,3 @@ test('Judger can decide whether game ends', () => {
         fair: false
     })
 });
-
-test('裁判打分，对角很关键', () => {
-    StrategySettings.setInitialWeights([0, -2, -1, 1, 1.5, -7])
-    StrategySettings.setNamedStrategy((factors) => {
-        return {
-            const: factors[0],
-            danger: factors[1],
-            intersectedBads: factors[2],
-            chance: factors[3],
-            occupyCenter: factors[4],
-            componentDiagonose: factors[5]
-        };
-    })
-
-    const score1 = Judger.getBoardScore([
-        -1, 0, 0,
-        0, 1, 0,
-        0, 0, 0
-    ]);
-    const score2 = Judger.getBoardScore([
-        -1, 0, 0,
-        0, 0, 0,
-        0, 0, 1
-    ]);
-
-    expect(score2.total).toBeGreaterThan(score1.total);
-})

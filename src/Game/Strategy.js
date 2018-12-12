@@ -94,7 +94,7 @@ export default class Strategy {
                     occupyCenter: bitmap[4] === 1 ? 1 : 0,
                     intersectedBads: Strategy.getIntersectedBads(bitmap) / 2,
                     chance: chance,
-                    componentDiagonose: Strategy.getComponentDiagonose(bitmap)
+                    numberOfBadsOfMyChance: Strategy.getNumberOfBadsOfMyChancePosition(bitmap)
                 }[key];
             })
         };
@@ -141,25 +141,35 @@ export default class Strategy {
         return intersectedBads;
     }
 
-    static getComponentDiagonose(bitmap) {
-        let res = 0;
+    static getNumberOfBadsOfMyChancePosition(bitmap) {
+        let sum = 0;
 
-        if ((bitmap[0] === -1 && bitmap[8] === 0) || (bitmap[0] === 0 && bitmap[8] === -1)) {
-            res += 0.5;
+        for (let i = 0; i < sides.length; i++) {
+            let sideValues = bitmap.filter((_, j) => sides[i].indexOf(j) >= 0);
+
+            let zeros = sideValues.filter(b => b === 0);
+            let ones = sideValues.filter(b => b === 1);
+
+            if (ones.length === 2 && zeros.length === 1) {
+                const theChance = sides[i].filter(index => bitmap[index] === 0)[0];
+
+                if (theChance !== undefined) {
+                    let sidesContainsTheChancePosition = sides.filter(s => s.indexOf(theChance) >= 0);
+
+                    for (const s of sidesContainsTheChancePosition) {
+                        let sValues = bitmap.filter((_, j) => s.indexOf(j) >= 0);
+
+                        let n = sValues.filter(b => b === -1).length;
+                        let p = sValues.filter(b => b === 1).length;
+
+                        if (n > 0 && p === 0) {
+                            sum++;
+                        }
+                    }
+                }
+            }
         }
 
-        if (bitmap[0] === -1 && bitmap[8] === -1) {
-            res += 1;
-        }
-
-        if ((bitmap[2] === -1 && bitmap[6] === 0) || (bitmap[2] === 0 && bitmap[6] === -1)) {
-            res += 0.5;
-        }
-
-        if (bitmap[2] === -1 && bitmap[6] === -1) {
-            res += 1
-        }
-
-        return res;
+        return sum;
     }
 }

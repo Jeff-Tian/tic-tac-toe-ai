@@ -14,7 +14,8 @@ import './game.css';
 import LearningStatus from "./LearningStatus";
 
 
-StrategySettings.setInitialWeights([0, -2, -1, 1, 1.5, -7])
+StrategySettings.setInitialWeights([0, -2, -1, 1, 1.5, -1]);
+//-0.01, -0.47, -0.16, 1.46, 0.67, -0.54
 StrategySettings.setNamedStrategy((factors) => {
     return {
         const: factors[0],
@@ -22,7 +23,7 @@ StrategySettings.setNamedStrategy((factors) => {
         intersectedBads: factors[2],
         chance: factors[3],
         occupyCenter: factors[4],
-        componentDiagonose: factors[5]
+        numberOfBadsOfMyChance: factors[5]
     };
 })
 
@@ -96,7 +97,6 @@ export default class Game extends React.Component {
 
                     if (this.state.xIsNext && (this.state.currentMode === GameModes.computerVsComputer)) {
                         PlayerX.nextMove(this.state.history[this.state.stepNumber].squares, this);
-                        return;
                     }
                 }, 10);
             }
