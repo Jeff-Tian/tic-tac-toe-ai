@@ -18,13 +18,12 @@ export default class Layout extends React.Component {
     }
 
     render() {
-        return <div>
-            <NavBar leftContent={[<Icon key="1" type="ellipsis"/>]} onLeftClick={() => this.onDock('docked')}
-                    rightContent={[]}>
-                AI 三子棋
-            </NavBar>
-
-            <Router>
+        return <Router>
+            <div>
+                <NavBar leftContent={[<Icon key="1" type="ellipsis"/>]} onLeftClick={() => this.onDock('docked')}
+                        rightContent={[]}>
+                    AI 三子棋
+                </NavBar>
                 <Drawer
                     className="my-drawer"
                     style={{minHeight: document.documentElement.clientHeight}}
@@ -38,7 +37,7 @@ export default class Layout extends React.Component {
                         <Route path="/settings" component={Settings}/>
                     </WingBlank>
                 </Drawer>
-            </Router>
-        </div>;
+            </div>
+        </Router>;
     }
 }
