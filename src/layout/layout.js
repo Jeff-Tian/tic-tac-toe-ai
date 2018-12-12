@@ -1,7 +1,7 @@
 import {Drawer, Icon, NavBar, WingBlank} from "antd-mobile";
 import Game from "../Game/Game";
 import React from "react";
-import {sidebar} from "./sidebar";
+import {SideBar} from "./sideBar";
 import './layout.css';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import Settings from "../Game/globals";
@@ -18,7 +18,7 @@ export default class Layout extends React.Component {
     }
 
     render() {
-        return <Router>
+        return <Router basename={process.env.PUBLIC_URL}>
             <div>
                 <NavBar leftContent={[<Icon key="1" type="ellipsis"/>]} onLeftClick={() => this.onDock('docked')}
                         rightContent={[]}>
@@ -26,10 +26,10 @@ export default class Layout extends React.Component {
                 </NavBar>
                 <Drawer
                     className="my-drawer"
-                    style={{minHeight: document.documentElement.clientHeight}}
-                    contentStyle={{color: '#A6A6A6', textAlign: 'center', paddingTop: 42}}
+                    style={{minHeight: document.documentElement.clientHeight - 45}}
+                    contentStyle={{textAlign: 'center'}}
                     sidebarStyle={{border: '1px solid #ddd'}}
-                    sidebar={sidebar}
+                    sidebar={<SideBar onClicked={() => this.onDock('docked')}/>}
                     docked={this.state.docked}
                 >
                     <WingBlank>

@@ -32,7 +32,7 @@ export default class Board extends React.Component {
 
     render() {
         return (
-            <div style={{display: 'inline-block'}}>
+            <div style={{display: 'inline-block', minWidth: '247px'}}>
                 {this.renderBoard()}
             </div>
         );
