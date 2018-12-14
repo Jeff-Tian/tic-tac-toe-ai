@@ -235,7 +235,7 @@ export default class Game extends React.Component {
         }
 
         return (
-            <div className="flex-container" style={{minWidth: '375px'}}>
+            <div className="flex-container" style={{minWidth: '300px'}}>
                 {
                     this.state.stepNumber > 0 &&
 

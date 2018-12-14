@@ -1,6 +1,7 @@
 import {Button, Flex, Modal} from "antd-mobile";
 import React from "react";
 import './result.css';
+import {CustomIcon} from "../icons/CustomIcon";
 
 export default class Result extends React.Component {
     state = {showRedPackageModal: false}
@@ -48,7 +49,8 @@ export default class Result extends React.Component {
                 this.props.winnerInfo.who === 'O' &&
                 <Flex>
                     <Flex.Item>
-                        <Button icon={require('../icons/crying.svg')} onClick={this.comfortPlayer}>输掉了，不开心。</Button>
+                        <Button icon={<CustomIcon type={require('../icons/crying.svg')}/>}
+                                onClick={this.comfortPlayer}>输掉了，不开心。</Button>
                     </Flex.Item>
                 </Flex>
             }
