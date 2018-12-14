@@ -226,7 +226,7 @@ export default class Game extends React.Component {
         }
 
         return (
-            <div className="flex-container">
+            <div className="flex-container" style={{minWidth: '375px'}}>
                 <WhiteSpace size="lg"/>
                 <LearningStatus state={this.state}/>
                 <WhiteSpace size="lg"/>
