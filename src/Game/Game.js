@@ -50,6 +50,7 @@ export default class Game extends React.Component {
             winnerInfo: null,
             round: 1,
             countDown: 0,
+            gameOver: false
         };
 
         this.optionChanged = this.optionChanged.bind(this);
@@ -74,6 +75,7 @@ export default class Game extends React.Component {
         const squares = current.squares.slice();
 
         if (this.notifyGameOverIfEnds(squares)) {
+            this.setState({gameOver: true})
             return;
         }
 
@@ -141,7 +143,8 @@ export default class Game extends React.Component {
         this.setState({
             stepNumber: step,
             xIsNext: (step % 2) === 0,
-            winnerInfo: step === 0 ? null : this.state.winnerInfo
+            winnerInfo: step === 0 ? null : this.state.winnerInfo,
+            gameOver: step === 0 ? false : this.state.gameOver
         }, () => {
             this.autoStart(this.state.currentMode, this.state.autoStart);
 
@@ -243,7 +246,7 @@ export default class Game extends React.Component {
                 <WhiteSpace size="lg"/>
                 <Flex>
                     <Flex.Item style={{textAlign: 'center'}}>
-                        <Board squares={current.squares}
+                        <Board squares={current.squares} gameOver={this.state.gameOver}
                                onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleClick(i)}
                                winner={this.state.winnerInfo}/>
                     </Flex.Item>
