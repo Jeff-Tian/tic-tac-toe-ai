@@ -14,7 +14,6 @@ export const humanVsComputer = '人-机对战';
 export const computerVsComputer = '机-机对战';
 
 export const stats = '统计:';
-export const measure = '度量';
 export const wins = '胜出';
 export const fair = '平局';
 export const total = '总计';

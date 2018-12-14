@@ -61,11 +61,11 @@ class Stats extends React.Component {
             key: '%',
             XWin: this.getXWinPercent().toFixed(2) * 100 + '%',
             OWin: this.getOWinPercent().toFixed(2) * 100 + '%',
-            draw: this.getOWinPercent().toFixed(2) * 100 + '%',
+            draw: this.getFairPercent().toFixed(2) * 100 + '%',
             subtotal: '100%'
         }];
         const columns = [{
-            title: 'Measure',
+            title: this.props.round,
             dataIndex: 'key',
             key: 'key',
         }, {

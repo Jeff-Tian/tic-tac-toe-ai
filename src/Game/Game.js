@@ -227,15 +227,19 @@ export default class Game extends React.Component {
 
         return (
             <div className="flex-container">
+                <WhiteSpace size="lg"/>
                 <LearningStatus state={this.state}/>
+                <WhiteSpace size="lg"/>
+
                 <Flex>
                     <Flex.Item style={{textAlign: 'center'}}>
-                        <div className={classnames({
+                        <div style={{height: '50px'}} className={classnames({
                             'win': this.state.winnerInfo,
                             'progress': !this.state.winnerInfo
                         })}>{status}</div>
                     </Flex.Item>
                 </Flex>
+                <WhiteSpace size="lg"/>
                 <WhiteSpace size="lg"/>
                 <Flex>
                     <Flex.Item style={{textAlign: 'center'}}>
@@ -247,17 +251,18 @@ export default class Game extends React.Component {
                 <WhiteSpace size="lg"/>
                 <Flex>
                     <Flex.Item>
-                        {
-                            this.state.winnerInfo !== null &&
-                            <Button icon={<img src="https://gw.alipayobjects.com/zos/rmsportal/jBfVSpDwPbitsABtDDlB.svg"
-                                               alt=""/>} onClick={() => this.jumpTo(0)}>再来一局！</Button>
-                        }
+                        <Button style={{visibility: this.state.winnerInfo !== null ? 'visible' : 'hidden'}}
+                                icon={<img src="https://gw.alipayobjects.com/zos/rmsportal/jBfVSpDwPbitsABtDDlB.svg"
+                                           alt=""/>} onClick={() => this.jumpTo(0)}>再来一局！</Button>
                     </Flex.Item>
                 </Flex>
                 <WhiteSpace size="lg"/>
+                <WhiteSpace size="lg"/>
+                <WhiteSpace size="lg"/>
+                <WhiteSpace size="lg"/>
                 <Flex>
                     <Flex.Item style={{textAlign: 'center'}}>
-                        <Stats/>
+                        <Stats round={this.state.round}/>
                     </Flex.Item>
                 </Flex>
                 <WhiteSpace size="lg"/>
