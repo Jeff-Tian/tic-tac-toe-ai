@@ -1,10 +1,8 @@
 import ComputerFool from "./ComputerFool";
 
 export default class PlayerFool {
-    constructor(me, enemy, meFirst) {
+    constructor(me) {
         this.me = me;
-        this.enemy = enemy;
-        this.meFirst = meFirst;
     }
 
     nextMove(squares, game, callback) {

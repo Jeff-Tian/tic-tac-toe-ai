@@ -1,6 +1,6 @@
 import AI from "./AI";
 
-export default class PlayerExpert {
+export default class PlayerAI {
     constructor(me, enemy) {
         this.me = me;
         this.enemy = enemy;
@@ -30,6 +30,10 @@ export default class PlayerExpert {
 
     getWeights() {
         return this.expert.getWeights();
+    }
+
+    getFactors() {
+        return this.expert.getFactors();
     }
 
     setWeightsUpdatedCallback(cb) {

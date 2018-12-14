@@ -1,16 +1,9 @@
 body {
-    font: 14px "Century Gothic", Futura, sans-serif;
-    margin: 20px;
+    margin: 0;
 }
 
 ol, ul {
     padding-left: 30px;
-}
-
-.board-row:after {
-    clear: both;
-    content: "";
-    display: table;
 }
 
 .status {
@@ -19,17 +12,25 @@ ol, ul {
 
 .square {
     background: #fff;
-    border: 1px solid #999;
+    border: none;
+    border-bottom: 2px solid #999;
+    border-right: 2px solid #999;
     float: left;
     font-size: 50px;
     font-weight: bold;
-    line-height: 80px;
-    height: 80px;
-    margin-right: -1px;
-    margin-top: -1px;
+    line-height: 90px;
+    height: 90px;
     padding: 0;
     text-align: center;
-    width: 80px;
+    width: 90px;
+}
+
+.square:last-child {
+    border-right: none;
+}
+
+.board-row:last-child > .square {
+    border-bottom: none;
 }
 
 .square:focus {
@@ -59,50 +60,4 @@ ol, ul {
         flex-direction: column !important;
         min-height: 600px !important;
     }
-}
-
-.my-drawer {
-    position: relative;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-.my-drawer .am-drawer-sidebar {
-    background-color: #fff;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-.my-drawer .am-drawer-sidebar .am-list {
-    width: 300px;
-    padding: 0;
-}
-
-.flex-container {
-    margin: 0 15px;
-}
-
-.flex-container .inline {
-    width: 80px !important;
-    margin: 9px 9px 9px 0;
-}
-
-.flex-container .small {
-    height: 20px !important;
-    line-height: 20px !important;
-}
-
-.sub-title {
-    color: #888;
-    font-size: 14px;
-    padding: 30px 0 18px 0;
-}
-
-.placeholder {
-    background-color: #ebebef;
-    color: #bbb;
-    text-align: center;
-    height: 30px;
-    line-height: 30px;
-    width: 100%;
 }

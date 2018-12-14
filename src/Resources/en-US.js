@@ -14,7 +14,6 @@ export const humanVsComputer = 'Human vs Computer';
 export const computerVsComputer = 'Computer vs Computer';
 
 export const stats = 'Statistics:';
-export const measure = 'Measure';
 export const wins = 'Wins';
 export const fair = 'Draw';
 export const total = 'Total';
@@ -37,7 +36,10 @@ export function getRound(round) {
 }
 
 
-export function getNextPlayer(xIsNext, currentMode) {
+export function getNextPlayer(xIsNext, step) {
+    if (step <= 0) {
+        return 'Your turn.'
+    }
     return 'It\'s ' + (xIsNext ? 'X' : 'Computer O') + '\'s turn.';
 }
 

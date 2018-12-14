@@ -3,6 +3,7 @@ import ArrayHelper from "../Helpers/ArrayHelper";
 import Strategy from "./Strategy";
 import {GlobalSettings, spotScoreMap} from "./globals";
 
+let latestFactors = null;
 export default class AI {
     constructor() {
         this.weights = Object.assign([], Strategy.getInitialWeights());
@@ -23,11 +24,12 @@ export default class AI {
             spotScoreMap.set(spot, {
                 weights: weights,
                 strategy: Strategy.getBoardStatus(squares).factors,
-                score: score
+                score: score,
             });
         }
 
         let index = ArrayHelper.findIndexOfMax(scores);
+        latestFactors = scores[index].namedFactors;
 
         return spots[index];
     }
@@ -47,11 +49,15 @@ export default class AI {
     }
 
     clean() {
-        this.lastBitmapSquares = undefined;
+        latestFactors = null;
     }
 
     getWeights() {
         return this.weights;
+    }
+
+    getFactors() {
+        return latestFactors;
     }
 
     setWeights(weights) {

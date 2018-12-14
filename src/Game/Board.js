@@ -1,11 +1,13 @@
 import React from 'react';
 import Square from './Square';
+import './board.css'
 
 export default class Board extends React.Component {
 
     renderSquare(i) {
         return <Square value={this.props.squares[i]} onClick={() => this.props.onClick(i)} key={i} index={i}
-                       highlight={this.props.winner ? this.props.winner.where.indexOf(i) >= 0 : false}/>;
+                       highlight={this.props.winner ? this.props.winner.where.indexOf(i) >= 0 : false}
+                       disabled={this.props.disabled}/>;
     }
 
     renderBoardRow(side, rowIndex) {
@@ -31,7 +33,7 @@ export default class Board extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{display: 'inline-block', minWidth: '247px'}}>
                 {this.renderBoard()}
             </div>
         );

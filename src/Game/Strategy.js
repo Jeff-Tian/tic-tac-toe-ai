@@ -90,10 +90,11 @@ export default class Strategy {
             factors: Object.keys(namedStrategy(Strategy.getInitialWeights())).map(key => {
                 return {
                     const: 1,
-                    danger: danger,
-                    occupyCenter: bitmap[4] === 1 ? 1 : -1,
+                    danger: danger * 1.1,
+                    occupyCenter: bitmap[4] === 1 ? 1 : 0,
                     intersectedBads: Strategy.getIntersectedBads(bitmap) / 2,
-                    chance: chance
+                    chance: chance,
+                    numberOfBadsOfMyChance: Strategy.getNumberOfBadsOfMyChancePosition(bitmap)
                 }[key];
             })
         };
@@ -138,5 +139,37 @@ export default class Strategy {
         }
 
         return intersectedBads;
+    }
+
+    static getNumberOfBadsOfMyChancePosition(bitmap) {
+        let sum = 0;
+
+        for (let i = 0; i < sides.length; i++) {
+            let sideValues = bitmap.filter((_, j) => sides[i].indexOf(j) >= 0);
+
+            let zeros = sideValues.filter(b => b === 0);
+            let ones = sideValues.filter(b => b === 1);
+
+            if (ones.length === 2 && zeros.length === 1) {
+                const theChance = sides[i].filter(index => bitmap[index] === 0)[0];
+
+                if (theChance !== undefined) {
+                    let sidesContainsTheChancePosition = sides.filter(s => s.indexOf(theChance) >= 0);
+
+                    for (const s of sidesContainsTheChancePosition) {
+                        let sValues = bitmap.filter((_, j) => s.indexOf(j) >= 0);
+
+                        let n = sValues.filter(b => b === -1).length;
+                        let p = sValues.filter(b => b === 1).length;
+
+                        if (n > 0 && p === 0) {
+                            sum++;
+                        }
+                    }
+                }
+            }
+        }
+
+        return sum;
     }
 }

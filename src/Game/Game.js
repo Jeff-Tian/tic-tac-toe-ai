@@ -7,18 +7,24 @@ import Stats from './Stats';
 import Judger from "./Judger";
 import Resources from './Resources';
 import Strategy, {StrategySettings} from "./Strategy";
-import {Flex, WhiteSpace} from 'antd-mobile'
+import {Button, Flex, Progress, WhiteSpace} from 'antd-mobile'
 import GameOptions from "./Options";
+import classnames from 'classnames'
+import './game.css';
+import LearningStatus from "./LearningStatus";
+import Result from "../result/result";
 
 
-StrategySettings.setInitialWeights([0, -2, -1, 1, 1.5])
+StrategySettings.setInitialWeights([0, -2, -1, 1, 1.5, -1]);
+//-0.01, -0.47, -0.16, 1.46, 0.67, -0.54
 StrategySettings.setNamedStrategy((factors) => {
     return {
         const: factors[0],
         danger: factors[1],
         intersectedBads: factors[2],
         chance: factors[3],
-        occupyCenter: factors[4]
+        occupyCenter: factors[4],
+        numberOfBadsOfMyChance: factors[5]
     };
 })
 
@@ -27,11 +33,11 @@ export default class Game extends React.Component {
     constructor(props) {
         super(props);
 
-        PlayerX = new PlayerFool('X', 'O', true);
+        PlayerX = new PlayerFool('X');
         PlayerO = new ai('O', 'X');
 
         let initialSquares = Array(9).fill(null);
-        const initialState = {
+        this.state = {
             history: [{
                 squares: initialSquares,
                 squareIndex: null
@@ -45,9 +51,8 @@ export default class Game extends React.Component {
             winnerInfo: null,
             round: 1,
             countDown: 0,
+            disabled: false
         };
-
-        this.state = initialState;
 
         this.optionChanged = this.optionChanged.bind(this);
         this.changeCountdownNumber = this.changeCountdownNumber.bind(this);
@@ -71,6 +76,7 @@ export default class Game extends React.Component {
         const squares = current.squares.slice();
 
         if (this.notifyGameOverIfEnds(squares)) {
+            this.setState({disabled: true})
             return;
         }
 
@@ -88,13 +94,17 @@ export default class Game extends React.Component {
             if (!this.state.autoPlaying) {
                 setTimeout(() => {
                     if (!this.state.xIsNext) {
-                        PlayerO.nextMove(this.state.history[this.state.stepNumber].squares, this);
+                        this.setState({disabled: true})
+                        setTimeout(() => {
+                            PlayerO.nextMove(this.state.history[this.state.stepNumber].squares, this);
+                            this.setState({disabled: false});
+
+                        }, 600);
                         return;
                     }
 
                     if (this.state.xIsNext && (this.state.currentMode === GameModes.computerVsComputer)) {
                         PlayerX.nextMove(this.state.history[this.state.stepNumber].squares, this);
-                        return;
                     }
                 }, 10);
             }
@@ -139,7 +149,8 @@ export default class Game extends React.Component {
         this.setState({
             stepNumber: step,
             xIsNext: (step % 2) === 0,
-            winnerInfo: step === 0 ? null : this.state.winnerInfo
+            winnerInfo: step === 0 ? null : this.state.winnerInfo,
+            disabled: step === 0 ? false : this.state.disabled
         }, () => {
             this.autoStart(this.state.currentMode, this.state.autoStart);
 
@@ -212,44 +223,41 @@ export default class Game extends React.Component {
         const current = history[this.state.stepNumber];
         const winner = this.state.winnerInfo ? this.state.winnerInfo.who : null;
 
-        // const moves = history.map((step, move) => {
-        //     const desc = Resources.getInstance().getMove(move, step.squares, step.squareIndex);
-        //     return (
-        //         <li key={move}>
-        //             <button onClick={() => this.jumpTo(move)}>
-        //                 {
-        //                     move === this.state.stepNumber ?
-        //                         <strong>
-        //                             {desc}
-        //                         </strong>
-        //                         : <span>{desc}</span>
-        //                 }
-        //             </button>
-        //             {/*<span>{step.score}</span>*/}
-        //         </li>
-        //     );
-        // });
-
-
         let status;
         if (winner) {
             status = Resources.getInstance().winner + winner;
         } else {
-            status = Resources.getInstance().getNextPlayer(this.state.xIsNext, this.state.currentMode);
+            if (!this.state.winnerInfo) {
+                status = Resources.getInstance().getNextPlayer(this.state.xIsNext, this.state.stepNumber);
+            } else {
+                status = '和棋！'
+            }
         }
 
         return (
-            <div className="flex-container">
+            <div className="flex-container" style={{minWidth: '300px'}}>
+                {
+                    this.state.stepNumber > 0 &&
+
+                    <Progress percent={this.state.disabled ? 0 : 100} position="fixed"/>
+                }
                 <WhiteSpace size="lg"/>
+                <LearningStatus state={this.state}/>
+                <WhiteSpace size="lg"/>
+
                 <Flex>
-                    <Flex.Item>
-                        <div>{status}</div>
+                    <Flex.Item style={{textAlign: 'center'}}>
+                        <div style={{height: '50px'}} className={classnames({
+                            'win': this.state.winnerInfo,
+                            'progress': !this.state.winnerInfo
+                        })}>{status}</div>
                     </Flex.Item>
                 </Flex>
                 <WhiteSpace size="lg"/>
+                <WhiteSpace size="lg"/>
                 <Flex>
-                    <Flex.Item>
-                        <Board squares={current.squares}
+                    <Flex.Item style={{textAlign: 'center'}}>
+                        <Board squares={current.squares} disabled={this.state.disabled}
                                onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleClick(i)}
                                winner={this.state.winnerInfo}/>
                     </Flex.Item>
@@ -257,7 +265,20 @@ export default class Game extends React.Component {
                 <WhiteSpace size="lg"/>
                 <Flex>
                     <Flex.Item>
-                        <Stats/>
+                        <Button style={{visibility: this.state.winnerInfo !== null ? 'visible' : 'hidden'}}
+                                icon={<img src="https://gw.alipayobjects.com/zos/rmsportal/jBfVSpDwPbitsABtDDlB.svg"
+                                           alt=""/>} onClick={() => this.jumpTo(0)}>再来一局！</Button>
+                    </Flex.Item>
+                </Flex>
+                <WhiteSpace size="lg"/>
+                <Result winnerInfo={this.state.winnerInfo || {}}/>
+                <WhiteSpace size="lg"/>
+                <WhiteSpace size="lg"/>
+                <WhiteSpace size="lg"/>
+                <WhiteSpace size="lg"/>
+                <Flex>
+                    <Flex.Item style={{textAlign: 'center'}}>
+                        <Stats round={this.state.round}/>
                     </Flex.Item>
                 </Flex>
                 <WhiteSpace size="lg"/>

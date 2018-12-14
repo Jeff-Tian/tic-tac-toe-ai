@@ -1,5 +1,7 @@
 import React from 'react';
 import Resources from "./Resources";
+import {Table} from "antd";
+import './stats.css'
 
 let state = {
     XWin: 0,
@@ -49,38 +51,41 @@ class Stats extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                <h3>{Resources.getInstance().stats}</h3>
-                <table border="1">
-                    <thead>
-                    <tr>
-                        <th>Measure</th>
-                        <th>X {Resources.getInstance().wins}</th>
-                        <th>O {Resources.getInstance().wins}</th>
-                        <th>{Resources.getInstance().fair}</th>
-                        <th>{Resources.getInstance().total}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th>#</th>
-                        <td>{state.XWin}</td>
-                        <td>{state.OWin}</td>
-                        <td>{state.Fair}</td>
-                        <td>{this.getTotal()}</td>
-                    </tr>
-                    <tr>
-                        <th>%</th>
-                        <td>{this.getXWinPercent().toFixed(2) * 100} %</td>
-                        <td>{this.getOWinPercent().toFixed(2) * 100} %</td>
-                        <td>{this.getFairPercent().toFixed(2) * 100} %</td>
-                        <td>100 %</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        );
+        const dataSource = [{
+            key: '#',
+            XWin: state.XWin,
+            OWin: state.OWin,
+            draw: state.Fair,
+            subtotal: this.getTotal()
+        }, {
+            key: '%',
+            XWin: this.getXWinPercent().toFixed(2) * 100 + '%',
+            OWin: this.getOWinPercent().toFixed(2) * 100 + '%',
+            draw: this.getFairPercent().toFixed(2) * 100 + '%',
+            subtotal: '100%'
+        }];
+        const columns = [{
+            title: this.props.round,
+            dataIndex: 'key',
+            key: 'key',
+        }, {
+            title: <div>你 (X) <br/>{Resources.getInstance().wins}</div>,
+            dataIndex: 'XWin',
+            key: 'XWin',
+        }, {
+            title: <div>电脑 (O) <br/>{Resources.getInstance().wins}</div>,
+            dataIndex: 'OWin',
+            key: 'OWin',
+        }, {
+            title: Resources.getInstance().fair,
+            dataIndex: 'draw',
+            key: 'draw'
+        }, {
+            title: Resources.getInstance().total,
+            dataIndex: 'subtotal',
+            key: 'subtotal'
+        }];
+        return <Table dataSource={dataSource} columns={columns} pagination={false}/>;
     }
 }
 

@@ -23,6 +23,8 @@ const sides = [
 ];
 export default {
     getBoardScore: function (bitmap, weights) {
+        weights = weights || Strategy.getInitialWeights();
+
         let {lost, win, factors} = Strategy.getBoardStatus(bitmap);
 
         if (lost) {

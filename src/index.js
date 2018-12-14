@@ -4,6 +4,6 @@ import './index.css';
 import Layout from "./layout/layout";
 
 ReactDOM.render(
-    <Layout/>,
+    <Layout />,
     document.getElementById('root')
 );
