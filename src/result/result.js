@@ -30,7 +30,7 @@ export default class Result extends React.Component {
                     }
                 }]}
             >
-                <div style={{height: 500, overflow: 'auto', width: 350}}>
+                <div style={{height: 500, overflow: 'auto', width: 320}}>
                     <img src={require('../Resources/images/alipay-red-package.png')} alt="支付宝红包"
                          style={{maxWidth: '90%'}}/>
                 </div>
