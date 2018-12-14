@@ -7,11 +7,12 @@ import Stats from './Stats';
 import Judger from "./Judger";
 import Resources from './Resources';
 import Strategy, {StrategySettings} from "./Strategy";
-import {Button, Flex, WhiteSpace} from 'antd-mobile'
+import {Button, Flex, Progress, WhiteSpace} from 'antd-mobile'
 import GameOptions from "./Options";
 import classnames from 'classnames'
 import './game.css';
 import LearningStatus from "./LearningStatus";
+import Result from "../result/result";
 
 
 StrategySettings.setInitialWeights([0, -2, -1, 1, 1.5, -1]);
@@ -235,6 +236,11 @@ export default class Game extends React.Component {
 
         return (
             <div className="flex-container" style={{minWidth: '375px'}}>
+                {
+                    this.state.stepNumber > 0 &&
+
+                    <Progress percent={this.state.disabled ? 0 : 100} position="fixed"/>
+                }
                 <WhiteSpace size="lg"/>
                 <LearningStatus state={this.state}/>
                 <WhiteSpace size="lg"/>
@@ -264,6 +270,8 @@ export default class Game extends React.Component {
                                            alt=""/>} onClick={() => this.jumpTo(0)}>再来一局！</Button>
                     </Flex.Item>
                 </Flex>
+                <WhiteSpace size="lg"/>
+                <Result winnerInfo={this.state.winnerInfo || {}}/>
                 <WhiteSpace size="lg"/>
                 <WhiteSpace size="lg"/>
                 <WhiteSpace size="lg"/>

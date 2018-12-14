@@ -29,7 +29,8 @@ test('Game can train players', async () => {
         "stepNumber": 0,
         "strategy": {"const": 1, "danger": 0, "occupyCenter": 0},
         "winnerInfo": null,
-        "xIsNext": true
+        "xIsNext": true,
+        disabled: false
     });
 
     game.find('#turns').simulate('change', {target: {value: '1'}})
