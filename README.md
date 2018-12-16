@@ -24,6 +24,9 @@ npm test
 npm run coverage
 ```
 
+## 原理：
+本程序应用了一般的机器学习方法，如果你对此原理感兴趣，可以查看[本文](./doc/原理.md)。
+
 ## 发布历史
 
 * 2.0.0
@@ -51,3 +54,10 @@ npm run coverage
 3. 提交你的改动（`git commit -am '添加了 fooBar 功能'`）
 4. 推送代码到分支（`git push origin feature/fooBar`）
 5. 提交新的合并请求
+
+## 打赏
+如果你觉得这个项目有有用，欢迎向我打赏。推荐使用支付宝，先领取红包再打赏。
+
+|领红包|打赏|
+|-----|----|
+|![支付宝红包码](./public/images/alipay-red-package.png)|![支付宝收钱码](./public/images/alipay-receive-money.jpg)|
