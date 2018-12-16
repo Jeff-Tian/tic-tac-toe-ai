@@ -25,6 +25,9 @@ npm run coverage
 ```
 
 ## Release History:
+* 2.0.0
+    * CHANGE: Add a new factor considering do not import new threats when there is a chance to win.
+    * IMPROVEMENT: Use ant-d mobile layout.
 * 1.0.0
     * CHANGE: Found a better evaluation function to make the program never lose even it is at the bad position in game. But if the learning status is enabled, then the evaluation function keeps change that makes the program stupid after several succeeded wins. The good thing is it can recover quickly after lose.
     * It can beat the opponent even it is trying to win in 2 lines.
@@ -41,3 +44,10 @@ npm run coverage
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
 4. Push to the branch (`git push origin feature/fooBar`)
 5. Create a new Pull Request
+
+## Support
+Support is welcome if you find this project helpful. The Alipay is recommended because both of us can benefit from its red packages.
+
+|Get red package|Support me|
+|-----|----|
+|![支付宝红包码](./public/images/alipay-red-package.png)|![支付宝收钱码](./public/images/alipay-receive-money.jpg)|
