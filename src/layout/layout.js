@@ -1,7 +1,7 @@
 import {Drawer, Icon, NavBar, WingBlank} from "antd-mobile";
 import Game from "../Game/Game";
 import React from "react";
-import {SideBar} from "./sideBar";
+import {SideBar} from "./sidebar";
 import './layout.css';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import Settings from "../Game/globals";
