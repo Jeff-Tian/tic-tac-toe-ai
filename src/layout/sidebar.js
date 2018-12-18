@@ -2,7 +2,7 @@ import {List} from "antd-mobile";
 import React from 'react'
 import {Link} from "react-router-dom";
 
-export const SideBar = ({onClicked}) => (<List>
+export const SideBar = ({onClicked}) => <List>
     <List.Item key="0" multipleLine>
         <Link to="/" onClick={onClicked}>主页</Link>
     </List.Item>
@@ -20,4 +20,7 @@ export const SideBar = ({onClicked}) => (<List>
                multipleLine>
         <a onClick={onClicked} href="https://github.com/Jeff-Tian/tic-tac-toe-ai" rel="noopener noreferrer"
            target="_blank">源代码</a></List.Item>
-</List>);
+    <List.Item key="3" thumb={require('../Resources/images/alipay-red-package.png')}>
+        <Link to="/alipay-red-package" onClick={onClicked}>领红包！</Link>
+    </List.Item>
+</List>;

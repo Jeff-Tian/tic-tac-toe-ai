@@ -5,6 +5,7 @@ import {SideBar} from "./sidebar";
 import './layout.css';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import Settings from "../Game/globals";
+import AlipayRedPackage from "../money/alipay-red-package";
 
 export default class Layout extends React.Component {
     state = {
@@ -35,6 +36,7 @@ export default class Layout extends React.Component {
                     <WingBlank>
                         <Route path="/" exact component={Game}/>
                         <Route path="/settings" component={Settings}/>
+                        <Route path="/alipay-red-package" component={AlipayRedPackage}/>
                     </WingBlank>
                 </Drawer>
             </div>
