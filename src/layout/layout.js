@@ -6,6 +6,7 @@ import './layout.css';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import Settings from "../Game/globals";
 import AlipayRedPackage from "../money/alipay-red-package";
+import SupportAuthor from "../money/support-author";
 
 export default class Layout extends React.Component {
     state = {
@@ -37,6 +38,7 @@ export default class Layout extends React.Component {
                         <Route path="/" exact component={Game}/>
                         <Route path="/settings" component={Settings}/>
                         <Route path="/alipay-red-package" component={AlipayRedPackage}/>
+                        <Route path="/support-author" component={SupportAuthor}/>
                     </WingBlank>
                 </Drawer>
             </div>

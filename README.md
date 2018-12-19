@@ -58,6 +58,6 @@ npm run coverage
 ## 打赏
 如果你觉得这个项目有有用，欢迎向我打赏。推荐使用支付宝，先领取红包再打赏。
 
-|[领红包](alipayqr://platformapi/startapp?saId=10000007&qrcode=https%3A%2F%2Fjeff-tian.github.io%2Ftic-tac-toe-ai%2Fstatic%2Fmedia%2Falipay-red-package.5cd76bdb.png)|打赏|
+|[领红包](alipayqr://platformapi/startapp?saId=10000007&qrcode=https%3A%2F%2Fjeff-tian.github.io%2Ftic-tac-toe-ai%2Fstatic%2Fmedia%2Falipay-red-package.5cd76bdb.png)|[打赏](alipayqr://platformapi/startapp?saId=10000007&qrcode=https%3A%2F%2Fraw.githubusercontent.com%2FJeff-Tian%2Ftic-tac-toe-ai%2Fmaster%2Fpublic%2Fimages%2Falipay-receive-money.jpg)|
 |-----|----|
 |![支付宝红包码](./public/images/alipay-red-package.png)|![支付宝收钱码](./public/images/alipay-receive-money.jpg)|

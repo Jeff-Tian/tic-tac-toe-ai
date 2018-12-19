@@ -23,4 +23,7 @@ export const SideBar = ({onClicked}) => <List>
     <List.Item key="3" thumb={require('../Resources/images/alipay-red-package.png')}>
         <Link to="/alipay-red-package" onClick={onClicked}>领红包！</Link>
     </List.Item>
+    <List.Item key="4" thumb={require('../Resources/images/alipay-red-package.png')}>
+        <Link to="/support-author" onClick={onClicked}>打赏作者</Link>
+    </List.Item>
 </List>;
