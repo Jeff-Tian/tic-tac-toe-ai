@@ -1,7 +1,7 @@
 English | [简体中文](./README.md)
 
 # tic-tac-toe-ai (Alpha Go of tic-tac-toe)
-> A tic-tac-toe program can learn. ===> [中文版](README.md) 
+> A tic-tac-toe program can learn. 
   
 [![Build Status](https://travis-ci.org/Jeff-Tian/tic-tac-toe-ai.svg?branch=master)](https://travis-ci.org/Jeff-Tian/tic-tac-toe-ai)
 
