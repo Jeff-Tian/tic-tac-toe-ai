@@ -1,3 +1,5 @@
+English | [简体中文](./README.md)
+
 # tic-tac-toe-ai (Alpha Go of tic-tac-toe)
 > A tic-tac-toe program can learn. ===> [中文版](README.md) 
   

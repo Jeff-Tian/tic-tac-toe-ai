@@ -1,5 +1,7 @@
+[English](./README.en.md) | 简体中文
+
 # tic-tac-toe-ai （三子棋版阿尔法狗）  
-> 能够学习的三子棋程序。 ==> [English version](README.en.md)
+> 能够学习的三子棋程序。 
 
 [![Build Status](https://travis-ci.org/Jeff-Tian/tic-tac-toe-ai.svg?branch=master)](https://travis-ci.org/Jeff-Tian/tic-tac-toe-ai) 
 
