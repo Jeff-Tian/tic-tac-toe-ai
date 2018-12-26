@@ -19,6 +19,9 @@ export const fair = 'Draw';
 export const total = 'Total';
 export const showAdvancedSettings = 'Show Advanced Settings'
 
+export const siteName = 'AI tic tac toe';
+export const chooseLanguage = 'Choose language';
+
 export function getRound(round) {
     if (round === 1) {
         return `${round}st Round`;

@@ -1,6 +1,6 @@
 import React from 'react';
 import AI from '../Game/AI';
-import {GlobalSettings} from "../Game/globals";
+import {GlobalSettings} from "../Game/Settings";
 
 test('AI can set weights', () => {
     let currentWeights = [0, 1, 1, 1];

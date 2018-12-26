@@ -1,7 +1,7 @@
 import Judger from "./Judger";
 import ArrayHelper from "../Helpers/ArrayHelper";
 import Strategy from "./Strategy";
-import {GlobalSettings, spotScoreMap} from "./globals";
+import {GlobalSettings, spotScoreMap} from "./Settings";
 
 let latestFactors = null;
 export default class AI {

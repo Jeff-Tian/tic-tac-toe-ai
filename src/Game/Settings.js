@@ -1,30 +1,50 @@
-import React from 'react';
-import Resources from "./Resources";
-import {GlobalSettings} from "./globals";
+import React from "react";
+import {Checkbox, List} from "antd-mobile";
+import CultureSelector from "./CultureSelector";
 
+export const spotScoreMap = new Map();
+const CheckboxItem = Checkbox.CheckboxItem;
+export const GlobalSettings = {
+    ...{
+        learn: true,
+        showLearningStatus: false
+    },
 
-export default class CultureSelector
-    extends React.Component {
+    ...JSON.parse(localStorage.getItem('settings'))
+};
 
-    constructor(props) {
-        super();
-        this.state = {showAdvancedSettings: !!GlobalSettings.showAdvancedSettings}
-    }
+export default class Settings extends React.Component {
+    state = {...GlobalSettings}
 
-    toggleShowingAdvancedSettings() {
-        GlobalSettings.showAdvancedSettings = !GlobalSettings.showAdvancedSettings;
+    onChange = (key) => {
+        GlobalSettings[key] = !GlobalSettings[key];
         this.setState({
-            showAdvancedSettings: GlobalSettings.showAdvancedSettings
+            [key]: GlobalSettings[key]
         })
+
+        localStorage.setItem('settings', JSON.stringify(GlobalSettings));
     }
 
     render() {
-        return <span style={{fontSize: "x-small", float: 'right', marginLeft: "2em", fontWeight: "normal"}}>
-                    <input disabled={true} id="show-adavanced-settings" type="checkbox"
-                           onChange={() => this.toggleShowingAdvancedSettings()}
-                           checked={this.state.showAdvancedSettings}/>
-                    <label htmlFor="show-adavanced-settings">{Resources.getInstance().showAdvancedSettings}</label>
-            </span>;
+        return <div style={{textAlign: 'left'}}>
+            <List renderHeader={() => '选项'}>
+                {
+                    Object.keys(GlobalSettings).map(k => {
+                        return <CheckboxItem key={k} onChange={() => this.onChange(k)}
+                                             checked={this.state[k]}>{k}</CheckboxItem>
+                    })
+                }
+            </List>
+            <CultureSelector/>
+            <div>
+                <div>Icons made by <a href="https://www.freepik.com/" title="Freepik"
+                                      rel="noopener noreferrer">Freepik</a> from <a
+                    href="https://www.flaticon.com/" title="Flaticon" rel="noopener noreferrer"
+                    target="_blank">www.flaticon.com</a> is licensed by <a
+                    href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank"
+                    rel="noopener noreferrer">CC
+                    3.0 BY</a></div>
+            </div>
+        </div>
     }
-
 }

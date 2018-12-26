@@ -6,8 +6,8 @@
     "antd": "^3.11.2",
     "antd-mobile": "^2.2.6",
     "classnames": "^2.2.6",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react": "16.7.0",
+    "react-dom": "16.7.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^2.1.1"
   },
@@ -36,7 +36,7 @@
     "webpack": "^4.19.1",
     "webpack-cli": "^3.1.2"
   },
-  "homepage": "https://Jeff-Tian.github.io/tic-tac-toe-ai/",
+  "homepage": "https://tictactoe.js.org",
   "theme": {
     "brand-primary": "red",
     "color-text-base": "#333"

@@ -20,6 +20,9 @@ export const total = '总计';
 
 export const showAdvancedSettings = '显示高级设置'
 
+export const siteName = 'AI 三子棋';
+export const chooseLanguage = '选择语言';
+
 export function getRound(round) {
     return `第 ${round} 回合`;
 }

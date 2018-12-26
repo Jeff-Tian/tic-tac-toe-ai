@@ -1,5 +1,5 @@
 import React from 'react';
-import {spotScoreMap} from "./globals";
+import {spotScoreMap} from "./Settings";
 
 export default function Square(props) {
     return (

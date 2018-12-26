@@ -1,5 +1,5 @@
 import React from "react";
-import {GlobalSettings} from "./globals";
+import {GlobalSettings} from "./Settings";
 import {Flex} from "antd-mobile";
 
 export default class LearningStatus extends React.Component {
