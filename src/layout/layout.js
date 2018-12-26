@@ -36,7 +36,7 @@ export default class Layout extends React.Component {
                 <div>
                     <NavBar leftContent={[<Icon key="1" type="ellipsis"/>]} onLeftClick={() => this.onDock('docked')}
                             rightContent={[]}>
-                        {Resources.getInstance().siteName}
+                        {Resources.getCurrentCulture().siteName}
                     </NavBar>
                     <Drawer
                         className="my-drawer"

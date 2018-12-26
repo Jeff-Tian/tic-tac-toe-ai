@@ -55,3 +55,7 @@ export function getMove(move, squares, squareIndex) {
 
     return 'Restart';
 }
+
+export default class EnUS {
+    static siteName = siteName
+}

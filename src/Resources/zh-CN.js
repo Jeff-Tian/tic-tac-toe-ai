@@ -1,4 +1,5 @@
 import ArrayHelper from "../Helpers/ArrayHelper";
+import EnUS from "./en-US";
 
 export const header = '人工智能版三子棋';
 export const subHeader = '三子棋里的阿尔法狗';
@@ -42,4 +43,8 @@ export function getMove(move, squares, squareIndex) {
     }
 
     return '重新开始';
+}
+
+export default class ZhCN extends EnUS {
+    static siteName = siteName
 }
