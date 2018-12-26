@@ -6,10 +6,6 @@ import CultureContext from './CultureContext'
 export default class CultureSelector
     extends React.Component {
 
-    constructor() {
-        super();
-    }
-
     render() {
         const languages = [
             {
