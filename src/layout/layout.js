@@ -18,7 +18,7 @@ export default class Layout extends React.Component {
 
     state = {
         docked: false,
-        culture: {currentCulture: cultures.enUS},
+        culture: {currentCulture: cultures.getDefault()},
         changeCulture: this.changeCulture
     }
 
