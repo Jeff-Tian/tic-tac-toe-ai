@@ -1,15 +1,17 @@
 import React from "react";
 import {Checkbox, List} from "antd-mobile";
 import CultureSelector from "./CultureSelector";
+import Resources from "./Resources";
 
 export const spotScoreMap = new Map();
 const CheckboxItem = Checkbox.CheckboxItem;
+let defaultSettings = {
+    // learn: true,
+    // showLearningStatus: false,
+    language: ['en-US']
+};
 export const GlobalSettings = {
-    ...{
-        learn: true,
-        showLearningStatus: false
-    },
-
+    ...defaultSettings,
     ...JSON.parse(localStorage.getItem('settings'))
 };
 
@@ -27,15 +29,26 @@ export default class Settings extends React.Component {
 
     render() {
         return <div style={{textAlign: 'left'}}>
-            <List renderHeader={() => '选项'}>
+            <List renderHeader={() => Resources.getCurrentCulture().settings}>
                 {
                     Object.keys(GlobalSettings).map(k => {
-                        return <CheckboxItem key={k} onChange={() => this.onChange(k)}
-                                             checked={this.state[k]}>{k}</CheckboxItem>
+                        if (typeof defaultSettings[k] === "boolean") {
+                            return <CheckboxItem key={k} onChange={() => this.onChange(k)}
+                                                 checked={this.state[k]}>{k}</CheckboxItem>
+                        } else if (k === 'language') {
+                            return <CultureSelector key={k} onChange={(value) => {
+                                GlobalSettings.language = value;
+                                this.setState({
+                                    language: value
+                                })
+                                localStorage.setItem('settings', JSON.stringify(GlobalSettings))
+                            }}/>
+                        } else {
+                            return null;
+                        }
                     })
                 }
             </List>
-            <CultureSelector/>
             <div>
                 <div>Icons made by <a href="https://www.freepik.com/" title="Freepik"
                                       rel="noopener noreferrer">Freepik</a> from <a

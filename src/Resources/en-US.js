@@ -58,4 +58,5 @@ export function getMove(move, squares, squareIndex) {
 
 export default class EnUS {
     static siteName = siteName
+    static settings = 'Settings'
 }

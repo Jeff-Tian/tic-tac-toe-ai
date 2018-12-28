@@ -47,4 +47,5 @@ export function getMove(move, squares, squareIndex) {
 
 export default class ZhCN extends EnUS {
     static siteName = siteName
+    static settings = '设置'
 }

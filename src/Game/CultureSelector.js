@@ -20,7 +20,11 @@ export default class CultureSelector
 
         return <CultureContext.Consumer>
             {({culture, changeCulture}) => (
-                <Picker data={languages} onChange={changeCulture} cols={1}
+                <Picker data={languages} onChange={(value) => {
+                    changeCulture(value)
+
+                    typeof this.props.onChange === 'function' && this.props.onChange(value)
+                }} cols={1}
                         value={culture.currentCulture}>
                     <List.Item arrow="horizontal">{Resources.getInstance().chooseLanguage}</List.Item>
                 </Picker>
