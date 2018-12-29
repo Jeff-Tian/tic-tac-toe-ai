@@ -8,7 +8,7 @@ export const cultures = {
         let culture = 'en-US';
 
         let settings = JSON.parse(localStorage.getItem('settings'));
-        if (settings.language !== undefined) {
+        if (settings && settings.language !== undefined) {
             culture = settings.language[0];
         } else if (navigator && navigator.language && navigator.language === 'zh-CN') {
             culture = 'zh-CN';

@@ -1,13 +1,15 @@
 import {List} from "antd-mobile";
 import React from 'react'
 import {Link} from "react-router-dom";
+import Resources from "../Game/Resources";
 
+let fullLink = {width: '100%', display: 'inline-block'};
 export const SideBar = ({onClicked}) => <List>
     <List.Item key="0" multipleLine>
-        <Link to="/" onClick={onClicked}>主页</Link>
+        <Link to="/" onClick={onClicked} style={fullLink}>{Resources.getCurrentCulture().homepage}</Link>
     </List.Item>
     <List.Item key="1" multipleLine>
-        <Link to="/settings" onClick={onClicked}>设置</Link>
+        <Link to="/settings" onClick={onClicked} style={fullLink}>{Resources.getCurrentCulture().settings}</Link>
     </List.Item>
     <List.Item key="2"
                thumb={<svg height="32" className="octicon octicon-mark-github"
@@ -19,11 +21,13 @@ export const SideBar = ({onClicked}) => <List>
                </svg>}
                multipleLine>
         <a onClick={onClicked} href="https://github.com/Jeff-Tian/tic-tac-toe-ai" rel="noopener noreferrer"
-           target="_blank">源代码</a></List.Item>
+           target="_blank" style={fullLink}>{Resources.getCurrentCulture().source}</a></List.Item>
     <List.Item key="3" thumb={require('../Resources/images/alipay-red-package.png')}>
-        <Link to="/alipay-red-package" onClick={onClicked}>领红包！</Link>
+        <Link to="/alipay-red-package" onClick={onClicked}
+              style={fullLink}>{Resources.getCurrentCulture().getRedPackage}</Link>
     </List.Item>
     <List.Item key="4" thumb={require('../Resources/images/alipay-red-package.png')}>
-        <Link to="/support-author" onClick={onClicked}>打赏作者</Link>
+        <Link to="/support-author" onClick={onClicked}
+              style={fullLink}>{Resources.getCurrentCulture().supportAuthor}</Link>
     </List.Item>
 </List>;

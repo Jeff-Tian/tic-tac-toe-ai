@@ -48,4 +48,8 @@ export function getMove(move, squares, squareIndex) {
 export default class ZhCN extends EnUS {
     static siteName = siteName
     static settings = '设置'
+    static homepage = '主页'
+    static source = '源代码'
+    static getRedPackage = '领红包！'
+    static supportAuthor = '打赏作者'
 }

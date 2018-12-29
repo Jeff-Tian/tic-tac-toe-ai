@@ -59,4 +59,8 @@ export function getMove(move, squares, squareIndex) {
 export default class EnUS {
     static siteName = siteName
     static settings = 'Settings'
+    static homepage = 'Play'
+    static source = 'Source Code'
+    static getRedPackage = 'Red Package!'
+    static supportAuthor = 'Support Author'
 }
