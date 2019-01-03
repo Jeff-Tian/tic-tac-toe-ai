@@ -4,6 +4,8 @@ English | [简体中文](./README.md)
 > A tic-tac-toe program can learn. 
   
 [![Build Status](https://travis-ci.org/Jeff-Tian/tic-tac-toe-ai.svg?branch=master)](https://travis-ci.org/Jeff-Tian/tic-tac-toe-ai)
+[![Maintainability](https://api.codeclimate.com/v1/badges/57d198bf961c94ea3b22/maintainability)](https://codeclimate.com/github/Jeff-Tian/tic-tac-toe-ai/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/57d198bf961c94ea3b22/test_coverage)](https://codeclimate.com/github/Jeff-Tian/tic-tac-toe-ai/test_coverage)
 
 This is my first ai program. It was started by learning the [tic-tac-toe tutuor](https://reactjs.org/tutorial/tutorial.html) of React Js, after finished the  homeworks, I think it's cool to make a machine learning enabled tic-tac-toe program.
 
