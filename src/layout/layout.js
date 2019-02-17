@@ -1,4 +1,4 @@
-import {Drawer, Icon, NavBar, WingBlank} from "antd-mobile";
+import {Button, Drawer, Icon, NavBar, WingBlank} from "antd-mobile";
 import Game from "../Game/Game";
 import React from "react";
 import {SideBar} from "./sidebar";
@@ -9,6 +9,7 @@ import AlipayRedPackage from "../money/alipay-red-package";
 import SupportAuthor from "../money/support-author";
 import Resources from "../Game/Resources";
 import CultureContext, {cultures} from "../Game/CultureContext";
+import {CustomIcon} from "../icons/CustomIcon";
 
 export default class Layout extends React.Component {
     changeCulture = (value) => {
@@ -35,7 +36,10 @@ export default class Layout extends React.Component {
             <CultureContext.Provider value={this.state}>
                 <div>
                     <NavBar leftContent={[<Icon key="1" type="ellipsis"/>]} onLeftClick={() => this.onDock('docked')}
-                            rightContent={[]}>
+                            rightContent={[
+                                <CustomIcon type={require('../icons/login.svg')}
+                                        onClick={() => alert('hello')}/>
+                            ]}>
                         {Resources.getCurrentCulture().siteName}
                     </NavBar>
                     <Drawer
