@@ -9,7 +9,6 @@ import AlipayRedPackage from "../money/alipay-red-package";
 import SupportAuthor from "../money/support-author";
 import Resources from "../Game/Resources";
 import CultureContext, { cultures } from "../Game/CultureContext";
-import { CustomIcon } from "../icons/CustomIcon";
 
 export default class Layout extends React.Component {
   changeCulture = value => {
