@@ -1,4 +1,4 @@
-import { Button, Drawer, Icon, NavBar, WingBlank } from "antd-mobile";
+import { Drawer, Icon, NavBar, WingBlank } from "antd-mobile";
 import Game from "../Game/Game";
 import React from "react";
 import { SideBar } from "./sidebar";
