@@ -29,11 +29,14 @@ export default class Layout extends React.Component {
     this.setState({
       [d]: !this.state[d]
     });
-
-    console.log("c = ", this.state.currentCulture);
   };
 
   render() {
+    const url =
+      window.location.hostname === "localhost"
+        ? "https://unihearti.b2clogin.com/unihearti.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_tictactoe&client_id=bacb8d3b-6ee0-4443-9bea-b54485a5a20d&nonce=defaultNonce&redirect_uri=http%3A%2F%2Flocalhost%3A3000&scope=openid&response_type=id_token&prompt=login"
+        : "https://unihearti.b2clogin.com/unihearti.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_tictactoe&client_id=bacb8d3b-6ee0-4443-9bea-b54485a5a20d&nonce=defaultNonce&redirect_uri=https%3A%2F%2Ftictactoe.js.org%2Fidentified&scope=openid&response_type=id_token&prompt=login";
+
     return (
       <Router basename={process.env.PUBLIC_URL}>
         <CultureContext.Provider value={this.state}>
@@ -42,11 +45,19 @@ export default class Layout extends React.Component {
               leftContent={[<Icon key="1" type="ellipsis" />]}
               onLeftClick={() => this.onDock("docked")}
               rightContent={[
-                <CustomIcon
+                <a
+                  href={url}
                   key="1"
-                  type={require("../icons/login.svg")}
-                  onClick={() => alert("hello world")}
-                />
+                  style={{ width: "22px", height: "22px" }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src={require("../icons/user.svg")}
+                    alt=""
+                    style={{ maxHeight: "22px" }}
+                  />
+                </a>
               ]}
             >
               {Resources.getCurrentCulture().siteName}
