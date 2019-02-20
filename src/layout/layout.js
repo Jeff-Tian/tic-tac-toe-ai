@@ -9,6 +9,7 @@ import AlipayRedPackage from "../money/alipay-red-package";
 import SupportAuthor from "../money/support-author";
 import Resources from "../Game/Resources";
 import CultureContext, { cultures } from "../Game/CultureContext";
+import SignedIn from "../user/SignedIn";
 
 export default class Layout extends React.Component {
   changeCulture = value => {
@@ -33,7 +34,7 @@ export default class Layout extends React.Component {
   render() {
     const url =
       window.location.hostname === "localhost"
-        ? "https://unihearti.b2clogin.com/unihearti.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_tictactoe&client_id=bacb8d3b-6ee0-4443-9bea-b54485a5a20d&nonce=defaultNonce&redirect_uri=http%3A%2F%2Flocalhost%3A3000&scope=openid&response_type=id_token&prompt=login"
+        ? "https://unihearti.b2clogin.com/unihearti.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_tictactoe&client_id=bacb8d3b-6ee0-4443-9bea-b54485a5a20d&nonce=defaultNonce&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fidentified&scope=openid&response_type=id_token&prompt=login"
         : "https://unihearti.b2clogin.com/unihearti.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_tictactoe&client_id=bacb8d3b-6ee0-4443-9bea-b54485a5a20d&nonce=defaultNonce&redirect_uri=https%3A%2F%2Ftictactoe.js.org%2Fidentified&scope=openid&response_type=id_token&prompt=login";
 
     return (
@@ -77,6 +78,7 @@ export default class Layout extends React.Component {
                   component={AlipayRedPackage}
                 />
                 <Route path="/support-author" component={SupportAuthor} />
+                <Route path="/identified" component={SignedIn} />
               </WingBlank>
             </Drawer>
           </div>
