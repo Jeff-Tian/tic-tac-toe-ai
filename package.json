@@ -37,7 +37,7 @@
     "webpack": "^4.19.1",
     "webpack-cli": "^3.1.2"
   },
-  "homepage": "https://tictactoe.js.org",
+  "homepage": "https://jeff-tian.github.io/tic-tac-toe-ai/",
   "theme": {
     "brand-primary": "red",
     "color-text-base": "#333"
