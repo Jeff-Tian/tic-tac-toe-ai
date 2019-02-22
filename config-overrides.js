@@ -11,15 +11,10 @@ module.exports = function override(config, env) {
   );
 
   config.plugins = config.plugins.concat(
-    [
-      "settings.html",
-      "alipay-red-package.html",
-      "support-author.html",
-      "identified.html"
-    ].map(
+    ["settings", "alipay-red-package", "support-author", "identified"].map(
       f =>
         new HtmlWebpackPlugin({
-          filename: f,
+          filename: `${f}.html`,
           template: paths.appHtml,
           inject: true,
           minify: {
