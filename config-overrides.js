@@ -2,6 +2,7 @@ const { injectBabelPlugin } = require("react-app-rewired");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const paths = require("react-scripts/config/paths");
 
+console.log("overriding...");
 module.exports = function override(config, env) {
   // do stuff with the webpack config...
   config = injectBabelPlugin(
@@ -9,7 +10,7 @@ module.exports = function override(config, env) {
     config
   );
 
-  config.plugins.concat(
+  config.plugins = config.plugins.concat(
     [
       "settings.html",
       "alipay-red-package.html",
