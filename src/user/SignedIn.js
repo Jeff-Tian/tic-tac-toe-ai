@@ -9,7 +9,5 @@ export default class SignedIn extends React.Component {
     if (hash.startsWith("#id_token=")) {
       window.localStorage.setItem("token", hash.replace("#id_token=", ""));
     }
-
-    console.log("opener = ", window.opener);
   }
 }
