@@ -7,6 +7,7 @@
 [![Build Status](https://travis-ci.org/Jeff-Tian/tic-tac-toe-ai.svg?branch=master)](https://travis-ci.org/Jeff-Tian/tic-tac-toe-ai)
 [![Maintainability](https://api.codeclimate.com/v1/badges/57d198bf961c94ea3b22/maintainability)](https://codeclimate.com/github/Jeff-Tian/tic-tac-toe-ai/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/57d198bf961c94ea3b22/test_coverage)](https://codeclimate.com/github/Jeff-Tian/tic-tac-toe-ai/test_coverage)
+[![Git commit with emojis!](https://img.shields.io/badge/gitmoji-git%20commit%20with%20emojis!-brightgreen.svg)](https://gitmoji.js.org)
 
 这是我写的第一个 AI 程序。起源于在学习完 react js 的 [tic-tac-toe 教程](https://reactjs.org/tutorial/tutorial.html)后，我对自己说，为什么不把它升级成一个 AI 版本呢？
 

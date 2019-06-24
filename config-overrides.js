@@ -2,7 +2,6 @@ const { injectBabelPlugin } = require("react-app-rewired");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const paths = require("react-scripts/config/paths");
 
-console.log("overriding...");
 module.exports = function override(config, env) {
   // do stuff with the webpack config...
   config = injectBabelPlugin(
