@@ -11,11 +11,15 @@
 
 这是我写的第一个 AI 程序。起源于在学习完 react js 的 [tic-tac-toe 教程](https://reactjs.org/tutorial/tutorial.html)后，我对自己说，为什么不把它升级成一个 AI 版本呢？
 
-![截图](public/images/screenshot.png)
+[![截图](public/images/screenshot.png)](https://tictactoe.js.org)
 
 ## 在线访问：
 
 [https://tictactoe.js.org](https://tictactoe.js.org)
+
+## 谁在玩？
+
+![](./public/images/baojiahao.jpeg)
 
 ## 本地运行：
 

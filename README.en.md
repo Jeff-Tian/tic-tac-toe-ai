@@ -9,10 +9,13 @@ English | [简体中文](./README.md)
 
 This is my first ai program. It was started by learning the [tic-tac-toe tutuor](https://reactjs.org/tutorial/tutorial.html) of React Js, after finished the  homeworks, I think it's cool to make a machine learning enabled tic-tac-toe program.
 
-![Screenshot](public/images/screenshot.png)
+[![Screenshot](public/images/screenshot.png)](https://tictactoe.js.org)
 
-## Visit it online:
+## Visit it online
 [https://jeff-tian.github.io/tic-tac-toe-ai/](https://jeff-tian.github.io/tic-tac-toe-ai/)
+
+## People are loving it!
+![](./public/images/baojiahao.jpeg)
 
 ## Run local:
 ```bash
