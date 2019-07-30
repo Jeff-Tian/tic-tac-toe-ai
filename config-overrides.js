@@ -10,47 +10,51 @@ module.exports = function override(config, env) {
     config
   );
 
-  config.plugins = config.plugins
-    .concat(
-      ["settings", "alipay-red-package", "support-author", "identified"].map(
-        f =>
-          new HtmlWebpackPlugin({
-            filename: `${f}.html`,
-            template: paths.appHtml,
-            inject: true,
-            minify: {
-              removeComments: true,
-              collapseWhitespace: true,
-              removeRedundantAttributes: true,
-              useShortDoctype: true,
-              removeEmptyAttributes: true,
-              removeStyleLinkTypeAttributes: true,
-              keepClosingSlash: true,
-              minifyJS: true,
-              minifyCSS: true,
-              minifyURLs: true
-            }
-          })
-      )
-    )
-    .concat([
-      new FaviconsWebpackPlugin({
-        logo: "./public/images/screenshot.png",
-        title: "Tic Tac Toe AI",
-        icons: {
-          android: true,
-          appleIcon: true,
-          appleStartup: true,
-          coast: false,
-          favicons: true,
-          firefox: true,
-          opengraph: true,
-          twitter: true,
-          yandex: false,
-          windows: true
-        }
+  let pages = [
+    "settings",
+    "alipay-red-package",
+    "support-author",
+    "identified"
+  ].map(
+    f =>
+      new HtmlWebpackPlugin({
+        filename: `${f}.html`,
+        template: paths.appHtml,
+        inject: true,
+        minify: {
+          removeComments: true,
+          collapseWhitespace: true,
+          removeRedundantAttributes: true,
+          useShortDoctype: true,
+          removeEmptyAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          keepClosingSlash: true,
+          minifyJS: true,
+          minifyCSS: true,
+          minifyURLs: true
+        },
+        chunks: "all"
       })
-    ]);
+  );
+
+  config.plugins = pages.concat(config.plugins).concat([
+    new FaviconsWebpackPlugin({
+      logo: "./public/images/screenshot.png",
+      title: "Tic Tac Toe AI",
+      icons: {
+        android: true,
+        appleIcon: true,
+        appleStartup: true,
+        coast: false,
+        favicons: true,
+        firefox: true,
+        opengraph: true,
+        twitter: true,
+        yandex: false,
+        windows: true
+      }
+    })
+  ]);
 
   return config;
 };

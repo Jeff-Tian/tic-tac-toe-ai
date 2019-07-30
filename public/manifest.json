@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Tic Tac Toe AI",
+  "name": "Alpha Go in tic tac toe",
   "icons": [
     {
       "src": "favicon.ico",
