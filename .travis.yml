@@ -6,7 +6,7 @@ node_js:
   - "stable"
 cache:
   directories:
-  - node_modules
+    - node_modules
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
@@ -22,5 +22,6 @@ deploy:
   skip_cleanup: true
   github_token: $github_token
   local_dir: build
+  fqdn: tictactoe.js.org
   on:
     branch: master
