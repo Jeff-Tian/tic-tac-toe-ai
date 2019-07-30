@@ -27,6 +27,8 @@
     "css-loader": "^2.0.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "favicons-webpack-plugin": "0.0.9",
+    "html-webpack-plugin": "latest",
     "jest": "^23.6.0",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
@@ -35,8 +37,7 @@
     "react-test-renderer": "^16.2.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.19.1",
-    "webpack-cli": "^3.1.2",
-    "html-webpack-plugin": "latest"
+    "webpack-cli": "^3.1.2"
   },
   "homepage": "https://tictactoe.js.org",
   "theme": {

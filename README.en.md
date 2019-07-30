@@ -7,6 +7,8 @@ English | [简体中文](./README.md)
 [![Maintainability](https://api.codeclimate.com/v1/badges/57d198bf961c94ea3b22/maintainability)](https://codeclimate.com/github/Jeff-Tian/tic-tac-toe-ai/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/57d198bf961c94ea3b22/test_coverage)](https://codeclimate.com/github/Jeff-Tian/tic-tac-toe-ai/test_coverage)
 
+<a href="https://www.producthunt.com/posts/tic-tac-toe-ai?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-tic-tac-toe-ai" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=162916&theme=dark" alt="Tic Tac Toe AI - tictactoe, AI, machine learning | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
+
 This is my first ai program. It was started by learning the [tic-tac-toe tutuor](https://reactjs.org/tutorial/tutorial.html) of React Js, after finished the  homeworks, I think it's cool to make a machine learning enabled tic-tac-toe program.
 
 [![Screenshot](public/images/screenshot.png)](https://tictactoe.js.org)
