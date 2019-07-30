@@ -14,7 +14,8 @@ module.exports = function override(config, env) {
     "settings",
     "alipay-red-package",
     "support-author",
-    "identified"
+    "identified",
+    "index"
   ].map(
     f =>
       new HtmlWebpackPlugin({
