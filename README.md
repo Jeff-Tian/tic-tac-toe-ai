@@ -8,6 +8,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/57d198bf961c94ea3b22/maintainability)](https://codeclimate.com/github/Jeff-Tian/tic-tac-toe-ai/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/57d198bf961c94ea3b22/test_coverage)](https://codeclimate.com/github/Jeff-Tian/tic-tac-toe-ai/test_coverage)
 [![Git commit with emojis!](https://img.shields.io/badge/gitmoji-git%20commit%20with%20emojis!-brightgreen.svg)](https://gitmoji.js.org)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FJeff-Tian%2Ftic-tac-toe-ai.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FJeff-Tian%2Ftic-tac-toe-ai?ref=badge_shield)
 
 <a href="https://www.producthunt.com/posts/tic-tac-toe-ai?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-tic-tac-toe-ai" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=162916&theme=dark" alt="Tic Tac Toe AI - tictactoe, AI, machine learning | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
 
@@ -81,3 +82,7 @@ npm run coverage
 | [领红包](alipayqr://platformapi/startapp?saId=10000007&qrcode=https%3A%2F%2Fjeff-tian.github.io%2Ftic-tac-toe-ai%2Fstatic%2Fmedia%2Falipay-red-package.5cd76bdb.png) | [打赏](alipayqr://platformapi/startapp?saId=10000007&qrcode=https%3A%2F%2Fraw.githubusercontent.com%2FJeff-Tian%2Ftic-tac-toe-ai%2Fmaster%2Fpublic%2Fimages%2Falipay-receive-money.jpg) |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ![支付宝红包码](./public/images/alipay-red-package.png)                                                                                                              | ![支付宝收钱码](./public/images/alipay-receive-money.jpg)                                                                                                                               |
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FJeff-Tian%2Ftic-tac-toe-ai.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FJeff-Tian%2Ftic-tac-toe-ai?ref=badge_large)
