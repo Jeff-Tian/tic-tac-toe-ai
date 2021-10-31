@@ -80,14 +80,16 @@ export default {
         }
 
         for (let i = 0; i < sides.length; i++) {
-            let side = bitmapSquares.filter((_, j) => sides[i].indexOf(j) >= 0);
+            const theSide = sides[i];
+
+            let side = bitmapSquares.filter((_, j) =>  theSide.indexOf(j) >= 0);
 
             let ones = side.filter(b => b === 1);
             let negatives = side.filter(b => b === -1);
 
             if (ones.length === 3) {
                 return {
-                    win: sides[i],
+                    win: theSide,
                     lost: false,
                     fair: false
                 };
@@ -96,7 +98,7 @@ export default {
             if (negatives.length === 3) {
                 return {
                     win: false,
-                    lost: sides[i],
+                    lost: theSide,
                     fair: false
                 };
             }
