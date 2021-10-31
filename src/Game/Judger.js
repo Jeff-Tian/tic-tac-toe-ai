@@ -21,6 +21,7 @@ const sides = [
     boardSides.slash,
     boardSides.antiSlash
 ];
+
 export default {
     getBoardScore: function (bitmap, weights) {
         weights = weights || Strategy.getInitialWeights();
@@ -53,13 +54,7 @@ export default {
     },
 
     getSpots(bitmapSquares) {
-        return bitmapSquares.map((s, i) => {
-            if (s === 0) {
-                return i;
-            }
-
-            return NaN;
-        }).filter(s => !isNaN(s));
+        return bitmapSquares.map((s, i) => s === 0 ? i : NaN).filter(n => !isNaN(n));
     },
 
     generateNewBoardsBySpots(currentBoard, spots) {
