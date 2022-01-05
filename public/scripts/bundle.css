@@ -1,0 +1,94 @@
+/* src/index.css */
+body {
+  margin: 0;
+}
+ol,
+ul {
+  padding-left: 30px;
+}
+.status {
+  margin-bottom: 10px;
+}
+.square {
+  background: #fff;
+  border: none;
+  border-bottom: 2px solid #999;
+  border-right: 2px solid #999;
+  float: left;
+  font-size: 50px;
+  font-weight: bold;
+  line-height: 90px;
+  height: 90px;
+  padding: 0;
+  text-align: center;
+  width: 90px;
+}
+.square:last-child {
+  border-right: none;
+}
+.board-row:last-child > .square {
+  border-bottom: none;
+}
+.square:focus {
+  outline: none;
+}
+.kbd-navigation .square:focus {
+  background: #ddd;
+}
+.game {
+  display: flex;
+  flex-direction: row;
+  min-height: 300px;
+}
+.game-options {
+  margin-right: 20px;
+}
+.game-info {
+  margin-left: 20px;
+}
+@media screen and (max-width: 500px) {
+  .game {
+    flex-direction: column !important;
+    min-height: 600px !important;
+  }
+}
+
+/* src/Game/board.css */
+.board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+/* src/Game/stats.css */
+
+/* src/Game/game.css */
+.win {
+  font-size: larger;
+  font-weight: bold;
+  color: red;
+}
+.progress {
+}
+
+/* src/result/result.css */
+.am-modal-transparent {
+  min-width: 320px !important;
+}
+
+/* src/layout/layout.css */
+.my-drawer {
+  position: relative;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.my-drawer .am-drawer-sidebar {
+  background-color: #fff;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.my-drawer .am-drawer-sidebar .am-list {
+  width: 300px;
+  padding: 0;
+}
+/*# sourceMappingURL=bundle.css.map */
