@@ -36,7 +36,7 @@ test('Game can train players', async () => {
     game.find('#turns').simulate('change', {target: {value: '1'}})
     game.find('#start-auto-button').simulate('click');
 
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    await new Promise(resolve => setTimeout(resolve, 4000));
 
     expect(game.state().history.length > 3).toEqual(true);
 

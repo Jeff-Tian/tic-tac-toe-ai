@@ -14,7 +14,6 @@ import './game.css';
 import LearningStatus from "./LearningStatus";
 import Result from "../result/result";
 
-
 StrategySettings.setInitialWeights([0, -2, -1, 1, 1.5, -1]);
 //-0.01, -0.47, -0.16, 1.46, 0.67, -0.54
 StrategySettings.setNamedStrategy((factors) => {
@@ -260,6 +259,7 @@ export default class Game extends React.Component {
                         <Board squares={current.squares} disabled={this.state.disabled}
                                onClick={(i) => this.state.currentMode === GameModes.computerVsComputer ? false : this.handleClick(i)}
                                winner={this.state.winnerInfo}/>
+
                     </Flex.Item>
                 </Flex>
                 <WhiteSpace size="lg"/>
