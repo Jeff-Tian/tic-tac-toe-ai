@@ -16,7 +16,7 @@ const pathPlugin = {
 
 
 esbuild.build({
-    entryPoints: ['src/ai.js'],
+    entryPoints: ['src/ai.jsx'],
     define: {DEBUG: 'true', process: JSON.stringify({env: {"PUBLIC_URL": "https://tictactoe.js.org"}})},
     bundle: true,
     minify: true,
