@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/Game/board.css", "../../src/Game/game.css", "../../src/result/result.css"],
+  "sourcesContent": ["\r\n.board-row:after {\r\n    clear: both;\r\n    content: \"\";\r\n    display: table;\r\n}", ".win {\r\n    font-size: larger;\r\n    font-weight: bold;\r\n    color: red;\r\n}\r\n\r\n.progress {\r\n\r\n}", ".am-modal-transparent {\r\n    min-width: 320px !important;\r\n}"],
+  "mappings": "6EACA,iBACI,WACA,WACA,cCJJ,KACI,iBACA,gBACA,UCHJ,sBACI",
+  "names": []
+}

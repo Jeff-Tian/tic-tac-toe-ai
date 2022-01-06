@@ -16,12 +16,12 @@ const pathPlugin = {
 
 
 esbuild.build({
-    entryPoints: ['src/index.js'],
+    entryPoints: ['src/ai.js'],
     define: {DEBUG: 'true', process: JSON.stringify({env: {"PUBLIC_URL": "https://tictactoe.js.org"}})},
     bundle: true,
-    minify: false,
+    minify: true,
     sourcemap: true,
-    outfile: 'public\\scripts\\bundle.js',
+    outfile: 'public\\scripts\\ai.js',
     target: ['chrome98'],
     loader: {'.png': 'dataurl', '.js': 'jsx', '.svg': 'dataurl', '.jpg': 'dataurl'},
     plugins: [pathPlugin, cssModulesPlugin({
