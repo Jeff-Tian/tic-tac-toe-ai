@@ -16,13 +16,15 @@ const pathPlugin = {
 
 
 esbuild.build({
+    external: ['react*', 'node_modules*', '~*', 'antd*'],
     entryPoints: ['src/ai.js'],
     define: {DEBUG: 'true', process: JSON.stringify({env: {"PUBLIC_URL": "https://tictactoe.js.org"}})},
     bundle: true,
     minify: true,
     sourcemap: true,
     outfile: 'public\\scripts\\ai.js',
-    target: ['chrome98'],
+    // target: ['chrome98'],
+    format: 'esm',
     loader: {'.png': 'dataurl', '.js': 'jsx', '.svg': 'dataurl', '.jpg': 'dataurl'},
     plugins: [pathPlugin, cssModulesPlugin({
         // optional. set to false to not inject generated CSS into <head>, default is true.
