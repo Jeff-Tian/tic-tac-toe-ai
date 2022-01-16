@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: './src/ai.js',
     output: {
         filename: 'public/scripts/ai.js',
