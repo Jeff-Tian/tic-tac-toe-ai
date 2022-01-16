@@ -16,11 +16,11 @@ const pathPlugin = {
 
 
 esbuild.build({
-    external: ['react*', 'node_modules*', '~*', 'antd*'],
+    // external: ['react*', 'node_modules*'],
     entryPoints: ['src/ai.js'],
     define: {DEBUG: 'true', process: JSON.stringify({env: {"PUBLIC_URL": "https://tictactoe.js.org"}})},
     bundle: true,
-    minify: true,
+    minify: false,
     sourcemap: true,
     outfile: 'public\\scripts\\ai.js',
     // target: ['chrome98'],

@@ -1,2 +1,25 @@
-@import"C:\\Users\\jeff\\tic-tac-toe-ai\\node_modules\\antd\\dist\\antd.css";.board-row:after{clear:both;content:"";display:table}.win{font-size:larger;font-weight:700;color:red}.am-modal-transparent{min-width:320px!important}
+@import "C:\\Users\\jeff\\tic-tac-toe-ai\\node_modules\\antd\\dist\\antd.css";
+
+/* src/Game/board.css */
+.board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+/* src/Game/stats.css */
+
+/* src/Game/game.css */
+.win {
+  font-size: larger;
+  font-weight: bold;
+  color: red;
+}
+.progress {
+}
+
+/* src/result/result.css */
+.am-modal-transparent {
+  min-width: 320px !important;
+}
 /*# sourceMappingURL=ai.css.map */
