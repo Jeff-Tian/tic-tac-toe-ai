@@ -7,7 +7,7 @@ import Stats from './Stats';
 import Judger from "./Judger";
 import Resources from './Resources';
 import Strategy, {StrategySettings} from "./Strategy";
-import {Button, Flex, Progress, WhiteSpace} from 'antd-mobile'
+import {Button, Flex, Progress, WhiteSpace} from './UI'
 import GameOptions from "./Options";
 import classnames from 'classnames'
 import './game.css';
@@ -187,7 +187,7 @@ export default class Game extends React.Component {
         }
     }
 
-    weightsUpdated(newWeights) {
+    weightsUpdated() {
         this.setState({
             OWeights: Object.assign([], PlayerO.getWeights()),
         });
