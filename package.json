@@ -4,14 +4,14 @@
   "private": true,
   "dependencies": {
     "2015": "^0.0.1",
-    "antd": "^3.11.2",
-    "antd-mobile": "^2.2.6",
+    "antd": "^4.0.0",
+    "antd-mobile": "^5.0.0",
     "classnames": "^2.2.6",
     "msal": "^0.2.4",
     "react": "16.7.0",
     "react-dom": "16.7.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1"
+    "react-scripts": "5.0.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
