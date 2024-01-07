@@ -40,7 +40,7 @@ jobs:
           npm run coverage
 
       - name: Build
-        run: npm run build
+        run: NODE_OPTIONS="--no-experimental-fetch --openssl-legacy-provider" npm run build
 
 #      - name: After build - Code Climate test-reporter
 #        run: ./cc-test-reporter after-build --exit-code ${{ job.status }}
