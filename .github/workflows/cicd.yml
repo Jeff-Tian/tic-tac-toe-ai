@@ -24,7 +24,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm i -g yarn && yarn
+        run: npm i -g yarn && yarn && npm install --force @img/sharp-darwin-x64
 
 #      - name: Set up Code Climate test-reporter
 #        run: |
