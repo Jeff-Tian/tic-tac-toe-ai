@@ -1,11 +1,10 @@
 {
   "files": {
     "main.css": "/static/css/main.98c584f2.css",
-    "main.js": "/static/js/main.9bd5462f.js",
-    "static/media/alipay-receive-money.jpg": "/static/media/alipay-receive-money.ecac4f7cfd1190f024ed.jpg",
+    "main.js": "/static/js/main.1202e29f.js",
+    "static/media/alipay-receive-money.jpg": "/static/media/alipay-receive-money.617c4a9f39fce2575284.jpg",
     "assets/apple-touch-startup-image-2732x2048.png": "/assets/apple-touch-startup-image-2732x2048.png",
     "assets/apple-touch-startup-image-2048x2732.png": "/assets/apple-touch-startup-image-2048x2732.png",
-    "static/media/alipay-red-package.png": "/static/media/alipay-red-package.cdd3269a79786d329d58.png",
     "assets/apple-touch-startup-image-2388x1668.png": "/assets/apple-touch-startup-image-2388x1668.png",
     "assets/apple-touch-startup-image-2224x1668.png": "/assets/apple-touch-startup-image-2224x1668.png",
     "assets/apple-touch-startup-image-1620x2160.png": "/assets/apple-touch-startup-image-1620x2160.png",
@@ -14,6 +13,7 @@
     "assets/apple-touch-startup-image-1668x2388.png": "/assets/apple-touch-startup-image-1668x2388.png",
     "assets/apple-touch-startup-image-1668x2224.png": "/assets/apple-touch-startup-image-1668x2224.png",
     "assets/apple-touch-startup-image-1536x2048.png": "/assets/apple-touch-startup-image-1536x2048.png",
+    "static/media/alipay-red-package.png": "/static/media/alipay-red-package.027459ba205faa8c25ad.png",
     "assets/apple-touch-startup-image-2778x1284.png": "/assets/apple-touch-startup-image-2778x1284.png",
     "assets/apple-touch-startup-image-2688x1242.png": "/assets/apple-touch-startup-image-2688x1242.png",
     "assets/apple-touch-startup-image-2208x1242.png": "/assets/apple-touch-startup-image-2208x1242.png",
@@ -45,9 +45,9 @@
     "assets/apple-touch-icon-180x180.png": "/assets/apple-touch-icon-180x180.png",
     "assets/apple-touch-icon-precomposed.png": "/assets/apple-touch-icon-precomposed.png",
     "assets/apple-touch-icon.png": "/assets/apple-touch-icon.png",
-    "static/media/crying.svg": "/static/media/crying.4c72a42344d21901b0076dbef120b360.svg",
     "assets/mstile-310x150.png": "/assets/mstile-310x150.png",
     "assets/apple-touch-icon-167x167.png": "/assets/apple-touch-icon-167x167.png",
+    "static/media/crying.svg": "/static/media/crying.ed7dbf16314b5f4becf491593dd7ec7b.svg",
     "assets/apple-touch-icon-152x152.png": "/assets/apple-touch-icon-152x152.png",
     "assets/mstile-150x150.png": "/assets/mstile-150x150.png",
     "assets/apple-touch-icon-144x144.png": "/assets/apple-touch-icon-144x144.png",
@@ -65,18 +65,18 @@
     "assets/yandex-browser-50x50.png": "/assets/yandex-browser-50x50.png",
     "assets/android-chrome-48x48.png": "/assets/android-chrome-48x48.png",
     "assets/favicon-48x48.png": "/assets/favicon-48x48.png",
-    "static/media/user.svg": "/static/media/user.eeb17950558289d8563a722622077e7f.svg",
     "assets/android-chrome-36x36.png": "/assets/android-chrome-36x36.png",
+    "static/media/user.svg": "/static/media/user.421c216cade798655b7258e05973f632.svg",
     "assets/manifest.webmanifest": "/assets/manifest.webmanifest",
     "assets/favicon-32x32.png": "/assets/favicon-32x32.png",
     "assets/favicon-16x16.png": "/assets/favicon-16x16.png",
     "assets/browserconfig.xml": "/assets/browserconfig.xml",
     "assets/yandex-browser-manifest.json": "/assets/yandex-browser-manifest.json",
     "main.98c584f2.css.map": "/static/css/main.98c584f2.css.map",
-    "main.9bd5462f.js.map": "/static/js/main.9bd5462f.js.map"
+    "main.1202e29f.js.map": "/static/js/main.1202e29f.js.map"
   },
   "entrypoints": [
     "static/css/main.98c584f2.css",
-    "static/js/main.9bd5462f.js"
+    "static/js/main.1202e29f.js"
   ]
 }
