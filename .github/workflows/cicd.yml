@@ -24,7 +24,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: npm i -g yarn && yarn
 
 #      - name: Set up Code Climate test-reporter
 #        run: |
@@ -36,11 +36,11 @@ jobs:
 
       - name: Run tests and coverage
         run: |
-          npm test
-          npm run coverage
+          yarn test
+          yarn coverage
 
       - name: Build
-        run: NODE_OPTIONS="--no-experimental-fetch --openssl-legacy-provider" npm run build
+        run: NODE_OPTIONS="--no-experimental-fetch --openssl-legacy-provider" yarn build
 
 #      - name: After build - Code Climate test-reporter
 #        run: ./cc-test-reporter after-build --exit-code ${{ job.status }}
