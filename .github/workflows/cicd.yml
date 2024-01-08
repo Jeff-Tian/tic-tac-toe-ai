@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest-xlarge
+    runs-on: macos-latest
 
     strategy:
       matrix:

@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "2015": "^0.0.1",
-    "@img/sharp-darwin-arm64": "^0.33.1",
     "antd": "^3.11.2",
     "antd-mobile": "^2.2.6",
     "classnames": "^2.2.6",
