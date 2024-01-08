@@ -1,0 +1,20 @@
+
+.board-row:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+@import '~antd/dist/antd.css';
+
+.win {
+    font-size: larger;
+    font-weight: bold;
+    color: red;
+}
+
+.progress {
+
+}
+.am-modal-transparent {
+    min-width: 320px !important;
+}
